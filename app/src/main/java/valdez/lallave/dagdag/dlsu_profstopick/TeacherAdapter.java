@@ -39,7 +39,7 @@ public class TeacherAdapter
         // tvTeacher's text must be set to the data at this position
         final Teacher currentTeacher = teachers.get(position);
         holder.tvTeacher.setText(currentTeacher.getName());
-        holder.ivTeacher.setImageResource(currentTeacher.getIcon());
+//        holder.ivTeacher.setImageResource(currentTeacher.getIcon());
 
 //         User input photo
 //        holder.ivTeacher.setImageBitmap(BitmapFactory.something);
@@ -55,7 +55,7 @@ public class TeacherAdapter
 
         // Different bg color
         String[] colors = {"#F44336", "#E91E63", "#9C27B0", "#673AB7", "#3f51B5"};
-        holder.tvTeacher.setBackgroundColor(Color.parseColor(colors[position % colors.length]));
+//        holder.tvTeacher.setBackgroundColor(Color.parseColor(colors[position % colors.length]));
     }
 
     @Override
@@ -67,13 +67,13 @@ public class TeacherAdapter
     public class TeacherViewHolder extends RecyclerView.ViewHolder{
 
         TextView tvTeacher;
-        ImageView ivTeacher;
+//        ImageView ivTeacher;
 
         public TeacherViewHolder(View itemView) {
             super(itemView);
             // What is itemview?? itemview = inflated item_teacher
             tvTeacher = itemView.findViewById(R.id.tv_teacher);
-            ivTeacher = itemView.findViewById(R.id.iv_teacher);
+//            ivTeacher = itemView.findViewById(R.id.iv_teacher);
 
 
         }
