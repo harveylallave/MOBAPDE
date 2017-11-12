@@ -1,4 +1,4 @@
-package valdez.lallave.dagdag.dlsu_profstopick;
+package valdez.lallave.dagdag.dlsu_profstopick.Beans_Model;
 
 public class Comment {
     private String title,

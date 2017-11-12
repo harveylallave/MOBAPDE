@@ -1,4 +1,4 @@
-package valdez.lallave.dagdag.dlsu_profstopick;
+package valdez.lallave.dagdag.dlsu_profstopick.Service.Adapters;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -7,6 +7,9 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+
+import valdez.lallave.dagdag.dlsu_profstopick.Beans_Model.Teacher;
+import valdez.lallave.dagdag.dlsu_profstopick.R;
 
 /**
  * Created by G301 on 05/10/2017.

@@ -1,13 +1,16 @@
-package valdez.lallave.dagdag.dlsu_profstopick;
+package valdez.lallave.dagdag.dlsu_profstopick.JavaActivities;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
+
+import valdez.lallave.dagdag.dlsu_profstopick.Service.Adapters.TeacherAdapter;
+import valdez.lallave.dagdag.dlsu_profstopick.Beans_Model.Teacher;
+import valdez.lallave.dagdag.dlsu_profstopick.R;
 
 public class HomePage extends AppCompatActivity {
 

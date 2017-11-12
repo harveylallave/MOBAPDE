@@ -1,10 +1,9 @@
-package valdez.lallave.dagdag.dlsu_profstopick;
+package valdez.lallave.dagdag.dlsu_profstopick.JavaActivities;
 
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.support.annotation.NonNull;
 import android.support.v4.app.DialogFragment;
-import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -18,6 +17,10 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+
+import valdez.lallave.dagdag.dlsu_profstopick.Service.Adapters.CommentAdapter;
+import valdez.lallave.dagdag.dlsu_profstopick.Beans_Model.Comment;
+import valdez.lallave.dagdag.dlsu_profstopick.R;
 
 public class ProfPage extends AppCompatActivity {
 

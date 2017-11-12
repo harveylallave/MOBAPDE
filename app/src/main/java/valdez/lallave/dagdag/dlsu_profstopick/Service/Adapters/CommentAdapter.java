@@ -1,4 +1,4 @@
-package valdez.lallave.dagdag.dlsu_profstopick;
+package valdez.lallave.dagdag.dlsu_profstopick.Service.Adapters;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -9,6 +9,8 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
+import valdez.lallave.dagdag.dlsu_profstopick.Beans_Model.Comment;
+import valdez.lallave.dagdag.dlsu_profstopick.R;
 
 
 public class CommentAdapter
