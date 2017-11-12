@@ -1,12 +1,10 @@
 package valdez.lallave.dagdag.dlsu_profstopick;
 
-import android.content.res.Configuration;
-import android.support.constraint.solver.ArrayLinkedVariables;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -46,8 +44,12 @@ public class HomePage extends AppCompatActivity {
         ta.setOnItemClickListener(new TeacherAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(Teacher t) {
-                // When item in RV is clicked, code here
-                Toast.makeText(getBaseContext(), t.getName() , Toast.LENGTH_SHORT).show();
+                Intent i = new Intent();
+
+                i.putExtra("profName", t.getName());
+                i.setClass(getBaseContext(), ProfPage.class);
+
+                startActivityForResult(i, 0);
             }
         });
 

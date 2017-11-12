@@ -1,15 +1,10 @@
 package valdez.lallave.dagdag.dlsu_profstopick;
 
-import android.graphics.BitmapFactory;
-import android.graphics.Color;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -46,12 +41,6 @@ public class TeacherAdapter
 
         // itemView == inflated whole linear layout (per person)
         holder.itemView.setTag(currentTeacher);
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                onItemClickListener.onItemClick((Teacher)view.getTag());
-            }
-        });
 
         // Different bg color
         String[] colors = {"#F44336", "#E91E63", "#9C27B0", "#673AB7", "#3f51B5"};
