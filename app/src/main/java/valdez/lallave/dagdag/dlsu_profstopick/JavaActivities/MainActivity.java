@@ -8,6 +8,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import valdez.lallave.dagdag.dlsu_profstopick.Beans_Model.Student;
 import valdez.lallave.dagdag.dlsu_profstopick.JavaActivities.HomePage;
 import valdez.lallave.dagdag.dlsu_profstopick.R;
 import valdez.lallave.dagdag.dlsu_profstopick.Service.PasswordAuthentication;
@@ -21,10 +22,10 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         Button loginButton = (Button) findViewById(R.id.loginB);
-        StudentDBHandler studentDB = new StudentDBHandler(getBaseContext());
-//        studentDB.a
+        final StudentDBHandler studentDB = new StudentDBHandler(getBaseContext());
         final PasswordAuthentication passwordAuthentication = new PasswordAuthentication();
 
+//        studentDB.addNewStudent(new Student("harvey_lallave@dlsu.edu.ph", passwordAuthentication.hash("1234".toCharArray())));
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -35,16 +36,18 @@ public class MainActivity extends AppCompatActivity {
 //                i.putExtra("passed", nameText.getText());
 
                 String email = ((EditText)findViewById(R.id.usernameET)).getText().toString(),
-                       pass  = ((EditText)findViewById(R.id.passwordET)).getText().toString(),
-                       hashedPass = passwordAuthentication.hash(pass.toCharArray());
+                       pass  = ((EditText)findViewById(R.id.passwordET)).getText().toString();
+//                       hashedPass = passwordAuthentication.hash(pass.toCharArray());
 
 
-//                Toast.makeText(getApplicationContext(), hashedPass + "\n" +
-//                               passwordAuthentication.authenticate(pass.toCharArray(),
-//                               hashedPass),Toast.LENGTH_LONG).show();
+
+
+
                 i.setClass(getBaseContext(), HomePage.class);
 
-                startActivityForResult(i, 0);
+//                if(studentDB.validateStudent(email, hashedPass))
+                     startActivityForResult(i, 0);
+//                else Toast.makeText(getApplicationContext(), "Invalid email or password",Toast.LENGTH_LONG).show();
             }
         });
     }

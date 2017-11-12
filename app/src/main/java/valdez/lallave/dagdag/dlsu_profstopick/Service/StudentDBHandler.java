@@ -56,7 +56,7 @@ public class StudentDBHandler extends SQLiteOpenHelper {
     }
 
 
-    void addNewStudent(Student newStud) {
+    public void addNewStudent(Student newStud) {
 
         SQLiteDatabase db = this.getWritableDatabase();
 
@@ -91,6 +91,18 @@ public class StudentDBHandler extends SQLiteOpenHelper {
         return db.delete(TABLE_STUDENT_DETAIL, KEY_ID + "=" + delID, null) > 0;
 
     }
+
+    public Boolean validateStudent(String email, String hashedPass) {
+
+        String selectQuery = "SELECT  * FROM " + TABLE_STUDENT_DETAIL +" WHERE email = '" + email +
+                             "' and hashedPass = '" + hashedPass + "';";
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery(selectQuery, null);
+
+        return cursor.moveToFirst();
+    }
+
 
 
     public List<Student> getAllStudents() {
