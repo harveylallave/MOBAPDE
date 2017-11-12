@@ -66,7 +66,8 @@ public class ProfPage extends AppCompatActivity {
         public Dialog onCreateDialog(Bundle savedInstanceState) {
 
             final View v = LayoutInflater.from(getActivity()).inflate(R.layout.add_review_dialog, null);
-            final EditText  etInput = (EditText) v.findViewById(R.id.et_rating);
+            final EditText  etTitle = (EditText) v.findViewById(R.id.et_titleFeedBack),
+                            etBody  = (EditText) v.findViewById(R.id.et_bodyFeedBack);
             final RatingBar rbInput = (RatingBar) v.findViewById(R.id.rb_rating);
 
             AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());

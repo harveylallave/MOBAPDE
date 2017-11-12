@@ -9,26 +9,48 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:background="#096128">
+        android:background="#e5e5e5"
+        android:translationZ="1dp"
+        android:paddingBottom="20dp">
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:id="@+id/tv_title"
+                android:textSize="30sp"
+                android:padding="15dp"
+                android:text="Title"
+                android:textStyle="bold"
+                android:textColor="#ffffff"
+                />
+
+            <RatingBar
+                android:id="@+id/rb_comment"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="45dp"
+                android:layout_gravity="center"
+                android:numStars="5"
+                android:isIndicator="true"
+                android:rating="2.5"
+                android:stepSize="0.1"
+                style="?android:ratingBarStyleSmall"
+                android:theme="@style/RatingBar"
+                />
+        </LinearLayout>
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/tv_title"
-            android:textSize="30sp"
-            android:padding="15dp"
-            android:text="Title"
-            android:textStyle="bold"
+            android:id="@+id/tv_reviewer"
+            android:textSize="15sp"
+            android:text="Name"
+            android:textStyle="italic"
             android:textColor="#ffffff"
-            />
-        <RatingBar
-            android:id="@+id/rb_comment"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="45dp"
-            android:numStars="5"
-            android:rating="1"
-            android:theme="@style/RatingBar"
+            android:paddingLeft="25dp"
             />
     </LinearLayout>
 

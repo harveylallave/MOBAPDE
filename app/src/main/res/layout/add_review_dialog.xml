@@ -14,7 +14,15 @@
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:hint="Title"
+        android:id="@+id/et_titleFeedBack"
+        android:layout_margin="10dp"/>
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:hint="Feedback"
-        android:id="@+id/et_rating"/>
+        android:layout_margin="10dp"
+        android:id="@+id/et_bodyFeedBack"/>
 
 </LinearLayout>

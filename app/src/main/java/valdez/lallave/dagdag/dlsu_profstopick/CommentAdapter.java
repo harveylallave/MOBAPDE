@@ -35,6 +35,12 @@ public class CommentAdapter
         holder.rbComment.setRating(currentComment.getRate());
 
         holder.itemView.setTag(currentComment);
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onItemClickListener.onItemClick((Comment) view.getTag());
+            }
+        });
     }
 
     @Override

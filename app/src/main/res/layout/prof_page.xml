@@ -23,50 +23,11 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
+                android:layout_height="220dp"
                 android:orientation="vertical"
-                android:background="#105f08"
-                android:gravity="center"
-                android:paddingBottom="20dp"
-                android:layout_weight=".4">
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Prof Name"
-                        android:textColor="#ffffff"
-                        android:textSize="30sp"
-                        android:padding="15sp"
-                        android:gravity="center"
-                        android:textStyle="bold"
-                        android:id="@+id/tv_ProfName"/>
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:paddingTop="10dp"
-                    android:textSize="19sp"
-                    android:text="Description"
-                    android:gravity="center"
-                    android:textColor="#ffffff"
-                    android:id="@+id/tv_profDescription"
-                    android:paddingBottom="18dp"/>
-
-                <RatingBar
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:rating="2.5"
-                    android:id="@+id/rb_aveRating"
-                    android:layout_gravity="center"
-                    android:theme="@style/RatingBar"
-                    />
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Rating Average"
-                    android:textColor="#fcf3d1"
-                    android:layout_gravity="center"
-                    android:textStyle="italic"
-                    android:id="@+id/tv_aveRating"/>
-
+                android:background="#bfe1bc"
+                android:padding="15dp"
+                android:translationZ="10dp">
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -74,43 +35,119 @@
                     android:gravity="center"
                     android:layout_marginTop="20dp">
 
-                    <Button
-                        android:layout_width="wrap_content"
+                    <TextView
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:text="Rate"
-                        android:background="#f65520"
+                        android:layout_weight=".8"
+                        android:text="Prof Name"
                         android:textColor="#ffffff"
+                        android:textSize="30sp"
+                        android:padding="15sp"
+                        android:gravity="center"
                         android:textStyle="bold"
-                        android:textSize="18sp"
-                        android:id="@+id/addRateButton"/>
+                        android:id="@+id/tv_ProfName"/>
 
-                    <Button
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:layout_weight=".2">
+
+                        <Button
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/followProfButton"
+                            android:text="follow Icon"
+                            android:background="#ffff"/>
+                    </LinearLayout>
+                </LinearLayout>
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="5dp"
+                    android:src="@drawable/outline"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="10dp"/>
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center">
+
+                    <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:id="@+id/followProfButton"
-                        android:text="follow Icon"
-                        android:background="#ffff"
-                        android:layout_marginLeft="10dp"/>
+                        android:orientation="vertical">
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content">
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="2.5"
+                                android:textColor="#feeeb3"
+                                android:layout_gravity="center"
+                                android:textStyle="bold"
+                                android:textSize="25sp"
+                                android:id="@+id/tv_aveRating"/>
+                            <RatingBar
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:rating="2.5"
+                                android:id="@+id/rb_aveRating"
+                                android:theme="@style/RatingBar"
+                                android:scaleX=".8"
+                                android:scaleY=".8"
+                                android:isIndicator="true"
+                                />
+                        </LinearLayout>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="4 Reviews"
+                            android:textColor="#757575"
+                            />
+                    </LinearLayout>
 
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="CCS"
+                        android:textSize="25sp"
+                        android:textStyle="bold"
+                        android:layout_gravity="top"
+                        android:layout_marginTop="12.5dp"/>
                 </LinearLayout>
+
+                <!--Tentative (not sure what to put in here)-->
+                <!--<TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="10dp"
+                    android:textSize="19sp"
+                    android:text="Description"
+
+                    android:textColor="#ffffff"
+                    android:id="@+id/tv_profDescription"
+                    android:paddingBottom="18dp"/>-->
+
             </LinearLayout>
 
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Rate"
+                android:background="#f65520"
+                android:textColor="#ffffff"
+                android:textStyle="bold"
+                android:textSize="18sp"
+                android:id="@+id/addRateButton"
+                android:translationZ="15dp"/>
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight=".6"
                 android:orientation="vertical">
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/tv_nCommentsProfPage"
-                    android:text="N Comments"
-                    android:layout_marginTop="30dp"
-                    android:layout_marginBottom="10dp"
-                    android:textStyle="bold"
-                    android:textSize="18sp"/>
-
                 <android.support.v7.widget.RecyclerView
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
