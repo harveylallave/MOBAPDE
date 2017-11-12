@@ -60,9 +60,9 @@ public class CommentAdapter
 
         public CommentViewHolder(View itemView) {
             super(itemView);
-            tvTitle = itemView.findViewById(R.id.tv_title);
-            tvBody = itemView.findViewById(R.id.tv_body);
-            rbComment = itemView.findViewById(R.id.rb_comment);
+            tvTitle = (TextView) itemView.findViewById(R.id.tv_title);
+            tvBody = (TextView) itemView.findViewById(R.id.tv_body);
+            rbComment = (RatingBar) itemView.findViewById(R.id.rb_comment);
 
 
         }

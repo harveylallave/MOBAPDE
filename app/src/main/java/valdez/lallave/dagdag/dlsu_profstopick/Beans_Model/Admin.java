@@ -1,23 +1,23 @@
 package valdez.lallave.dagdag.dlsu_profstopick.Beans_Model;
 
-public class Student {
+public class Admin {
     private String email,
                    hashedPass;
-    private int studentId;
+    private int adminId;
 
 
-    public Student() {}
+    public Admin() {}
 
-    public Student(String email, String hashedPass) {
+    public Admin(String email, String hashedPass) {
         this.email = email;
         this.hashedPass = hashedPass;
     }
 
 
-    public Student(int studentId, String email, String hashedPass) {
+    public Admin(int adminId, String email, String hashedPass) {
         this.email = email;
         this.hashedPass = hashedPass;
-        this.studentId = studentId;
+        this.adminId = adminId;
     }
 
     public String getEmail() {
@@ -36,18 +36,18 @@ public class Student {
         this.hashedPass = hashedPass;
     }
 
-    public int getStudentId() {
-        return studentId;
+    public int getAdminId() {
+        return adminId;
     }
 
-    public void setStudentId(int studentId) {
-        this.studentId = studentId;
+    public void setAdminId(int adminId) {
+        this.adminId = adminId;
     }
 
     @Override
     public String toString() {
         return "Admin{" +
-                "studentId=" + studentId +
+                "adminId=" + adminId +
                 ", email='" + email + '\'' +
                 '}';
     }

@@ -70,7 +70,7 @@ public class TeacherAdapter
         public TeacherViewHolder(View itemView) {
             super(itemView);
             // What is itemview?? itemview = inflated item_teacher
-            tvTeacher = itemView.findViewById(R.id.tv_teacher);
+            tvTeacher = (TextView) itemView.findViewById(R.id.tv_teacher);
 //            ivTeacher = itemView.findViewById(R.id.iv_teacher);
 
 
