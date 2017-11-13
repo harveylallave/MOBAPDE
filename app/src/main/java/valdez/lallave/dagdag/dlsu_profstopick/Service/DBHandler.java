@@ -259,7 +259,7 @@ public class DBHandler extends SQLiteOpenHelper {
 
     public List<Comment> getAllCommentsPerTeacher(int teacherId) {
 
-        List<Comment> commentList = new ArrayList<Comment>();
+        List<Comment> commentList = new ArrayList<>();
 
         // Select All Query
         String selectQuery = "SELECT  * FROM " + TABLE_COMMENT +
@@ -273,7 +273,8 @@ public class DBHandler extends SQLiteOpenHelper {
             do {
 
                 Comment comment = new Comment();
-                comment.setId(Integer.parseInt(cursor.getString(0)));
+                System.out.println("Comment = {id: " + cursor.getInt(0) + " || title: "+ cursor.getString(1) + "}");
+                comment.setId(cursor.getInt(0));
                 comment.setTitle(cursor.getString(1));
                 comment.setBody(cursor.getString(2));
                 comment.setRate(cursor.getFloat(3));

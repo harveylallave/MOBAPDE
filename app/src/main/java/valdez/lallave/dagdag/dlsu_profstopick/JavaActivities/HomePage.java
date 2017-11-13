@@ -90,7 +90,6 @@ public class HomePage extends AppCompatActivity {
 
         emailMenuItem.setText(reviewer);
 
-        Toast.makeText(v.getContext().getApplicationContext(), logoutMenuItem.getText().toString(),Toast.LENGTH_SHORT).show();
         // TODO Link menuitems(followed profs, suggest a prof, change pass)
 
         logoutMenuItem.setOnClickListener(new View.OnClickListener() {

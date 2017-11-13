@@ -1,5 +1,7 @@
 package valdez.lallave.dagdag.dlsu_profstopick.JavaActivities;
 
+import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -18,6 +20,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RatingBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -27,7 +30,12 @@ import valdez.lallave.dagdag.dlsu_profstopick.Beans_Model.Comment;
 import valdez.lallave.dagdag.dlsu_profstopick.R;
 import valdez.lallave.dagdag.dlsu_profstopick.Service.DBHandler;
 
-public class ProfPage extends AppCompatActivity {
+
+interface OnDialogDismissListener{
+    void onDialogDismiss();
+}
+
+public class ProfPage extends AppCompatActivity implements OnDialogDismissListener{
 
     RecyclerView rvComments;
     DBHandler dbHandler;
@@ -49,11 +57,13 @@ public class ProfPage extends AppCompatActivity {
         View v = findViewById(R.id.menuPane);
         v.bringToFront();
         HomePage.initializeMenuButtons(v, reviewer);
+        final ProfPage profPage = this;
 
         findViewById(R.id.addRateButton).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                AddRateDialog dialog = AddRateDialog.newInstance(prof, reviewer);
+                AddRateDialog dialog = AddRateDialog.newInstance(prof, reviewer, profPage);
+
                 dialog.show(getSupportFragmentManager(), "");
             }
         });
@@ -64,9 +74,7 @@ public class ProfPage extends AppCompatActivity {
         rvComments = (RecyclerView) findViewById(R.id.rv_comments);
         RecyclerView recyclerView = new RecyclerView(getBaseContext());
 
-        ArrayList<Comment> comments = new ArrayList<>();
 
-        comments.add(new Comment("Good", "Had the prof at some subj", (float) 2.4, reviewer, prof.getTeacherId()));
         CommentAdapter ta = new CommentAdapter((ArrayList<Comment>) dbHandler.getAllCommentsPerTeacher(prof.getTeacherId()));
 
 
@@ -74,17 +82,28 @@ public class ProfPage extends AppCompatActivity {
         rvComments.setLayoutManager(new LinearLayoutManager(getBaseContext(), LinearLayoutManager.VERTICAL, false));
     }
 
-    public static class AddRateDialog extends DialogFragment {
+    @Override
+    public void onDialogDismiss() {
 
-        public static AddRateDialog newInstance(Teacher prof, String reviewer) {
+//        Toast.makeText(getApplicationContext(), "WAAAA",Toast.LENGTH_SHORT).show();
+        finish();
+        startActivity(getIntent());
+    }
+
+    public static class AddRateDialog extends DialogFragment {
+        static OnDialogDismissListener listener;
+        static Activity baseActivity;
+
+        public static AddRateDialog newInstance(Teacher prof, String reviewer, Activity activity) {
             AddRateDialog f = new AddRateDialog();
 
             // Supply num input as an argument.
             Bundle args = new Bundle();
             args.putParcelable("selectedProf", prof);
-            args.putString("reviewerMail", reviewer);
+            args.putString("reviewer", reviewer);
             f.setArguments(args);
-
+            listener = (OnDialogDismissListener) activity;
+            baseActivity = activity;
             return f;
         }
 
@@ -94,12 +113,9 @@ public class ProfPage extends AppCompatActivity {
             super.onCreate(savedInstanceState);
 
             final View          v             = LayoutInflater.from(getActivity()).inflate(R.layout.add_review_dialog, null);
-            final String        title         = ((EditText) v.findViewById(R.id.et_titleFeedBack)).getText().toString(),
-                                body          = ((EditText) v.findViewById(R.id.et_bodyFeedBack)).getText().toString(),
-                                reviewer      = getArguments().getString("reviewerMail");
-            final float         rating        = ((RatingBar) v.findViewById(R.id.rb_rating)).getRating();
             final Teacher       selectedProf  = getArguments().getParcelable("selectedProf");
             final DBHandler     dbHandler     = new DBHandler(getContext());
+            final String        reviewer      = getArguments().getString("reviewer");
             AlertDialog.Builder builder       = new AlertDialog.Builder(getActivity());
 
             builder.setTitle("Rate Professor")
@@ -107,15 +123,32 @@ public class ProfPage extends AppCompatActivity {
                     .setPositiveButton("Submit", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialogInterface, int i) {
-                            dbHandler.addNewComment(new Comment(title, body, rating, reviewer, selectedProf.getTeacherId()));
+                            String title         = ((EditText) v.findViewById(R.id.et_titleFeedBack)).getText().toString(),
+                                   body          = ((EditText) v.findViewById(R.id.et_bodyFeedBack)).getText().toString();
+                            float  rating        = ((RatingBar) v.findViewById(R.id.rb_rating)).getRating();
+//                            dbHandler.addNewComment(new Comment(title, body, rating, reviewer, selectedProf.getTeacherId()));
                             dismiss();
                         }}).setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-
-                    }}).setView(v);
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                dialogInterface.cancel();
+                        }}).setView(v);
 
             return builder.create();
+        }
+
+
+        @Override
+        public void onCancel(DialogInterface dialog) {
+            dialog.dismiss();
+        }
+
+        @Override
+        public void onDismiss(DialogInterface dialog) {
+            dialog.dismiss();
+            // TODO ratingbar limit to 1-5 && not continue to listener if not complete field
+            if(true)
+                listener.onDialogDismiss();
         }
     }
 

@@ -34,6 +34,7 @@ public class CommentAdapter
         final Comment currentComment = comments.get(position);
         holder.tvTitle.setText(currentComment.getTitle());
         holder.tvBody.setText(currentComment.getBody());
+        holder.tvReviewer.setText(currentComment.getReviewer());
         holder.rbComment.setRating(currentComment.getRate());
 
         holder.itemView.setTag(currentComment);
@@ -54,7 +55,8 @@ public class CommentAdapter
     public class CommentViewHolder extends RecyclerView.ViewHolder{
 
         TextView tvTitle,
-                 tvBody;
+                 tvBody,
+                 tvReviewer;
 
         RatingBar rbComment;
 
@@ -62,6 +64,7 @@ public class CommentAdapter
             super(itemView);
             tvTitle = (TextView) itemView.findViewById(R.id.tv_title);
             tvBody = (TextView) itemView.findViewById(R.id.tv_body);
+            tvReviewer = (TextView) itemView.findViewById(R.id.tv_reviewer);
             rbComment = (RatingBar) itemView.findViewById(R.id.rb_comment);
 
 
