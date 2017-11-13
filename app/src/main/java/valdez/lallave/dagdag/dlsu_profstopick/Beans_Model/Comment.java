@@ -2,14 +2,24 @@ package valdez.lallave.dagdag.dlsu_profstopick.Beans_Model;
 
 public class Comment {
     private String title,
-                   body;
-    private float rate;
+                   body,
+                   reviewer;
+
+    private float  rate;
+    private int    id,
+                   teacherID;
 
 
-    public Comment(String title, String body, float rate){
-        this.title = title;
-        this.body = body;
-        this.rate = rate;
+    public Comment(String title, String body, float rate, String reviewer, int teacherID){
+        this.title     = title;
+        this.body      = body;
+        this.rate      = rate;
+        this.reviewer = reviewer;
+        this.teacherID = teacherID;
+    }
+
+    public Comment() {
+
     }
 
     public String getTitle() {
@@ -43,5 +53,29 @@ public class Comment {
                 "title='" + title + '\'' +
                 ", rbComment=" + rate +
                 '}';
+    }
+
+    public int getTeacherID() {
+        return teacherID;
+    }
+
+    public void setTeacherID(int teacherID) {
+        this.teacherID = teacherID;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getReviewer() {
+        return reviewer;
+    }
+
+    public void setReviewer(String reviewer) {
+        this.reviewer = reviewer;
     }
 }

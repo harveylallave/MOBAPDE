@@ -14,7 +14,7 @@
         xmlns:android="http://schemas.android.com/apk/res/android"
         >
 
-        <include layout="@layout/menu_pane"/>
+        <include layout="@layout/menu_pane" android:id= "@+id/menuPane"/>
 
 
         <LinearLayout

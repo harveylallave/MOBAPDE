@@ -1,6 +1,8 @@
 package valdez.lallave.dagdag.dlsu_profstopick.JavaActivities;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -15,8 +17,8 @@ import valdez.lallave.dagdag.dlsu_profstopick.Beans_Model.Admin;
 import valdez.lallave.dagdag.dlsu_profstopick.Beans_Model.Student;
 import valdez.lallave.dagdag.dlsu_profstopick.Beans_Model.Teacher;
 import valdez.lallave.dagdag.dlsu_profstopick.R;
+import valdez.lallave.dagdag.dlsu_profstopick.Service.DBHandler;
 import valdez.lallave.dagdag.dlsu_profstopick.Service.PasswordAuthentication;
-import valdez.lallave.dagdag.dlsu_profstopick.Service.UserDBHandler;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -26,21 +28,29 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         Button loginButton = (Button) findViewById(R.id.loginB);
-        final UserDBHandler userDBHandler = new UserDBHandler(getBaseContext());
+        final DBHandler DBHandler = new DBHandler(getBaseContext());
 
+        SharedPreferences SP = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
+        String loggedStudent = SP.getString("loggedStudent", null);
+
+        if(loggedStudent != null){
+            Intent I = new Intent(getBaseContext(), HomePage.class);
+            startActivity(I);
+            finish();
+        }
 
 //        Temporary register
 //        try {
-//            userDBHandler.addNewAdmin(new Admin("profs_to_pick@dlsu.edu.ph", PasswordAuthentication.SHA1("1234")));
-//            userDBHandler.addNewStudent(new Student("harvey_lallave@dlsu.edu.ph", PasswordAuthentication.SHA1("1234")));
-//            userDBHandler.addNewTeacher(new Teacher("Ms. Ethel Ong", "CCS"));
-//            userDBHandler.addNewTeacher(new Teacher("Ms. Charibeth Cheng", "CCS"));
-//            userDBHandler.addNewTeacher(new Teacher("Ms. Teresita Limoanco", "CCS"));
-//            userDBHandler.addNewTeacher(new Teacher("Ms. Jocelyn Cu", "CCS"));
-//            userDBHandler.addNewTeacher(new Teacher("Ms. Nathalie Lim-Cheng", "CCS"));
-//            userDBHandler.addNewTeacher(new Teacher("Ms. Charibeth Cheng", "CCS"));
-//            userDBHandler.addNewTeacher(new Teacher("Ms. Charibeth Cheng", "CCS"));
-//            userDBHandler.addNewTeacher(new Teacher("Ms. Charibeth Cheng", "CCS"));
+//            DBHandler.addNewAdmin(new Admin("profs_to_pick@dlsu.edu.ph", PasswordAuthentication.SHA1("1234")));
+//            DBHandler.addNewStudent(new Student("harvey_lallave@dlsu.edu.ph", PasswordAuthentication.SHA1("1234")));
+//            DBHandler.addNewTeacher(new Teacher("Ms. Ethel Ong", "CCS"));
+//            DBHandler.addNewTeacher(new Teacher("Ms. Charibeth Cheng", "CCS"));
+//            DBHandler.addNewTeacher(new Teacher("Ms. Teresita Limoanco", "CCS"));
+//            DBHandler.addNewTeacher(new Teacher("Ms. Jocelyn Cu", "CCS"));
+//            DBHandler.addNewTeacher(new Teacher("Ms. Nathalie Lim-Cheng", "CCS"));
+//            DBHandler.addNewTeacher(new Teacher("Ms. Charibeth Cheng", "CCS"));
+//            DBHandler.addNewTeacher(new Teacher("Ms. Charibeth Cheng", "CCS"));
+//            DBHandler.addNewTeacher(new Teacher("Ms. Charibeth Cheng", "CCS"));
 //        } catch (NoSuchAlgorithmException | UnsupportedEncodingException e) {
 //            e.printStackTrace();
 //        }
@@ -60,13 +70,18 @@ public class MainActivity extends AppCompatActivity {
                 i.setClass(getBaseContext(), HomePage.class);
 
                 try {
-                    if(userDBHandler.validateStudent(email, PasswordAuthentication.SHA1(pass)))
-                         startActivityForResult(i, 0);
-                    else if (userDBHandler.validateAdmin(email, PasswordAuthentication.SHA1(pass))) {
-                        Intent dbmanager = new Intent(getBaseContext(), AndroidDatabaseManager.class);
-                        startActivity(dbmanager);
-                    }
-                    else
+                    if(DBHandler.validateStudent(email, PasswordAuthentication.SHA1(pass))) {
+                        SharedPreferences SP = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
+                        SharedPreferences.Editor SPE = SP.edit();
+                        SPE.putString("loggedStudent", email);
+                        SPE.apply();
+
+                        startActivity(new Intent(getBaseContext(), HomePage.class));
+                        finish();
+                    } else if (DBHandler.validateAdmin(email, PasswordAuthentication.SHA1(pass))) {
+                        startActivity(new Intent(getBaseContext(), AndroidDatabaseManager.class));
+                        finish();
+                    } else
                         Toast.makeText(getApplicationContext(), "Invalid email or password",Toast.LENGTH_LONG).show();
 
                 } catch (NoSuchAlgorithmException | UnsupportedEncodingException e) {

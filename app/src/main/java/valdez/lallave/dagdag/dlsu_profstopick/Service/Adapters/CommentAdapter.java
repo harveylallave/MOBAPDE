@@ -40,7 +40,7 @@ public class CommentAdapter
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                onItemClickListener.onItemClick((Comment) view.getTag());
+//                onItemClickListener.onItemClick((Comment) view.getTag());
             }
         });
     }

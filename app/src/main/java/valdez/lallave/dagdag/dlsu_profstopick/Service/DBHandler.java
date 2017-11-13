@@ -9,26 +9,30 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
+import java.io.UnsupportedEncodingException;
+import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.List;
 
 import valdez.lallave.dagdag.dlsu_profstopick.Beans_Model.Admin;
+import valdez.lallave.dagdag.dlsu_profstopick.Beans_Model.Comment;
 import valdez.lallave.dagdag.dlsu_profstopick.Beans_Model.Student;
 import valdez.lallave.dagdag.dlsu_profstopick.Beans_Model.Teacher;
 
-public class UserDBHandler extends SQLiteOpenHelper {
+public class DBHandler extends SQLiteOpenHelper {
 
     // All Static variables
     // Database Version
-    private static final int DATABASE_VERSION = 2;
+    private static final int DATABASE_VERSION = 4;
 
     // Database Name
     private static final String DATABASE_NAME = "ProfsToPick";
 
     // Contacts table name
-    private static final String TABLE_STUDENT = "student";
-    private static final String TABLE_ADMIN   = "admin"  ;
+    private static final String TABLE_STUDENT   = "student";
+    private static final String TABLE_ADMIN     = "admin"  ;
     private static final String TABLE_TEACHER   = "teacher";
+    private static final String TABLE_COMMENT   = "comment";
 
     // Contacts Table Columns names
     private static final String KEY_ID = "id";
@@ -36,16 +40,20 @@ public class UserDBHandler extends SQLiteOpenHelper {
     private static final String KEY_HASHED_PASS = "hashedPass";
     private static final String KEY_TEACHER_NAME = "name";
     private static final String KEY_TEACHER_DEPARTMENT = "college";
+    private static final String KEY_COMMENT_TITLE = "title";
+    private static final String KEY_COMMENT_BODY = "body";
+    private static final String KEY_COMMENT_RATING = "rating";
+    private static final String KEY_COMMENT_REVIEWER = "reviewer";
+    private static final String KEY_COMMENT_TEACHERID = "teacherId";
 
-    public UserDBHandler(Context contex) {
+
+    public DBHandler(Context contex) {
         super(contex, DATABASE_NAME, null, DATABASE_VERSION);
     }
 
     //creating Tables
     @Override
     public void onCreate(SQLiteDatabase db) {
-
-        System.out.println("CREATING");
         String CREATE_STUDENT_DETAIL_TABLE = "CREATE TABLE " + TABLE_STUDENT + "("
                 + KEY_ID + " INTEGER PRIMARY KEY,"
                 + KEY_EMAIL + " TEXT,"
@@ -61,10 +69,18 @@ public class UserDBHandler extends SQLiteOpenHelper {
                 + KEY_TEACHER_NAME + " TEXT,"
                 + KEY_TEACHER_DEPARTMENT + " TEXT " + ")";
 
+        String CREATE_COMMENT_TABLE = "CREATE TABLE " + TABLE_COMMENT + "("
+                + KEY_ID + " INTEGER PRIMARY KEY,"
+                + KEY_COMMENT_TITLE + " TEXT,"
+                + KEY_COMMENT_BODY + " TEXT,"
+                + KEY_COMMENT_RATING + " FLOAT,"
+                + KEY_COMMENT_REVIEWER + " TEXT,"
+                + KEY_COMMENT_TEACHERID + " INTEGER " + ")";
+
         db.execSQL(CREATE_STUDENT_DETAIL_TABLE);
         db.execSQL(CREATE_ADMIN_TABLE);
         db.execSQL(CREATE_TEACHER_TABLE);
-        System.out.println("TEACHER TABLE CREATED!!!!");
+        db.execSQL(CREATE_COMMENT_TABLE);
 
     }
 
@@ -75,11 +91,28 @@ public class UserDBHandler extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_STUDENT);
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_ADMIN);
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_TEACHER);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_COMMENT);
 
         // Create tables again
         onCreate(db);
     }
 
+
+    public void addNewComment(Comment newComment) {
+
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+
+        values.put(KEY_COMMENT_TITLE, newComment.getTitle());
+        values.put(KEY_COMMENT_BODY, newComment.getBody());
+        values.put(KEY_COMMENT_RATING, newComment.getRate());
+        values.put(KEY_COMMENT_REVIEWER, newComment.getReviewer());
+        values.put(KEY_COMMENT_TEACHERID, newComment.getTeacherID());
+
+        db.insert(TABLE_COMMENT, null, values);
+        db.close();
+    }
 
     public void addNewTeacher(Teacher newTeacher) {
 
@@ -122,8 +155,24 @@ public class UserDBHandler extends SQLiteOpenHelper {
         db.close(); // Closing database connection
     }
 
+    public boolean updateCommentInfo(Comment updatedComment) {
 
-    public boolean updateTeachernInfo(Teacher updatedTeacher) {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+
+        ContentValues values = new ContentValues();
+
+        values.put(KEY_COMMENT_TITLE, updatedComment.getTitle());
+        values.put(KEY_COMMENT_BODY, updatedComment.getBody());
+        values.put(KEY_COMMENT_RATING, updatedComment.getRate());
+        values.put(KEY_COMMENT_REVIEWER, updatedComment.getReviewer());
+        values.put(KEY_COMMENT_TEACHERID, updatedComment.getTeacherID());
+
+
+        return db.update(TABLE_COMMENT, values, KEY_ID + "=" + updatedComment.getId(), null) > 0;
+    }
+
+    public boolean updateTeacherInfo(Teacher updatedTeacher) {
 
         SQLiteDatabase db = this.getWritableDatabase();
 
@@ -159,6 +208,12 @@ public class UserDBHandler extends SQLiteOpenHelper {
         return db.update(TABLE_STUDENT, args, KEY_ID + "=" + updatedStudent.getStudentId(), null) > 0;
     }
 
+
+    public boolean deleteComment(int delID){
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        return db.delete(TABLE_COMMENT, KEY_ID + "=" + delID, null) > 0;
+    }
 
     public boolean deleteTeacher(int delID){
         SQLiteDatabase db = this.getWritableDatabase();
@@ -199,6 +254,38 @@ public class UserDBHandler extends SQLiteOpenHelper {
         Cursor cursor = db.rawQuery(selectQuery, null);
 
         return cursor.moveToFirst();
+    }
+
+
+    public List<Comment> getAllCommentsPerTeacher(int teacherId) {
+
+        List<Comment> commentList = new ArrayList<Comment>();
+
+        // Select All Query
+        String selectQuery = "SELECT  * FROM " + TABLE_COMMENT +
+                             " WHERE teacherId = '" + teacherId + "';";
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery(selectQuery, null);
+
+        // looping through all rows and adding to list
+        if (cursor.moveToFirst()) {
+            do {
+
+                Comment comment = new Comment();
+                comment.setId(Integer.parseInt(cursor.getString(0)));
+                comment.setTitle(cursor.getString(1));
+                comment.setBody(cursor.getString(2));
+                comment.setRate(cursor.getFloat(3));
+                comment.setReviewer(cursor.getString(4));
+                comment.setTeacherID(cursor.getInt(5));
+
+                commentList.add(comment);
+
+            } while (cursor.moveToNext());
+        }
+
+        return commentList;
     }
 
 

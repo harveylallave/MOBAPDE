@@ -1,9 +1,10 @@
 package valdez.lallave.dagdag.dlsu_profstopick.Beans_Model;
 
 public class Student {
+
     private String email,
                    hashedPass;
-    private int studentId;
+    private int    studentId;
 
 
     public Student() {}

@@ -31,7 +31,7 @@ import android.widget.TableRow.LayoutParams;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import valdez.lallave.dagdag.dlsu_profstopick.Service.UserDBHandler;
+import valdez.lallave.dagdag.dlsu_profstopick.Service.DBHandler;
 
 public class AndroidDatabaseManager extends Activity implements OnItemClickListener {
 
@@ -55,7 +55,7 @@ public class AndroidDatabaseManager extends Activity implements OnItemClickListe
 
     //in the below line Change the text 'yourCustomSqlHelper' with your custom sqlitehelper class name.
     //Do not change the variable name dbm
-    UserDBHandler dbm;
+    DBHandler dbm;
     TableLayout tableLayout;
     TableRow.LayoutParams tableRowParams;
     HorizontalScrollView hsv;
@@ -74,7 +74,7 @@ public class AndroidDatabaseManager extends Activity implements OnItemClickListe
 
 
         //in the below line Change the text 'yourCustomSqlHelper' with your custom sqlitehelper class name
-        dbm = new UserDBHandler(AndroidDatabaseManager.this);
+        dbm = new DBHandler(AndroidDatabaseManager.this);
 
         mainscrollview = new ScrollView(AndroidDatabaseManager.this);
 

@@ -2,6 +2,9 @@ package valdez.lallave.dagdag.dlsu_profstopick.JavaActivities;
 
 import android.app.Dialog;
 import android.content.DialogInterface;
+import android.content.Intent;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AlertDialog;
@@ -18,25 +21,38 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
+import valdez.lallave.dagdag.dlsu_profstopick.Beans_Model.Teacher;
 import valdez.lallave.dagdag.dlsu_profstopick.Service.Adapters.CommentAdapter;
 import valdez.lallave.dagdag.dlsu_profstopick.Beans_Model.Comment;
 import valdez.lallave.dagdag.dlsu_profstopick.R;
+import valdez.lallave.dagdag.dlsu_profstopick.Service.DBHandler;
 
 public class ProfPage extends AppCompatActivity {
 
     RecyclerView rvComments;
+    DBHandler dbHandler;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.prof_page);
+        dbHandler = new DBHandler(getBaseContext());
 
-        String profName = getIntent().getExtras().getString("profName");
-        ((TextView)findViewById(R.id.tv_ProfName)).setText(profName);
-        ((Button)findViewById(R.id.addRateButton)).setOnClickListener(new View.OnClickListener() {
+        SharedPreferences SP = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
+        final Teacher prof     = getIntent().getParcelableExtra("selectedProf");
+        final String  reviewer = SP.getString("loggedStudent", "student_email");
+
+
+        ((TextView)findViewById(R.id.tv_ProfName)).setText(prof.getName());
+        ((TextView)findViewById(R.id.tv_department)).setText(prof.getDepartment());
+
+        View v = findViewById(R.id.menuPane);
+        HomePage.initializeMenuButtons(v, reviewer);
+
+        findViewById(R.id.addRateButton).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                AddRateDialog dialog = new AddRateDialog();
+                AddRateDialog dialog = AddRateDialog.newInstance(prof, reviewer);
                 dialog.show(getSupportFragmentManager(), "");
             }
         });
@@ -49,45 +65,54 @@ public class ProfPage extends AppCompatActivity {
 
         ArrayList<Comment> comments = new ArrayList<>();
 
-        comments.add(new Comment("Good", "Had the prof at some subj", (float) 2.4));
-        comments.add(new Comment("Bad", "Had the prof at some subj", (float) 1));
-        comments.add(new Comment("Excellent", "Had the prof at some subj", (float) 5));
-        CommentAdapter ta = new CommentAdapter(comments);
+        comments.add(new Comment("Good", "Had the prof at some subj", (float) 2.4, reviewer, prof.getTeacherId()));
+        CommentAdapter ta = new CommentAdapter((ArrayList<Comment>) dbHandler.getAllCommentsPerTeacher(prof.getTeacherId()));
 
 
         rvComments.setAdapter(ta);
         rvComments.setLayoutManager(new LinearLayoutManager(getBaseContext(), LinearLayoutManager.VERTICAL, false));
-
-
     }
 
     public static class AddRateDialog extends DialogFragment {
 
+        public static AddRateDialog newInstance(Teacher prof, String reviewer) {
+            AddRateDialog f = new AddRateDialog();
+
+            // Supply num input as an argument.
+            Bundle args = new Bundle();
+            args.putParcelable("selectedProf", prof);
+            args.putString("reviewerMail", reviewer);
+            f.setArguments(args);
+
+            return f;
+        }
 
         @NonNull
         @Override
         public Dialog onCreateDialog(Bundle savedInstanceState) {
+            super.onCreate(savedInstanceState);
 
-            final View v = LayoutInflater.from(getActivity()).inflate(R.layout.add_review_dialog, null);
-            final EditText  etTitle = (EditText) v.findViewById(R.id.et_titleFeedBack),
-                            etBody  = (EditText) v.findViewById(R.id.et_bodyFeedBack);
-            final RatingBar rbInput = (RatingBar) v.findViewById(R.id.rb_rating);
-
-            AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+            final View          v             = LayoutInflater.from(getActivity()).inflate(R.layout.add_review_dialog, null);
+            final String        title         = ((EditText) v.findViewById(R.id.et_titleFeedBack)).getText().toString(),
+                                body          = ((EditText) v.findViewById(R.id.et_bodyFeedBack)).getText().toString(),
+                                reviewer      = getArguments().getString("reviewerMail");
+            final float         rating        = ((RatingBar) v.findViewById(R.id.rb_rating)).getRating();
+            final Teacher       selectedProf  = getArguments().getParcelable("selectedProf");
+            final DBHandler     dbHandler     = new DBHandler(getContext());
+            AlertDialog.Builder builder       = new AlertDialog.Builder(getActivity());
 
             builder.setTitle("Rate Professor")
                     .setIcon(R.mipmap.ic_launcher)
                     .setPositiveButton("Submit", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialogInterface, int i) {
-//                    String s = etInput.getText().toString();
-//                    ((MainActivity) getActivity()).callDialog(s);
+                            dbHandler.addNewComment(new Comment(title, body, rating, reviewer, selectedProf.getTeacherId()));
                             dismiss();
                         }}).setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialogInterface, int i) {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
 
-                }}).setView(v);
+                    }}).setView(v);
 
             return builder.create();
         }
