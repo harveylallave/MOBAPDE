@@ -78,6 +78,7 @@ public class HomePage extends AppCompatActivity {
 
 
         View v = findViewById(R.id.menuPane);
+        v.bringToFront();                       // <--- IMPORTANT MENUPANE IS IN THE BACK (backend)
         initializeMenuButtons(v, reviewer);
     }
 
@@ -91,15 +92,6 @@ public class HomePage extends AppCompatActivity {
 
         Toast.makeText(v.getContext().getApplicationContext(), logoutMenuItem.getText().toString(),Toast.LENGTH_SHORT).show();
         // TODO Link menuitems(followed profs, suggest a prof, change pass)
-
-        System.out.println("BAA!");
-        emailMenuItem.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                System.out.println("WAA!");
-                Toast.makeText(v.getContext().getApplicationContext(), "Invalid email or password",Toast.LENGTH_LONG).show();
-            }
-        });
 
         logoutMenuItem.setOnClickListener(new View.OnClickListener() {
             @Override

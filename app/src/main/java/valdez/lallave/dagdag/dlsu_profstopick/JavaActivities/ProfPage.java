@@ -47,6 +47,7 @@ public class ProfPage extends AppCompatActivity {
         ((TextView)findViewById(R.id.tv_department)).setText(prof.getDepartment());
 
         View v = findViewById(R.id.menuPane);
+        v.bringToFront();
         HomePage.initializeMenuButtons(v, reviewer);
 
         findViewById(R.id.addRateButton).setOnClickListener(new View.OnClickListener() {
