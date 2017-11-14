@@ -4,6 +4,8 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 
 import java.io.UnsupportedEncodingException;
@@ -34,38 +36,44 @@ public class ChangePassword extends AppCompatActivity{
         etNewR = (EditText) findViewById(R.id.et_NewRpass);
         etEmail = (EditText) findViewById(R.id.et_Email);
 
-        String pOld = etOld.getText().toString();
-        String pNew = etNew.getText().toString();
-        String pNewR = etNewR.getText().toString();
-        String email = etEmail.getText().toString();
+        findViewById(R.id.rButton).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
 
-        boolean valid = true;
-        dbHandler = new DBHandler(getBaseContext());
+                String pOld = etOld.getText().toString();
+                String pNew = etNew.getText().toString();
+                String pNewR = etNewR.getText().toString();
+                String email = etEmail.getText().toString();
 
-        Student s = dbHandler.getStudent(email);
+                boolean valid = true;
+                dbHandler = new DBHandler(getBaseContext());
 
-        if(!validateOldPassword(pOld,s))
-            valid = false;
-        if(!validatePassword(pNew))
-            valid = false;
-        if(!validateRPassword(pNewR,pNew))
-            valid = false;
+                Student s = dbHandler.getStudent(email);
 
-        if(valid){
-            try {
-                s.setHashedPass(PasswordAuthentication.SHA1(pNew));
-                dbHandler.updateStudentInfo(s);
-            } catch (NoSuchAlgorithmException e) {
-                e.printStackTrace();
-            } catch (UnsupportedEncodingException e) {
-                e.printStackTrace();
+                if(!validateOldPassword(pOld,s))
+                    valid = false;
+                if(!validatePassword(pNew))
+                    valid = false;
+                if(!validateRPassword(pNewR,pNew))
+                    valid = false;
+
+                if(valid){
+                    try {
+                        s.setHashedPass(PasswordAuthentication.SHA1(pNew));
+                        dbHandler.updateStudentInfo(s);
+                    } catch (NoSuchAlgorithmException e) {
+                        e.printStackTrace();
+                    } catch (UnsupportedEncodingException e) {
+                        e.printStackTrace();
+                    }
+                }
+
+
+
+
+
             }
-        }
-
-
-
-
-
+        });
     }
 
     protected boolean validateOldPassword(String password, Student s){
