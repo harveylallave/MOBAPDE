@@ -118,6 +118,16 @@ public class ProfPage extends AppCompatActivity implements OnDialogDismissListen
             final String        reviewer      = getArguments().getString("reviewer");
             AlertDialog.Builder builder       = new AlertDialog.Builder(getActivity());
 
+            ((RatingBar)v.findViewById(R.id.rb_rating)).setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
+
+                @Override public void onRatingChanged(RatingBar ratingBar,
+                                                      float rating,
+                                                      boolean fromUser) {
+                    if(rating<1.0f)
+                        ratingBar.setRating(1.0f);
+                }
+            });
+
             builder.setTitle("Rate Professor")
                     .setIcon(R.mipmap.ic_launcher)
                     .setPositiveButton("Submit", new DialogInterface.OnClickListener() {

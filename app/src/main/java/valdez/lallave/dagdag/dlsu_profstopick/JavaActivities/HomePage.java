@@ -11,8 +11,13 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Layout;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -26,6 +31,7 @@ import valdez.lallave.dagdag.dlsu_profstopick.Service.DBHandler;
 public class HomePage extends AppCompatActivity {
 
     RecyclerView rvTeachers;
+    EditText     etSearch;
     DBHandler DBHandler;
 
     @Override
@@ -33,12 +39,12 @@ public class HomePage extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.home_page);
 
-        SharedPreferences SP = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
-        final String  reviewer = SP.getString("loggedStudent", "student_email");
-        rvTeachers    = (RecyclerView) findViewById(R.id.rv_teachers);
-        DBHandler     = new DBHandler(getBaseContext());
-
-        RecyclerView recyclerView = new RecyclerView(getBaseContext());
+        SharedPreferences SP          = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
+        final String  reviewer        = SP.getString("loggedStudent", "student_email");
+        rvTeachers                    = (RecyclerView) findViewById(R.id.rv_teachers);
+        DBHandler                     = new DBHandler(getBaseContext());
+        etSearch                      = (EditText) findViewById(R.id.et_searchProf) ;
+//        AutoCompleteTextView autoCompleteTextView = (AutoCompleteTextView) findViewById(R.id.autoComplete_searchProf);
 
 //        ArrayList<Teacher> teachers = new ArrayList<>();
 
@@ -57,9 +63,34 @@ public class HomePage extends AppCompatActivity {
 //        teachers.add(new Teacher("Dr. Remedios Bulos", R.mipmap.ic_launcher));
 //        teachers.add(new Teacher("Dr. Florante Salvador", R.mipmap.ic_launcher));
 
+//
+        ArrayList<Teacher> teacherArrayList = new ArrayList<>(DBHandler.getAllTeachers());
+//        ArrayList<String>  teacherNames     = new ArrayList<>();
+//
+//        for(Teacher t : teacherArrayList)
+//            teacherNames.add(t.getName());
 
-        TeacherAdapter ta = new TeacherAdapter(new ArrayList<Teacher>(DBHandler.getAllTeachers()));
+//        String[] countries = getResources().getStringArray(R.array.countries_array);
 
+        TeacherAdapter ta = new TeacherAdapter(teacherArrayList);
+//        ArrayAdapter<String> autoCompleteAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, teacherNames);
+//        autoCompleteTextView.setAdapter(autoCompleteAdapter);
+
+        etSearch.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                boolean handled = false;
+                if (actionId == EditorInfo.IME_ACTION_SEARCH || event.getKeyCode() == KeyEvent.KEYCODE_ENTER) {
+
+
+
+                    Toast.makeText(getApplicationContext(), "Searching",Toast.LENGTH_SHORT).show();
+                    handled = true;
+                }
+
+                return handled;
+            }
+        });
         // Dynamic onClickListener
         ta.setOnItemClickListener(new TeacherAdapter.OnItemClickListener() {
             @Override
