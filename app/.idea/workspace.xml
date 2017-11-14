@@ -47,30 +47,17 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="525">
-      <file leaf-file-name="item_teacher.xml" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/res/layout/item_teacher.xml">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="353">
-              <caret line="41" column="43" selection-start-line="41" selection-start-column="43" selection-end-line="41" selection-end-column="43" />
-              <folding />
-            </state>
-          </provider>
-          <provider editor-type-id="android-designer2">
-            <state />
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="MainActivity.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/valdez/lallave/dagdag/dlsu_profstopick/JavaActivities/MainActivity.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="423">
-              <caret line="82" column="46" selection-start-line="82" selection-start-column="46" selection-end-line="83" selection-end-column="118" />
+            <state relative-caret-position="255">
+              <caret line="52" column="76" selection-start-line="52" selection-start-column="76" selection-end-line="54" selection-end-column="81" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#2842#4317#0" expanded="true" />
-                <element signature="e#4316#4317#0" expanded="true" />
-                <element signature="e#4360#4564#0" expanded="true" />
-                <element signature="e#4563#4564#0" expanded="true" />
+                <element signature="e#2842#4341#0" expanded="true" />
+                <element signature="e#4340#4341#0" expanded="true" />
+                <element signature="e#4384#4588#0" expanded="true" />
+                <element signature="e#4587#4588#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -79,7 +66,7 @@
       <file leaf-file-name="AndroidManifest.xml" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/AndroidManifest.xml">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="322">
+            <state relative-caret-position="401">
               <caret line="22" column="62" selection-start-line="22" selection-start-column="62" selection-end-line="22" selection-end-column="62" />
               <folding />
             </state>
@@ -89,14 +76,14 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ChangePassword.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="ChangePassword.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/valdez/lallave/dagdag/dlsu_profstopick/JavaActivities/ChangePassword.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-8">
-              <caret line="41" column="0" selection-start-line="41" selection-start-column="0" selection-end-line="41" selection-end-column="0" />
+            <state relative-caret-position="316">
+              <caret line="53" column="34" selection-start-line="53" selection-start-column="34" selection-end-line="53" selection-end-column="34" />
               <folding>
-                <element signature="e#1317#2522#0" expanded="true" />
-                <element signature="e#2521#2522#0" expanded="true" />
+                <element signature="e#1326#2531#0" expanded="true" />
+                <element signature="e#2530#2531#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -105,7 +92,7 @@
       <file leaf-file-name="activity_register.xml" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/res/layout/activity_register.xml">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="303">
+            <state relative-caret-position="320">
               <caret line="59" column="27" selection-start-line="59" selection-start-column="27" selection-end-line="59" selection-end-column="27" />
               <folding />
             </state>
@@ -118,20 +105,62 @@
       <file leaf-file-name="HomePage.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/valdez/lallave/dagdag/dlsu_profstopick/JavaActivities/HomePage.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="270">
-              <caret line="138" column="18" selection-start-line="138" selection-start-column="18" selection-end-line="138" selection-end-column="18" />
+            <state relative-caret-position="-135">
+              <caret line="47" column="85" selection-start-line="47" selection-start-column="85" selection-end-line="47" selection-end-column="85" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="method#onCreate#0;class#HomePage#0" expanded="false" />
-                <element signature="e#1809#1929#0" expanded="false" />
-                <element signature="e#3222#3288#0" expanded="false" />
-                <element signature="e#3536#3665#0" expanded="false" />
-                <element signature="e#3774#4288#0" expanded="true" />
-                <element signature="e#4287#4288#0" expanded="true" />
-                <element signature="e#4360#4695#0" expanded="true" />
-                <element signature="e#4694#4695#0" expanded="true" />
-                <element signature="e#5771#6013#0" expanded="true" />
-                <element signature="e#6012#6013#0" expanded="true" />
+                <element signature="e#3599#3728#0" expanded="false" />
+                <element signature="e#4495#5151#0" expanded="true" />
+                <element signature="e#5150#5151#0" expanded="true" />
+                <element signature="e#6665#6907#0" expanded="true" />
+                <element signature="e#6906#6907#0" expanded="true" />
+                <marker date="1510678376798" expanded="false" signature="1872:3193" ph="//..." />
+                <marker date="1510678376798" expanded="false" signature="3285:3443" ph="//..." />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="DBHandler.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/main/java/valdez/lallave/dagdag/dlsu_profstopick/Service/DBHandler.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="362">
+              <caret line="436" column="16" selection-start-line="436" selection-start-column="16" selection-end-line="436" selection-end-column="16" />
+              <folding>
+                <element signature="imports" expanded="true" />
+                <element signature="method#toggleFollowProf#0;class#DBHandler#0" expanded="false" />
+                <element signature="method#addFollowProf#0;class#DBHandler#0" expanded="false" />
+                <element signature="method#addNewComment#0;class#DBHandler#0" expanded="false" />
+                <element signature="method#addNewTeacher#0;class#DBHandler#0" expanded="false" />
+                <element signature="method#addNewAdmin#0;class#DBHandler#0" expanded="false" />
+                <element signature="method#addNewStudent#0;class#DBHandler#0" expanded="false" />
+                <element signature="method#updateTeacherInfo#0;class#DBHandler#0" expanded="false" />
+                <element signature="method#updateAdminInfo#0;class#DBHandler#0" expanded="false" />
+                <element signature="method#deleteComment#0;class#DBHandler#0" expanded="false" />
+                <element signature="method#deleteTeacher#0;class#DBHandler#0" expanded="false" />
+                <element signature="method#deleteAdmin#0;class#DBHandler#0" expanded="false" />
+                <element signature="method#deleteStudent#0;class#DBHandler#0" expanded="false" />
+                <element signature="method#deleteFollowProf#0;class#DBHandler#0" expanded="false" />
+                <element signature="method#validateFollowingProf#0;class#DBHandler#0" expanded="false" />
+                <element signature="method#validateAdmin#0;class#DBHandler#0" expanded="false" />
+                <element signature="method#validateStudent#0;class#DBHandler#0" expanded="false" />
+                <element signature="method#validateStudent#1;class#DBHandler#0" expanded="false" />
+                <element signature="method#getStudent#0;class#DBHandler#0" expanded="false" />
+                <element signature="method#getAllCommentsPerTeacher#0;class#DBHandler#0" expanded="false" />
+                <element signature="method#getAllTeachers#0;class#DBHandler#0" expanded="false" />
+                <element signature="e#15505#15514#0" expanded="true" />
+                <element signature="e#16454#16461#0" expanded="true" />
+                <element signature="e#17227#17236#0" expanded="true" />
+                <element signature="method#getData#0;class#DBHandler#0" expanded="false" />
+                <element signature="e#18351#18359#0" expanded="true" />
+                <marker date="1510678605258" expanded="true" signature="727:1475" ph="..." />
+                <marker date="1510678605258" expanded="true" signature="2076:2182" ph="..." />
+                <marker date="1510678605258" expanded="true" signature="2184:3820" ph="..." />
+                <marker date="1510678605258" expanded="true" signature="3822:4256" ph="..." />
+                <marker date="1510678605258" expanded="true" signature="4995:7086" ph="..." />
+                <marker date="1510678605258" expanded="true" signature="8928:9650" ph="..." />
+                <marker date="1510678605258" expanded="true" signature="13156:17949" ph="..." />
+                <marker date="1510678605258" expanded="true" signature="16369:17949" ph="..." />
               </folding>
             </state>
           </provider>
@@ -140,8 +169,8 @@
       <file leaf-file-name="change_pass.xml" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/res/layout/change_pass.xml">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="759">
-              <caret line="62" column="0" selection-start-line="62" selection-start-column="0" selection-end-line="62" selection-end-column="0" />
+            <state relative-caret-position="732">
+              <caret line="61" column="0" selection-start-line="61" selection-start-column="0" selection-end-line="61" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -153,8 +182,8 @@
       <file leaf-file-name="ProfPage.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/valdez/lallave/dagdag/dlsu_profstopick/JavaActivities/ProfPage.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="386">
-              <caret line="120" column="4" selection-start-line="120" selection-start-column="4" selection-end-line="120" selection-end-column="4" />
+            <state relative-caret-position="1793">
+              <caret line="110" column="0" selection-start-line="110" selection-start-column="0" selection-end-line="110" selection-end-column="0" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -178,9 +207,12 @@
       <file leaf-file-name="TeacherAdapter.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/valdez/lallave/dagdag/dlsu_profstopick/Service/Adapters/TeacherAdapter.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="270">
-              <caret line="43" column="0" selection-start-line="43" selection-start-column="0" selection-end-line="43" selection-end-column="0" />
-              <folding />
+            <state relative-caret-position="219">
+              <caret line="23" column="11" selection-start-line="23" selection-start-column="11" selection-end-line="23" selection-end-column="11" />
+              <folding>
+                <element signature="e#652#653#0" expanded="true" />
+                <element signature="e#692#693#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -2107,17 +2139,17 @@
         <option value="$PROJECT_DIR$/src/main/res/layout/home_page.xml" />
         <option value="$PROJECT_DIR$/src/main/res/values/strings.xml" />
         <option value="$PROJECT_DIR$/src/main/java/valdez/lallave/dagdag/dlsu_profstopick/JavaActivities/RegisterActivity.java" />
-        <option value="$PROJECT_DIR$/src/main/java/valdez/lallave/dagdag/dlsu_profstopick/JavaActivities/MainActivity.java" />
         <option value="$PROJECT_DIR$/src/main/java/valdez/lallave/dagdag/dlsu_profstopick/Beans_Model/Teacher.java" />
-        <option value="$PROJECT_DIR$/src/main/java/valdez/lallave/dagdag/dlsu_profstopick/Service/DBHandler.java" />
         <option value="$PROJECT_DIR$/src/main/res/layout/item_teacher.xml" />
         <option value="$PROJECT_DIR$/src/main/java/valdez/lallave/dagdag/dlsu_profstopick/Service/Adapters/TeacherAdapter.java" />
         <option value="$PROJECT_DIR$/src/main/res/layout/prof_page.xml" />
-        <option value="$PROJECT_DIR$/src/main/java/valdez/lallave/dagdag/dlsu_profstopick/JavaActivities/ProfPage.java" />
         <option value="$PROJECT_DIR$/src/main/res/layout/change_pass.xml" />
-        <option value="$PROJECT_DIR$/src/main/java/valdez/lallave/dagdag/dlsu_profstopick/JavaActivities/HomePage.java" />
         <option value="$PROJECT_DIR$/src/main/AndroidManifest.xml" />
         <option value="$PROJECT_DIR$/src/main/java/valdez/lallave/dagdag/dlsu_profstopick/JavaActivities/ChangePassword.java" />
+        <option value="$PROJECT_DIR$/src/main/java/valdez/lallave/dagdag/dlsu_profstopick/JavaActivities/MainActivity.java" />
+        <option value="$PROJECT_DIR$/src/main/java/valdez/lallave/dagdag/dlsu_profstopick/JavaActivities/ProfPage.java" />
+        <option value="$PROJECT_DIR$/src/main/java/valdez/lallave/dagdag/dlsu_profstopick/JavaActivities/HomePage.java" />
+        <option value="$PROJECT_DIR$/src/main/java/valdez/lallave/dagdag/dlsu_profstopick/Service/DBHandler.java" />
       </list>
     </option>
   </component>
@@ -2766,7 +2798,7 @@
       <window_info id="Image Layers" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32947463" sideWeight="0.5032232" order="0" side_tool="true" content_ui="tabs" />
-      <window_info id="Android Monitor" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.6224399" sideWeight="0.4967768" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Android Monitor" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.34105074" sideWeight="0.4967768" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32957292" sideWeight="0.49469495" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3291815" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -3228,10 +3260,128 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/res/layout/item_teacher.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="353">
+          <caret line="41" column="43" selection-start-line="41" selection-start-column="43" selection-end-line="41" selection-end-column="43" />
+          <folding />
+        </state>
+      </provider>
+      <provider editor-type-id="android-designer2">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/res/layout/change_pass.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="732">
+          <caret line="61" column="0" selection-start-line="61" selection-start-column="0" selection-end-line="61" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+      <provider editor-type-id="android-designer2">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/valdez/lallave/dagdag/dlsu_profstopick/JavaActivities/ChangePassword.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="316">
+          <caret line="53" column="34" selection-start-line="53" selection-start-column="34" selection-end-line="53" selection-end-column="34" />
+          <folding>
+            <element signature="e#1326#2531#0" expanded="true" />
+            <element signature="e#2530#2531#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/res/layout/prof_page.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="210">
+          <caret line="120" column="44" selection-start-line="120" selection-start-column="44" selection-end-line="120" selection-end-column="44" />
+          <folding />
+        </state>
+      </provider>
+      <provider editor-type-id="android-designer2">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/valdez/lallave/dagdag/dlsu_profstopick/JavaActivities/ProfPage.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1793">
+          <caret line="110" column="0" selection-start-line="110" selection-start-column="0" selection-end-line="110" selection-end-column="0" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/valdez/lallave/dagdag/dlsu_profstopick/Service/Adapters/TeacherAdapter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="219">
+          <caret line="23" column="11" selection-start-line="23" selection-start-column="11" selection-end-line="23" selection-end-column="11" />
+          <folding>
+            <element signature="e#652#653#0" expanded="true" />
+            <element signature="e#692#693#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/valdez/lallave/dagdag/dlsu_profstopick/JavaActivities/HomePage.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-135">
+          <caret line="47" column="85" selection-start-line="47" selection-start-column="85" selection-end-line="47" selection-end-column="85" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#3599#3728#0" expanded="false" />
+            <element signature="e#4495#5151#0" expanded="true" />
+            <element signature="e#5150#5151#0" expanded="true" />
+            <element signature="e#6665#6907#0" expanded="true" />
+            <element signature="e#6906#6907#0" expanded="true" />
+            <marker date="1510678376798" expanded="false" signature="1872:3193" ph="//..." />
+            <marker date="1510678376798" expanded="false" signature="3285:3443" ph="//..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/valdez/lallave/dagdag/dlsu_profstopick/JavaActivities/MainActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="255">
+          <caret line="52" column="76" selection-start-line="52" selection-start-column="76" selection-end-line="54" selection-end-column="81" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#2842#4341#0" expanded="true" />
+            <element signature="e#4340#4341#0" expanded="true" />
+            <element signature="e#4384#4588#0" expanded="true" />
+            <element signature="e#4587#4588#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/AndroidManifest.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="401">
+          <caret line="22" column="62" selection-start-line="22" selection-start-column="62" selection-end-line="22" selection-end-column="62" />
+          <folding />
+        </state>
+      </provider>
+      <provider editor-type-id="android-manifest">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/res/layout/activity_register.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="320">
+          <caret line="59" column="27" selection-start-line="59" selection-start-column="27" selection-end-line="59" selection-end-column="27" />
+          <folding />
+        </state>
+      </provider>
+      <provider editor-type-id="android-designer2">
+        <state />
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/valdez/lallave/dagdag/dlsu_profstopick/Service/DBHandler.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="448">
-          <caret line="442" column="78" selection-start-line="442" selection-start-column="78" selection-end-line="442" selection-end-column="78" />
+        <state relative-caret-position="362">
+          <caret line="436" column="16" selection-start-line="436" selection-start-column="16" selection-end-line="436" selection-end-column="16" />
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="method#toggleFollowProf#0;class#DBHandler#0" expanded="false" />
@@ -3253,136 +3403,20 @@
             <element signature="method#validateStudent#1;class#DBHandler#0" expanded="false" />
             <element signature="method#getStudent#0;class#DBHandler#0" expanded="false" />
             <element signature="method#getAllCommentsPerTeacher#0;class#DBHandler#0" expanded="false" />
-            <element signature="e#14496#14505#0" expanded="true" />
-            <element signature="e#15445#15452#0" expanded="true" />
-            <element signature="e#16218#16227#0" expanded="true" />
-            <element signature="e#17342#17350#0" expanded="true" />
-            <marker date="1510666940387" expanded="true" signature="727:1475" ph="..." />
-            <marker date="1510666940387" expanded="true" signature="2076:2182" ph="..." />
-            <marker date="1510666940387" expanded="true" signature="2184:3820" ph="..." />
-            <marker date="1510666940387" expanded="true" signature="3822:4256" ph="..." />
-            <marker date="1510666940387" expanded="true" signature="4995:7086" ph="..." />
-            <marker date="1510666940387" expanded="true" signature="8928:9650" ph="..." />
-            <marker date="1510666940387" expanded="true" signature="13264:16940" ph="..." />
-            <marker date="1510666940387" expanded="true" signature="15360:16940" ph="..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/res/layout/item_teacher.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="353">
-          <caret line="41" column="43" selection-start-line="41" selection-start-column="43" selection-end-line="41" selection-end-column="43" />
-          <folding />
-        </state>
-      </provider>
-      <provider editor-type-id="android-designer2">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/valdez/lallave/dagdag/dlsu_profstopick/Service/Adapters/TeacherAdapter.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="270">
-          <caret line="43" column="0" selection-start-line="43" selection-start-column="0" selection-end-line="43" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/valdez/lallave/dagdag/dlsu_profstopick/JavaActivities/MainActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="423">
-          <caret line="82" column="46" selection-start-line="82" selection-start-column="46" selection-end-line="83" selection-end-column="118" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#2842#4317#0" expanded="true" />
-            <element signature="e#4316#4317#0" expanded="true" />
-            <element signature="e#4360#4564#0" expanded="true" />
-            <element signature="e#4563#4564#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/res/layout/prof_page.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="210">
-          <caret line="120" column="44" selection-start-line="120" selection-start-column="44" selection-end-line="120" selection-end-column="44" />
-          <folding />
-        </state>
-      </provider>
-      <provider editor-type-id="android-designer2">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/valdez/lallave/dagdag/dlsu_profstopick/JavaActivities/ProfPage.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="386">
-          <caret line="120" column="4" selection-start-line="120" selection-start-column="4" selection-end-line="120" selection-end-column="4" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/res/layout/change_pass.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="759">
-          <caret line="62" column="0" selection-start-line="62" selection-start-column="0" selection-end-line="62" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-      <provider editor-type-id="android-designer2">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/valdez/lallave/dagdag/dlsu_profstopick/JavaActivities/HomePage.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="270">
-          <caret line="138" column="18" selection-start-line="138" selection-start-column="18" selection-end-line="138" selection-end-column="18" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="method#onCreate#0;class#HomePage#0" expanded="false" />
-            <element signature="e#1809#1929#0" expanded="false" />
-            <element signature="e#3222#3288#0" expanded="false" />
-            <element signature="e#3536#3665#0" expanded="false" />
-            <element signature="e#3774#4288#0" expanded="true" />
-            <element signature="e#4287#4288#0" expanded="true" />
-            <element signature="e#4360#4695#0" expanded="true" />
-            <element signature="e#4694#4695#0" expanded="true" />
-            <element signature="e#5771#6013#0" expanded="true" />
-            <element signature="e#6012#6013#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/AndroidManifest.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="322">
-          <caret line="22" column="62" selection-start-line="22" selection-start-column="62" selection-end-line="22" selection-end-column="62" />
-          <folding />
-        </state>
-      </provider>
-      <provider editor-type-id="android-manifest">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/res/layout/activity_register.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="303">
-          <caret line="59" column="27" selection-start-line="59" selection-start-column="27" selection-end-line="59" selection-end-column="27" />
-          <folding />
-        </state>
-      </provider>
-      <provider editor-type-id="android-designer2">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/valdez/lallave/dagdag/dlsu_profstopick/JavaActivities/ChangePassword.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-8">
-          <caret line="41" column="0" selection-start-line="41" selection-start-column="0" selection-end-line="41" selection-end-column="0" />
-          <folding>
-            <element signature="e#1317#2522#0" expanded="true" />
-            <element signature="e#2521#2522#0" expanded="true" />
+            <element signature="method#getAllTeachers#0;class#DBHandler#0" expanded="false" />
+            <element signature="e#15505#15514#0" expanded="true" />
+            <element signature="e#16454#16461#0" expanded="true" />
+            <element signature="e#17227#17236#0" expanded="true" />
+            <element signature="method#getData#0;class#DBHandler#0" expanded="false" />
+            <element signature="e#18351#18359#0" expanded="true" />
+            <marker date="1510678605258" expanded="true" signature="727:1475" ph="..." />
+            <marker date="1510678605258" expanded="true" signature="2076:2182" ph="..." />
+            <marker date="1510678605258" expanded="true" signature="2184:3820" ph="..." />
+            <marker date="1510678605258" expanded="true" signature="3822:4256" ph="..." />
+            <marker date="1510678605258" expanded="true" signature="4995:7086" ph="..." />
+            <marker date="1510678605258" expanded="true" signature="8928:9650" ph="..." />
+            <marker date="1510678605258" expanded="true" signature="13156:17949" ph="..." />
+            <marker date="1510678605258" expanded="true" signature="16369:17949" ph="..." />
           </folding>
         </state>
       </provider>
