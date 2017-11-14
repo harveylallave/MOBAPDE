@@ -6,7 +6,8 @@
     android:layout_height="match_parent"
     tools:context="valdez.lallave.dagdag.dlsu_profstopick.JavaActivities.MainActivity"
     android:gravity="center"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:background="@drawable/gradient">
 
     <LinearLayout
         android:layout_width="wrap_content"
@@ -18,10 +19,9 @@
         <ImageView
             android:layout_width="100dp"
             android:layout_height="100dp"
-            android:rotation="-40"
             android:layout_gravity="center"
             android:layout_marginRight="25dp"
-            android:src="@mipmap/ic_launcher_round"
+            android:src="@drawable/dlsu"
             />
         <TextView
             android:layout_width="wrap_content"
@@ -60,53 +60,52 @@
             android:inputType="textPassword"
             />
     </LinearLayout>
-    
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_weight="2">
+        android:layout_weight="2"
+        android:orientation="vertical">
+
         <Button
+            android:id="@+id/loginB"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Login"
-            android:id="@+id/loginB"
-            android:layout_marginTop="25dp"
+            android:layout_marginBottom="10dp"
             android:layout_marginLeft="25dp"
             android:layout_marginRight="25dp"
-            android:layout_marginBottom="10dp"
-            android:gravity="center"
-            android:textColor="#fffafa"
+            android:layout_marginTop="25dp"
             android:background="#0d7f59"
-            />
-    
-    
+            android:gravity="center"
+            android:text="Login"
+            android:textColor="#fffafa" />
+
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="25dp"
             android:layout_marginRight="25dp">
+
             <TextView
-                android:layout_width="0dip"
-                android:layout_weight="1"
-                android:layout_height="wrap_content"
-                android:text="Create Account?"
                 android:id="@+id/createAccTV"
-                android:gravity="center"
-                android:textColor="#006f4a"
-                /><!--TODO ^ not sure -->
-    
-    
-            <TextView
-                android:layout_width="0dp"
-                android:layout_weight="1"
-                android:textColor="#006f4a"
+                android:layout_width="0dip"
                 android:layout_height="wrap_content"
-                android:text="Forgot Password?"
-                android:id="@+id/forgotPassTV"
+                android:layout_weight="1"
                 android:gravity="center"
-                />
-    
+                android:text="Create Account?"
+                android:textColor="#006f4a" /><!--TODO ^ not sure -->
+
+
+            <TextView
+                android:id="@+id/forgotPassTV"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="Forgot Password?"
+                android:textColor="#006f4a" />
+
         </LinearLayout>
 
     </LinearLayout>
