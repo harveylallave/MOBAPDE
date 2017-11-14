@@ -20,5 +20,6 @@
         <activity android:name=".JavaActivities.ProfPage"/>
         <activity android:name=".JavaActivities.AndroidDatabaseManager"/>
         <activity android:name=".JavaActivities.RegisterActivity"/>
+        <activity android:name=".JavaActivities.ChangePassword"/>
     </application>
 </manifest>
