@@ -28,7 +28,7 @@
             android:ems="20"/>
     </LinearLayout>
     <Button
-        android:id="@+id/rButton"
+        android:id="@+id/forgotPassButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Submit"
