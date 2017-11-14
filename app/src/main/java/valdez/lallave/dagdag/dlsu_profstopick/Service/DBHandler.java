@@ -316,6 +316,55 @@ public class DBHandler extends SQLiteOpenHelper {
     }
 
 
+    public boolean validateStudent(String email) {
+        String selectQuery = "SELECT  * FROM " + TABLE_STUDENT +" WHERE email = '" + email + "';";
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery(selectQuery, null);
+
+        return cursor.moveToFirst();
+    }
+
+
+    public float getAveRateTeacher(int teacherId) {
+
+        float ave = (float) 2.5;
+
+        // Select All Query
+        String selectQuery = "SELECT AVG(rating) FROM " + TABLE_COMMENT +
+                             " WHERE " + KEY_ID +
+                             " = '" + teacherId + "';";
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery(selectQuery, null);
+        // looping through all rows and adding to list
+        if (cursor.moveToFirst()) {
+                ave = cursor.getFloat(0);
+        }
+
+        return ave;
+    }
+
+    public int getNReviewsTeacher(int teacherId) {
+
+        int nReviews = 0;
+
+        // Select All Query
+        String selectQuery = "SELECT COUNT(*) FROM " + TABLE_COMMENT +
+                             " WHERE " + KEY_ID +
+                             " = '" + teacherId + "';";
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery(selectQuery, null);
+        // looping through all rows and adding to list
+        if (cursor.moveToFirst()) {
+            nReviews = cursor.getInt(0);
+        }
+
+        return nReviews;
+    }
+
+
     public Student getStudent(String reviewer) {
 
         Student student = null;
@@ -390,6 +439,8 @@ public class DBHandler extends SQLiteOpenHelper {
                 teacher.setTeacherId(Integer.parseInt(cursor.getString(0)));
                 teacher.setName(cursor.getString(1));
                 teacher.setDepartment(cursor.getString(2));
+                teacher.setAveRating(getAveRateTeacher(teacher.getTeacherId()));
+                teacher.setnReviews(getNReviewsTeacher(teacher.getTeacherId()));
 
                 teacherList.add(teacher);
 
@@ -398,7 +449,6 @@ public class DBHandler extends SQLiteOpenHelper {
 
         return teacherList;
     }
-
 
     public List<Admin> getAllAdmin() {
 
@@ -498,14 +548,4 @@ public class DBHandler extends SQLiteOpenHelper {
             return alc;
         }
     }
-
-    public boolean studentExists(String email) {
-        String selectQuery = "SELECT  * FROM " + TABLE_STUDENT +" WHERE email = '" + email + "';";
-
-        SQLiteDatabase db = this.getWritableDatabase();
-        Cursor cursor = db.rawQuery(selectQuery, null);
-
-        return cursor.moveToFirst();
-    }
-
 }

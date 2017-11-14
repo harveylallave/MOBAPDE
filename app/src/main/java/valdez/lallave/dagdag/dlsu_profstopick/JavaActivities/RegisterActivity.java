@@ -77,7 +77,7 @@ public class RegisterActivity extends AppCompatActivity {
 
     protected boolean validateEmail(String email){
         if(email.matches(emailPattern))
-            if(!DBHandler.studentExists(email))
+            if(!DBHandler.validateStudent(email))
                  return true;
             else etEmail.setError("Email already exists");
         else     etEmail.setError("Email\'s domain must be @dlsu.edu.ph");

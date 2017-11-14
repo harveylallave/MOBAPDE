@@ -3,14 +3,14 @@ package valdez.lallave.dagdag.dlsu_profstopick.Beans_Model;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import java.lang.reflect.Array;
-import java.util.ArrayList;
 
 public class Teacher implements Parcelable{
     private String name,
                    department;
-    private int icon,
-                teacherId;
+    private int    icon,
+                   teacherId,
+                   nReviews;
+    private float  aveRating = (float) 2.5;
 
     public Teacher() {}
 
@@ -97,5 +97,21 @@ public class Teacher implements Parcelable{
         teacherId  = in.readInt();
         name       = in.readString();
         department = in.readString();
+    }
+
+    public float getAveRating() {
+        return aveRating;
+    }
+
+    public void setAveRating(float aveRating) {
+        this.aveRating = aveRating;
+    }
+
+    public int getnReviews() {
+        return nReviews;
+    }
+
+    public void setnReviews(int nReviews) {
+        this.nReviews = nReviews;
     }
 }
