@@ -1,17 +1,13 @@
 package valdez.lallave.dagdag.dlsu_profstopick.JavaActivities;
 
-import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
-import android.graphics.PorterDuff;
 import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.v4.app.DialogFragment;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -19,7 +15,6 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RatingBar;
@@ -57,11 +52,15 @@ public class ProfPage extends AppCompatActivity implements OnDialogDismissListen
         final String  reviewer = SP.getString("loggedStudent", "student_email");
         prof                   = getIntent().getParcelableExtra("selectedProf");
         student                = dbHandler.getStudent(reviewer);
-        ImageView ivFollowProf = (ImageView) findViewById(R.id.iv_followProf);
-        TextView  tvFollowProf = (TextView) findViewById(R.id.tv_followProf);
+        ImageView ivFollowProf = (ImageView) findViewById(R.id.iv_profPage_followProf);
+        TextView  tvFollowProf = (TextView) findViewById(R.id.tv_profPage_followProf);
+        float aveRating        = dbHandler.getAveRateTeacher(prof.getTeacherId());
 
         ((TextView)findViewById(R.id.tv_ProfName)).setText(prof.getName());
         ((TextView)findViewById(R.id.tv_department)).setText(prof.getDepartment());
+        ((TextView)findViewById(R.id.tv_profPage_nReviews)).setText(dbHandler.getNReviewsTeacher(prof.getTeacherId()) + "");
+        ((TextView)findViewById(R.id.tv_profPage_aveRating)).setText(aveRating + "");
+        ((RatingBar)findViewById(R.id.rb_profPage_aveRating)).setRating(aveRating);
 
 
         if(dbHandler.validateFollowingProf(student, prof)){
@@ -106,15 +105,23 @@ public class ProfPage extends AppCompatActivity implements OnDialogDismissListen
 
     @Override
     public void onDialogDismiss() {
-
         finish();
         startActivity(getIntent());
     }
 
+//    @Override
+//    protected void onRestart() {
+//        super.onRestart();
+//
+//        finish();
+//        startActivity(getIntent());
+//        Toast.makeText(getApplicationContext(), "Restarted activity",Toast.LENGTH_LONG).show();
+//    }
+
     public void followProfButton(View view) {
 
-        ImageView ivFollowProf = (ImageView) view.findViewById(R.id.iv_followProf);
-        TextView  tvFollowProf = (TextView) view.findViewById(R.id.tv_followProf);
+        ImageView ivFollowProf = (ImageView) view.findViewById(R.id.iv_profPage_followProf);
+        TextView  tvFollowProf = (TextView) view.findViewById(R.id.tv_profPage_followProf);
 //        if(dbHandler.toggleFollowProf()){ // Following
         if(dbHandler.toggleFollowProf(student, prof)){
             ivFollowProf.setColorFilter(Color.parseColor("#e98b5b"),

@@ -4,6 +4,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RatingBar;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -37,6 +38,8 @@ public class TeacherAdapter
         // tvTeacher's text must be set to the data at this position
         final Teacher currentTeacher = teachers.get(position);
         holder.tvTeacher.setText(currentTeacher.getName());
+        holder.tvNReviews.setText(currentTeacher.getnReviews() + "");
+        holder.rbAveRating.setRating(currentTeacher.getAveRating());
 //        holder.ivTeacher.setImageResource(currentTeacher.getIcon());
 
 //         User input photo
@@ -64,13 +67,19 @@ public class TeacherAdapter
 
     public class TeacherViewHolder extends RecyclerView.ViewHolder{
 
-        TextView tvTeacher;
+        TextView tvTeacher,
+                 tvNReviews;
+
+        RatingBar rbAveRating;
 //        ImageView ivTeacher;
 
         public TeacherViewHolder(View itemView) {
             super(itemView);
             // What is itemview?? itemview = inflated item_teacher
             tvTeacher = (TextView) itemView.findViewById(R.id.tv_teacher);
+            tvNReviews = (TextView) itemView.findViewById(R.id.tv_nReviews);
+            System.out.println(tvTeacher.getText().toString() + " || " + tvNReviews.getText().toString());
+            rbAveRating = (RatingBar) itemView.findViewById(R.id.rb_teacher);
 //            ivTeacher = itemView.findViewById(R.id.iv_teacher);
 
 

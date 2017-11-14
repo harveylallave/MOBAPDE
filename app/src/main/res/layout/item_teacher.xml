@@ -44,11 +44,11 @@
                 android:textStyle="bold"
                 android:textSize="28sp"
                 android:text="#"
-                android:id="@+id/tv_nComments"/>
+                android:id="@+id/tv_nReviews"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Comment/s"/>
+                android:text="Review/s"/>
         </LinearLayout>
     </LinearLayout>
 </LinearLayout>

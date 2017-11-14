@@ -113,6 +113,15 @@ public class HomePage extends AppCompatActivity {
         initializeMenuButtons(v, reviewer);
     }
 
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+
+        finish();
+        startActivity(getIntent());
+        Toast.makeText(getApplicationContext(), "Restarted activity",Toast.LENGTH_LONG).show();
+    }
+
     public static void initializeMenuButtons(View v, String reviewer){
 
 
