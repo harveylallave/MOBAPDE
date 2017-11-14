@@ -118,7 +118,7 @@ public class HomePage extends AppCompatActivity {
 
         TextView emailMenuItem  = ((TextView)v.findViewById(R.id.tv_emailMenuItem));
         TextView logoutMenuItem = ((TextView)v.findViewById(R.id.logoutMenuItem));
-        TextView changePassItem = ((TextView)v.findViewById(R.id.logoutMenuItem));
+        TextView changePassItem = ((TextView)v.findViewById(R.id.changePassMenuItem));
         emailMenuItem.setText(reviewer);
 
         // TODO Link menuitems(followed profs, suggest a prof, change pass)
