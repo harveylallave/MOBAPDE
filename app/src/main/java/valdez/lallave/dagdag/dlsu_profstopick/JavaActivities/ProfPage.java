@@ -46,7 +46,6 @@ public class ProfPage extends AppCompatActivity implements OnDialogDismissListen
     DBHandler dbHandler;
     Teacher prof;
     Student student;
-    private boolean toggle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,14 +53,28 @@ public class ProfPage extends AppCompatActivity implements OnDialogDismissListen
         setContentView(R.layout.prof_page);
         dbHandler = new DBHandler(getBaseContext());
 
-        SharedPreferences SP = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
+        SharedPreferences SP   = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
         final String  reviewer = SP.getString("loggedStudent", "student_email");
-        prof     = getIntent().getParcelableExtra("selectedProf");
-        student  = dbHandler.getStudent(reviewer);
-
+        prof                   = getIntent().getParcelableExtra("selectedProf");
+        student                = dbHandler.getStudent(reviewer);
+        ImageView ivFollowProf = (ImageView) findViewById(R.id.iv_followProf);
+        TextView  tvFollowProf = (TextView) findViewById(R.id.tv_followProf);
 
         ((TextView)findViewById(R.id.tv_ProfName)).setText(prof.getName());
         ((TextView)findViewById(R.id.tv_department)).setText(prof.getDepartment());
+
+
+        if(dbHandler.validateFollowingProf(student, prof)){
+            ivFollowProf.setColorFilter(Color.parseColor("#e98b5b"),
+                    android.graphics.PorterDuff.Mode.SRC_IN);
+            tvFollowProf.setTextColor(Color.parseColor("#e98b5b"));
+            tvFollowProf.setText("Following");
+        } else {
+            ivFollowProf.setColorFilter(Color.parseColor("#686b68"),
+                    android.graphics.PorterDuff.Mode.SRC_IN);
+            tvFollowProf.setTextColor(Color.parseColor("#686b68"));
+            tvFollowProf.setText("Follow");
+        }
 
         View v = findViewById(R.id.menuPane);
         v.bringToFront();
@@ -108,14 +121,11 @@ public class ProfPage extends AppCompatActivity implements OnDialogDismissListen
                                         android.graphics.PorterDuff.Mode.SRC_IN);
             tvFollowProf.setTextColor(Color.parseColor("#e98b5b"));
             tvFollowProf.setText("Following");
-            toggle = !toggle;
         } else {    // Not followed
             ivFollowProf.setColorFilter(Color.parseColor("#686b68"),
                                         android.graphics.PorterDuff.Mode.SRC_IN);
             tvFollowProf.setTextColor(Color.parseColor("#686b68"));
             tvFollowProf.setText("Follow");
-            toggle = !toggle;
-
         }
     }
 

@@ -9,8 +9,6 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
-import java.io.UnsupportedEncodingException;
-import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -106,18 +104,40 @@ public class DBHandler extends SQLiteOpenHelper {
     }
 
 
-    public boolean toggleFollowProf(Student student, Teacher prof){
+    public boolean toggleFollowProf(Student student, Teacher teacher){
 
 
-//        String selectQuery = "SELECT  * FROM " + TABLE_STUDENT +" WHERE email = '" + email +
-//                "' and hashedPass = '" + hashedPass + "';";
-//
-//        SQLiteDatabase db = this.getWritableDatabase();
-//        Cursor cursor = db.rawQuery(selectQuery, null);
-//
-//        return cursor.moveToFirst();
+        String selectQuery = "SELECT  * FROM " + TABLE_FOLLOWING_PROF +" WHERE studentId = '" + student.getStudentId() +
+                             "' and teacherId = '" + teacher.getTeacherId() + "';";
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery(selectQuery, null);
+        if (cursor.moveToFirst()) { // Unfollowing prof -> removing from the db
+            int followingId = cursor.getInt(0);
+            deleteFollowProf(followingId);
+            return false;
+        } else {    // Following prof -> adding to the db
+            addFollowProf(student, teacher);
+            return true;
+        }
 
     }
+
+
+
+    public void addFollowProf(Student student, Teacher teacher) {
+
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+
+        values.put(KEY_FOLLOWING_PROF_STUDENTID, student.getStudentId());
+        values.put(KEY_FOLLOWING_PROF_TEACHERID, teacher.getTeacherId());
+
+        db.insert(TABLE_FOLLOWING_PROF, null, values);
+        db.close();
+    }
+
 
     public void addNewComment(Comment newComment) {
 
@@ -254,6 +274,24 @@ public class DBHandler extends SQLiteOpenHelper {
 
     }
 
+    public boolean deleteFollowProf(int delID){
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        return db.delete(TABLE_FOLLOWING_PROF, KEY_ID + "=" + delID, null) > 0;
+
+    }
+
+
+    public Boolean validateFollowingProf(Student student, Teacher teacher) {
+
+        String selectQuery = "SELECT  * FROM " + TABLE_FOLLOWING_PROF +" WHERE studentId = '" + student.getStudentId() +
+                "' and teacherId = '" + teacher.getTeacherId() + "';";
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery(selectQuery, null);
+
+        return cursor.moveToFirst();
+    }
 
     public Boolean validateAdmin(String email, String hashedPass) {
 
