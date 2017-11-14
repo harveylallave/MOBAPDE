@@ -63,15 +63,8 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                Intent i = new Intent();        // Intent = opening new Activity
-
-//                i.putExtra("passed", nameText.getText());
-
                 String email = ((EditText)findViewById(R.id.usernameET)).getText().toString(),
                        pass  = ((EditText)findViewById(R.id.passwordET)).getText().toString();
-
-
-                i.setClass(getBaseContext(), HomePage.class);
 
                 try {
                     if(DBHandler.validateStudent(email, PasswordAuthentication.SHA1(pass))) {
@@ -96,8 +89,7 @@ public class MainActivity extends AppCompatActivity {
         registerView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent registerIntent = new Intent(MainActivity.this, RegisterActivity.class);
-                MainActivity.this.startActivity(registerIntent);
+                startActivity(new Intent(getBaseContext(), RegisterActivity.class));
             }
         });
     }

@@ -19,5 +19,6 @@
         <activity android:name=".JavaActivities.HomePage" />
         <activity android:name=".JavaActivities.ProfPage"/>
         <activity android:name=".JavaActivities.AndroidDatabaseManager"/>
+        <activity android:name=".JavaActivities.RegisterActivity"/>
     </application>
 </manifest>

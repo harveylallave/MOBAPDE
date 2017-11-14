@@ -22,15 +22,15 @@ import valdez.lallave.dagdag.dlsu_profstopick.Service.PasswordAuthentication;
 
 public class RegisterActivity extends AppCompatActivity {
 
-    final EditText etEmail = (EditText) findViewById(R.id.et_Email);
-    final EditText etPass = (EditText) findViewById(R.id.et_Pass);
-    final EditText etRpass = (EditText) findViewById(R.id.et_Rpass);
-    final Button rButton = (Button) findViewById(R.id.rButton);
-    final DBHandler DBHandler = new DBHandler(getBaseContext());
-    String emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
-    String email = etEmail.getText().toString();
-    String password = etPass.getText().toString();
-    String rPassword = etRpass.getText().toString();
+    EditText etEmail,
+             etPass,
+             etRpass;
+    Button rButton;
+    DBHandler DBHandler;
+    String emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+\\.+[a-z]+",
+           email,
+           password,
+           rPassword;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,11 +38,21 @@ public class RegisterActivity extends AppCompatActivity {
         this.requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_register);
 
+        etEmail = (EditText) findViewById(R.id.et_Email);
+        etPass = (EditText) findViewById(R.id.et_Pass);
+        etRpass = (EditText) findViewById(R.id.et_Rpass);
+        rButton = (Button) findViewById(R.id.rButton);
+        DBHandler = new DBHandler(getBaseContext());
 
 
         rButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+                email = etEmail.getText().toString();
+                password = etPass.getText().toString();
+                rPassword = etRpass.getText().toString();
+
                 if(!validateEmail(email)){
                     etEmail.setError("Invalid Email");
                     etEmail.requestFocus();
@@ -54,37 +64,41 @@ public class RegisterActivity extends AppCompatActivity {
                 else
                     try {
                         DBHandler.addNewStudent(new Student(email, PasswordAuthentication.SHA1(password)));
+
+                        Toast.makeText(getApplicationContext(), "Added to the db",Toast.LENGTH_SHORT).show();
+                        finish();
                     } catch (NoSuchAlgorithmException e) {
                         e.printStackTrace();
                     } catch (UnsupportedEncodingException e) {
                         e.printStackTrace();
                     }
             }
-        });}
+        });
+    }
 
-        protected boolean validatePassword(String password){
-            if(password!=null && password.length()>=8)
-                return true;
-            else
-                Toast.makeText(getApplicationContext(),"Password Must Be At Least 8 Characters", Toast.LENGTH_SHORT).show();
-                return false;
-        }
-        protected boolean validateEmail(String email){
-            if(email.matches(emailPattern) && email.contains("@dlsu.edu.ph"))
-                return true;
-            else
-                Toast.makeText(getApplicationContext(),"Invalid Email Address", Toast.LENGTH_SHORT).show();
-                return false;
-
-        }
-         protected boolean validateRPassword(String password, String rPass){
-             if(rPass!=null && rPass.length()>=8 && rPass.equals(password))
-                 return true;
-             else
-                 return false;
-         }
-
+    protected boolean validatePassword(String password){
+        if(password!=null && password.length()>=8)
+            return true;
+        else
+            Toast.makeText(getApplicationContext(),"Password Must Be At Least 8 Characters", Toast.LENGTH_SHORT).show();
+            return false;
+    }
+    protected boolean validateEmail(String email){
+        if(email.matches(emailPattern) && email.contains("@dlsu.edu.ph"))
+            return true;
+        else
+            Toast.makeText(getApplicationContext(),"Invalid Email Address: " + email + email.matches(emailPattern), Toast.LENGTH_SHORT).show();
+            return false;
 
     }
+     protected boolean validateRPassword(String password, String rPass){
+         if(rPass!=null && rPass.length()>=8 && rPass.equals(password))
+             return true;
+         else
+             return false;
+     }
+
+
+}
 
 
