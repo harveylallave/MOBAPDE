@@ -37,6 +37,7 @@ public class RegisterActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         this.requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_register);
+        getSupportActionBar();
 
         etEmail = (EditText) findViewById(R.id.et_Email);
         etPass = (EditText) findViewById(R.id.et_Pass);
