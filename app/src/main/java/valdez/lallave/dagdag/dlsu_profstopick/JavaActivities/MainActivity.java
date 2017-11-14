@@ -79,10 +79,10 @@ public class MainActivity extends AppCompatActivity {
                     } else if (DBHandler.validateAdmin(email, PasswordAuthentication.SHA1(pass))) {
                         startActivity(new Intent(getBaseContext(), AndroidDatabaseManager.class));
                         finish();
-                    } else
+                    } else {
                         clearPass.setText("");
-                        Toast.makeText(getApplicationContext(), "Invalid email or password",Toast.LENGTH_LONG).show();
-
+                        Toast.makeText(getApplicationContext(), "Invalid email or password", Toast.LENGTH_LONG).show();
+                    }
                 } catch (NoSuchAlgorithmException | UnsupportedEncodingException e) {
                     e.printStackTrace();
                 }

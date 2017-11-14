@@ -332,12 +332,12 @@ public class DBHandler extends SQLiteOpenHelper {
 
         // Select All Query
         String selectQuery = "SELECT AVG(rating) FROM " + TABLE_COMMENT +
-                             " WHERE " + KEY_ID +
+                             " WHERE " + KEY_COMMENT_TEACHERID +
                              " = '" + teacherId + "';";
 
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor = db.rawQuery(selectQuery, null);
-        // looping through all rows and adding to list
+
         if (cursor.moveToFirst()) {
                 ave = cursor.getFloat(0);
         }
@@ -351,12 +351,12 @@ public class DBHandler extends SQLiteOpenHelper {
 
         // Select All Query
         String selectQuery = "SELECT COUNT(*) FROM " + TABLE_COMMENT +
-                             " WHERE " + KEY_ID +
+                             " WHERE " + KEY_COMMENT_TEACHERID +
                              " = '" + teacherId + "';";
 
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor = db.rawQuery(selectQuery, null);
-        // looping through all rows and adding to list
+
         if (cursor.moveToFirst()) {
             nReviews = cursor.getInt(0);
         }
@@ -421,12 +421,42 @@ public class DBHandler extends SQLiteOpenHelper {
     }
 
 
+    public List<Teacher> searchTeacher(String teacherName) {
+
+        List<Teacher> teacherList = new ArrayList<>();
+
+        // Select All Query
+        String selectQuery = "SELECT  * FROM " + TABLE_TEACHER +
+                             " WHERE " + KEY_TEACHER_NAME + " LIKE '%" + teacherName + "%';";
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery(selectQuery, null);
+
+        // looping through all rows and adding to list
+        if (cursor.moveToFirst()) {
+            do {
+
+                Teacher teacher = new Teacher();
+                teacher.setTeacherId(Integer.parseInt(cursor.getString(0)));
+                teacher.setName(cursor.getString(1));
+                teacher.setDepartment(cursor.getString(2));
+                teacher.setAveRating(getAveRateTeacher(teacher.getTeacherId()));
+                teacher.setnReviews(getNReviewsTeacher(teacher.getTeacherId()));
+                System.out.println(teacher.getName());
+                teacherList.add(teacher);
+
+            } while (cursor.moveToNext());
+        }
+
+        return teacherList;
+    }
+
     public List<Teacher> getAllTeachers() {
 
         List<Teacher> teacherList = new ArrayList<Teacher>();
 
         // Select All Query
-        String selectQuery = "SELECT  * FROM " + TABLE_TEACHER;
+        String selectQuery = "SELECT  * FROM " + TABLE_TEACHER + " ORDER BY " + KEY_TEACHER_NAME;
 
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor = db.rawQuery(selectQuery, null);
@@ -548,4 +578,5 @@ public class DBHandler extends SQLiteOpenHelper {
             return alc;
         }
     }
+
 }
