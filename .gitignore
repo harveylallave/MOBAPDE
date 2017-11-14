@@ -8,3 +8,4 @@
 /captures
 .externalNativeBuild
 .idea/modules.xml
+app/src/main/res/layout/change_pass.xml
