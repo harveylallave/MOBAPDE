@@ -26,8 +26,8 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
         this.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
         Button loginButton = (Button) findViewById(R.id.loginB);
@@ -65,6 +65,7 @@ public class MainActivity extends AppCompatActivity {
 
                 String email = ((EditText)findViewById(R.id.usernameET)).getText().toString(),
                        pass  = ((EditText)findViewById(R.id.passwordET)).getText().toString();
+                EditText clearPass = (EditText)findViewById(R.id.passwordET);
 
                 try {
                     if(DBHandler.validateStudent(email, PasswordAuthentication.SHA1(pass))) {
@@ -79,6 +80,7 @@ public class MainActivity extends AppCompatActivity {
                         startActivity(new Intent(getBaseContext(), AndroidDatabaseManager.class));
                         finish();
                     } else
+                        clearPass.setText("");
                         Toast.makeText(getApplicationContext(), "Invalid email or password",Toast.LENGTH_LONG).show();
 
                 } catch (NoSuchAlgorithmException | UnsupportedEncodingException e) {

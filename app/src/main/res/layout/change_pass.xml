@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent">
+    <?xml version="1.0" encoding="utf-8"?>
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent" android:layout_height="match_parent"
+        android:background="@drawable/gradient">
+
+        <TextView
+            android:id="@+id/tvRegister"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Change Password"
+            android:textSize="35dp"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="45dp" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginTop="150dp"
+            android:id="@+id/linearLayout">
+            <EditText
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="Old Password"
+                android:id="@+id/et_OldPass"
+                android:inputType="textPassword"
+                android:layout_marginBottom="20dp"
+                android:layout_marginLeft="30dp"
+                android:ems="25"/>
+
+            <EditText
+                android:id="@+id/et_Newpass"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:inputType="textPassword"
+                android:hint="New Password"
+                android:layout_marginBottom="20dp"
+                android:layout_marginLeft="30dp"
+                android:ems="25"/>
+            <EditText
+                android:id="@+id/et_NewRpass"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:inputType="textPassword"
+                android:hint="Repeat New Password"
+                android:layout_marginBottom="20dp"
+                android:layout_marginLeft="30dp"
+                android:ems="25"/>
+        </LinearLayout>
+        <Button
+            android:id="@+id/rButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Submit"
+            android:gravity="center"
+            android:textColor="#fffafa"
+            android:background="#0d7f59"
+            android:layout_below="@+id/linearLayout"
+            android:layout_alignParentStart="true"
+            android:layout_marginTop="19dp"
+            android:layout_marginLeft="50dp"
+            android:layout_marginRight="50dp"/>
+
+
+    </RelativeLayout>
+</RelativeLayout>
