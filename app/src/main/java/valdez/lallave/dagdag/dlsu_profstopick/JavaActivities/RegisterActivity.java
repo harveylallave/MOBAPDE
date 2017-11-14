@@ -27,7 +27,7 @@ public class RegisterActivity extends AppCompatActivity {
              etRpass;
     Button rButton;
     DBHandler DBHandler;
-    String emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+\\.+[a-z]+",
+    String emailPattern = "[a-zA-Z0-9._-]+@dlsu+\\.+edu+\\.+ph+",
            email,
            password,
            rPassword;
@@ -49,55 +49,63 @@ public class RegisterActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                email = etEmail.getText().toString();
-                password = etPass.getText().toString();
-                rPassword = etRpass.getText().toString();
+                email         = etEmail.getText().toString();
+                password      = etPass.getText().toString();
+                rPassword     = etRpass.getText().toString();
+                boolean valid = true;
 
-                if(!validateEmail(email)){
-                    etEmail.setError("Invalid Email");
-                    etEmail.requestFocus();
-                }else if(!validatePassword((password))){
-                    etPass.setError("Invalid Password");
-                    etPass.requestFocus();
-                }else if(!validateRPassword(password, rPassword))
-                    etRpass.setError("Password Do Not Match");
-                else
+                if(!validateRPassword(password, rPassword))
+                    valid = false;
+                if(!validatePassword((password)))
+                    valid = false;
+                if(!validateEmail(email))
+                    valid = false;
+
+                if (valid) {
                     try {
                         DBHandler.addNewStudent(new Student(email, PasswordAuthentication.SHA1(password)));
 
-                        Toast.makeText(getApplicationContext(), "Added to the db",Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getApplicationContext(), email + " added to the db", Toast.LENGTH_SHORT).show();
                         finish();
-                    } catch (NoSuchAlgorithmException e) {
-                        e.printStackTrace();
-                    } catch (UnsupportedEncodingException e) {
+                    } catch (NoSuchAlgorithmException | UnsupportedEncodingException e) {
                         e.printStackTrace();
                     }
+                }
             }
         });
     }
 
-    protected boolean validatePassword(String password){
-        if(password!=null && password.length()>=8)
-            return true;
-        else
-            Toast.makeText(getApplicationContext(),"Password Must Be At Least 8 Characters", Toast.LENGTH_SHORT).show();
-            return false;
-    }
     protected boolean validateEmail(String email){
-        if(email.matches(emailPattern) && email.contains("@dlsu.edu.ph"))
-            return true;
-        else
-            Toast.makeText(getApplicationContext(),"Invalid Email Address: " + email + email.matches(emailPattern), Toast.LENGTH_SHORT).show();
-            return false;
+        if(email.matches(emailPattern))
+            if(!DBHandler.studentExists(email))
+                 return true;
+            else etEmail.setError("Email already exists");
+        else     etEmail.setError("Email\'s domain must be @dlsu.edu.ph");
 
+
+        etEmail.requestFocus();
+        return false;
     }
-     protected boolean validateRPassword(String password, String rPass){
-         if(rPass!=null && rPass.length()>=8 && rPass.equals(password))
-             return true;
-         else
-             return false;
-     }
 
+    protected boolean validatePassword(String password){
+
+        if(password!=null && password.length()>=8)
+             return true;
+        else etPass.setError("Password Must Be At Least 8 Characters");
+
+        etPass.requestFocus();
+        return false;
+    }
+
+     protected boolean validateRPassword(String password, String rPass) {
+
+         if (rPass != null && rPass.equals(password))
+              return true;
+         else etRpass.setError("Password Do Not Match");
+
+         etRpass.requestFocus();
+         return false;
+     }
 
 }
 

@@ -416,4 +416,13 @@ public class DBHandler extends SQLiteOpenHelper {
             return alc;
         }
     }
+
+    public boolean studentExists(String email) {
+        String selectQuery = "SELECT  * FROM " + TABLE_STUDENT +" WHERE email = '" + email + "';";
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery(selectQuery, null);
+
+        return cursor.moveToFirst();
+    }
 }
