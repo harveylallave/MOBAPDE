@@ -15,6 +15,7 @@ import java.util.List;
 import valdez.lallave.dagdag.dlsu_profstopick.Beans_Model.Admin;
 import valdez.lallave.dagdag.dlsu_profstopick.Beans_Model.Comment;
 import valdez.lallave.dagdag.dlsu_profstopick.Beans_Model.Student;
+import valdez.lallave.dagdag.dlsu_profstopick.Beans_Model.Suggest;
 import valdez.lallave.dagdag.dlsu_profstopick.Beans_Model.Teacher;
 
 public class DBHandler extends SQLiteOpenHelper {
@@ -32,6 +33,7 @@ public class DBHandler extends SQLiteOpenHelper {
     private static final String TABLE_TEACHER        = "teacher";
     private static final String TABLE_COMMENT        = "comment";
     private static final String TABLE_FOLLOWING_PROF = "following";
+    private static final String TABLE_SUGGEST_PROF = "suggest";
 
     // Contacts Table Columns names
     private static final String KEY_ID = "id";
@@ -46,7 +48,9 @@ public class DBHandler extends SQLiteOpenHelper {
     private static final String KEY_COMMENT_TEACHERID = "teacherId";
     private static final String KEY_FOLLOWING_PROF_TEACHERID = "teacherId";
     private static final String KEY_FOLLOWING_PROF_STUDENTID = "studentId";
-
+    private static final String KEY_SUGGEST_PROF_NAME = "name";
+    private static final String KEY_SUGGEST_PROF_DEPARTMENT = "department";
+    private static final String KEY_SUGGEST_PROF_SUGGESTEDBY = "suggestedby";
 
     public DBHandler(Context contex) {
         super(contex, DATABASE_NAME, null, DATABASE_VERSION);
@@ -82,12 +86,17 @@ public class DBHandler extends SQLiteOpenHelper {
                 + KEY_ID + " INTEGER PRIMARY KEY,"
                 + KEY_FOLLOWING_PROF_STUDENTID + " INTEGER ,"
                 + KEY_FOLLOWING_PROF_TEACHERID + " INTEGER " + ")";
+        String CREATE_SUGGEST_PROF_TABLE = "CREATE TABLE " + TABLE_SUGGEST_PROF + "("
+                + KEY_SUGGEST_PROF_NAME + " TEXT,"
+                + KEY_SUGGEST_PROF_DEPARTMENT + " TEXT,"
+                + KEY_SUGGEST_PROF_SUGGESTEDBY + " TEXT," + ")";
 
         db.execSQL(CREATE_STUDENT_DETAIL_TABLE);
         db.execSQL(CREATE_ADMIN_TABLE);
         db.execSQL(CREATE_TEACHER_TABLE);
         db.execSQL(CREATE_COMMENT_TABLE);
         db.execSQL(CREATE_FOLLOWING_PROF_TABLE);
+        db.execSQL(CREATE_SUGGEST_PROF_TABLE);
     }
 
     @Override
@@ -98,11 +107,25 @@ public class DBHandler extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_ADMIN);
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_TEACHER);
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_COMMENT);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_SUGGEST_PROF);
 
         // Create tables again
         onCreate(db);
     }
 
+    public void addSuggestProf(Suggest s) {
+
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+
+        values.put(KEY_SUGGEST_PROF_NAME, s.getName());
+        values.put(KEY_SUGGEST_PROF_DEPARTMENT, s.getDepartment());
+        values.put(KEY_SUGGEST_PROF_SUGGESTEDBY, s.getSuggestedBy());
+
+        db.insert(TABLE_SUGGEST_PROF, null, values);
+        db.close();
+    }
 
     public boolean toggleFollowProf(Student student, Teacher teacher){
 
@@ -577,6 +600,33 @@ public class DBHandler extends SQLiteOpenHelper {
             alc.set(1,Cursor2);
             return alc;
         }
+    }
+    public List<Suggest> getAllSuggestions() {
+
+        List<Suggest> suggestList = new ArrayList<Suggest>();
+
+        // Select All Query
+        String selectQuery = "SELECT  * FROM " + TABLE_SUGGEST_PROF;
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery(selectQuery, null);
+
+        // looping through all rows and adding to list
+        if (cursor.moveToFirst()) {
+            do {
+
+                Suggest suggest = new Suggest();
+                suggest.setName(cursor.getString(0));
+                suggest.setDepartment(cursor.getString(1));
+                suggest.setSuggestedBy(cursor.getString(2));
+
+
+                suggestList.add(suggest);
+
+            } while (cursor.moveToNext());
+        }
+
+        return suggestList;
     }
 
 }

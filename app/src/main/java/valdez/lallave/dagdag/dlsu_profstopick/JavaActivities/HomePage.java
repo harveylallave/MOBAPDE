@@ -151,6 +151,7 @@ public class HomePage extends AppCompatActivity {
         TextView emailMenuItem  = ((TextView)v.findViewById(R.id.tv_emailMenuItem));
         TextView logoutMenuItem = ((TextView)v.findViewById(R.id.logoutMenuItem));
         TextView changePassItem = ((TextView)v.findViewById(R.id.changePassMenuItem));
+        TextView suggestProf = ((TextView)v.findViewById(R.id.suggestProfMenuItem));
         emailMenuItem.setText(reviewer);
 
         // TODO Link menuitems(followed profs, suggest a prof, change pass)
@@ -159,6 +160,14 @@ public class HomePage extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent I = new Intent(v.getContext(), ChangePassword.class);
+                v.getContext().startActivity(I);
+            }
+        });
+
+        suggestProf.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent I = new Intent(v.getContext(), SuggestProf.class);
                 v.getContext().startActivity(I);
             }
         });

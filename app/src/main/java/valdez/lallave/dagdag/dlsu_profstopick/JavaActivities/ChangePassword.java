@@ -31,7 +31,6 @@ public class ChangePassword extends AppCompatActivity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.change_pass);
-        getSupportActionBar();
         etOld = (EditText) findViewById(R.id.et_OldPass);
         etNew = (EditText) findViewById(R.id.et_Newpass);
         etNewR = (EditText) findViewById(R.id.et_NewRpass);
