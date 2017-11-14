@@ -12,8 +12,9 @@
         <item name="colorControlNormal">#fcf3d1</item>
         <item name="colorControlActivated">#ffebb6</item>
         <item name="android:numStars">5</item>
-        <item name="android:rating">2.5</item>
+        <item name="android:rating">3</item>
         <item name="android:max">5</item>
+        <item name="android:stepSize">0.1</item>
 
     </style>
 </resources>

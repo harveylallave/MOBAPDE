@@ -9,7 +9,8 @@
         android:id="@+id/rb_rating"
         android:layout_gravity="center"
         android:layout_margin="20dp"
-        android:theme="@style/RatingBar"/>
+        android:theme="@style/RatingBar"
+        android:stepSize="0.1"/>
 
     <EditText
         android:layout_width="match_parent"

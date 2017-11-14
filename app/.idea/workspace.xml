@@ -50,8 +50,8 @@
       <file leaf-file-name="MainActivity.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/valdez/lallave/dagdag/dlsu_profstopick/JavaActivities/MainActivity.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="255">
-              <caret line="52" column="76" selection-start-line="52" selection-start-column="76" selection-end-line="54" selection-end-column="81" />
+            <state relative-caret-position="-123">
+              <caret line="53" column="84" selection-start-line="53" selection-start-column="84" selection-end-line="53" selection-end-column="84" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="e#2842#4341#0" expanded="true" />
@@ -66,8 +66,8 @@
       <file leaf-file-name="AndroidManifest.xml" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/AndroidManifest.xml">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="401">
-              <caret line="22" column="62" selection-start-line="22" selection-start-column="62" selection-end-line="22" selection-end-column="62" />
+            <state relative-caret-position="455">
+              <caret line="24" column="11" selection-start-line="24" selection-start-column="11" selection-end-line="24" selection-end-column="11" />
               <folding />
             </state>
           </provider>
@@ -76,15 +76,25 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ChangePassword.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/valdez/lallave/dagdag/dlsu_profstopick/JavaActivities/ChangePassword.java">
+      <file leaf-file-name="add_review_dialog.xml" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/res/layout/add_review_dialog.xml">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="316">
-              <caret line="53" column="34" selection-start-line="53" selection-start-column="34" selection-end-line="53" selection-end-column="34" />
-              <folding>
-                <element signature="e#1326#2531#0" expanded="true" />
-                <element signature="e#2530#2531#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="324">
+              <caret line="12" column="28" selection-start-line="12" selection-start-column="28" selection-end-line="12" selection-end-column="28" />
+              <folding />
+            </state>
+          </provider>
+          <provider editor-type-id="android-designer2">
+            <state />
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="styles.xml" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/main/res/values/styles.xml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="351">
+              <caret line="13" column="46" selection-start-line="13" selection-start-column="46" selection-end-line="13" selection-end-column="46" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -121,11 +131,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="DBHandler.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="DBHandler.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/valdez/lallave/dagdag/dlsu_profstopick/Service/DBHandler.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="362">
-              <caret line="436" column="16" selection-start-line="436" selection-start-column="16" selection-end-line="436" selection-end-column="16" />
+            <state relative-caret-position="381">
+              <caret line="338" column="55" selection-start-line="338" selection-start-column="55" selection-end-line="338" selection-end-column="55" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="method#toggleFollowProf#0;class#DBHandler#0" expanded="false" />
@@ -148,42 +158,29 @@
                 <element signature="method#getStudent#0;class#DBHandler#0" expanded="false" />
                 <element signature="method#getAllCommentsPerTeacher#0;class#DBHandler#0" expanded="false" />
                 <element signature="method#getAllTeachers#0;class#DBHandler#0" expanded="false" />
-                <element signature="e#15505#15514#0" expanded="true" />
-                <element signature="e#16454#16461#0" expanded="true" />
-                <element signature="e#17227#17236#0" expanded="true" />
+                <element signature="e#15535#15544#0" expanded="true" />
+                <element signature="e#16484#16491#0" expanded="true" />
+                <element signature="e#17257#17266#0" expanded="true" />
                 <element signature="method#getData#0;class#DBHandler#0" expanded="false" />
-                <element signature="e#18351#18359#0" expanded="true" />
-                <marker date="1510678605258" expanded="true" signature="727:1475" ph="..." />
-                <marker date="1510678605258" expanded="true" signature="2076:2182" ph="..." />
-                <marker date="1510678605258" expanded="true" signature="2184:3820" ph="..." />
-                <marker date="1510678605258" expanded="true" signature="3822:4256" ph="..." />
-                <marker date="1510678605258" expanded="true" signature="4995:7086" ph="..." />
-                <marker date="1510678605258" expanded="true" signature="8928:9650" ph="..." />
-                <marker date="1510678605258" expanded="true" signature="13156:17949" ph="..." />
-                <marker date="1510678605258" expanded="true" signature="16369:17949" ph="..." />
+                <element signature="e#18381#18389#0" expanded="true" />
+                <marker date="1510679009939" expanded="true" signature="727:1475" ph="..." />
+                <marker date="1510679009939" expanded="true" signature="2076:2182" ph="..." />
+                <marker date="1510679009939" expanded="true" signature="2184:3820" ph="..." />
+                <marker date="1510679009939" expanded="true" signature="3822:4256" ph="..." />
+                <marker date="1510679009939" expanded="true" signature="4995:7086" ph="..." />
+                <marker date="1510679009939" expanded="true" signature="8928:9650" ph="..." />
+                <marker date="1510679009939" expanded="true" signature="13186:17979" ph="..." />
+                <marker date="1510679009939" expanded="true" signature="16399:17979" ph="..." />
               </folding>
             </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="change_pass.xml" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/res/layout/change_pass.xml">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="732">
-              <caret line="61" column="0" selection-start-line="61" selection-start-column="0" selection-end-line="61" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-          <provider editor-type-id="android-designer2">
-            <state />
           </provider>
         </entry>
       </file>
       <file leaf-file-name="ProfPage.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/valdez/lallave/dagdag/dlsu_profstopick/JavaActivities/ProfPage.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1793">
-              <caret line="110" column="0" selection-start-line="110" selection-start-column="0" selection-end-line="110" selection-end-column="0" />
+            <state relative-caret-position="389">
+              <caret line="61" column="87" selection-start-line="61" selection-start-column="87" selection-end-line="61" selection-end-column="87" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -194,26 +191,13 @@
       <file leaf-file-name="prof_page.xml" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/res/layout/prof_page.xml">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="210">
-              <caret line="120" column="44" selection-start-line="120" selection-start-column="44" selection-end-line="120" selection-end-column="44" />
+            <state relative-caret-position="237">
+              <caret line="22" column="0" selection-start-line="22" selection-start-column="0" selection-end-line="22" selection-end-column="0" />
               <folding />
             </state>
           </provider>
           <provider editor-type-id="android-designer2">
             <state />
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="TeacherAdapter.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/valdez/lallave/dagdag/dlsu_profstopick/Service/Adapters/TeacherAdapter.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="219">
-              <caret line="23" column="11" selection-start-line="23" selection-start-column="11" selection-end-line="23" selection-end-column="11" />
-              <folding>
-                <element signature="e#652#653#0" expanded="true" />
-                <element signature="e#692#693#0" expanded="true" />
-              </folding>
-            </state>
           </provider>
         </entry>
       </file>
@@ -2099,7 +2083,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/main/java/valdez/lallave/dagdag/dlsu_profstopick/MainActivity.java" />
         <option value="$PROJECT_DIR$/src/main/java/valdez/lallave/dagdag/dlsu_profstopick/ProfActivity.java" />
         <option value="$PROJECT_DIR$/src/main/java/valdez/lallave/dagdag/dlsu_profstopick/Comment.java" />
         <option value="$PROJECT_DIR$/src/main/java/valdez/lallave/dagdag/dlsu_profstopick/Teacher.java" />
@@ -2121,7 +2104,6 @@
         <option value="$PROJECT_DIR$/src/main/java/valdez/lallave/dagdag/dlsu_profstopick/Adapters/CommentAdapter.java" />
         <option value="$USER_HOME$/AppData/Local/Android/sdk/platforms/android-26/android.jar!/java/util/Base64.class" />
         <option value="$PROJECT_DIR$/src/main/java/valdez/lallave/dagdag/dlsu_profstopick/Service/PasswordAuthentication.java" />
-        <option value="$PROJECT_DIR$/src/main/res/values/styles.xml" />
         <option value="$PROJECT_DIR$/src/main/java/valdez/lallave/dagdag/dlsu_profstopick/Beans_Model/Admin.java" />
         <option value="$PROJECT_DIR$/src/main/java/valdez/lallave/dagdag/dlsu_profstopick/Service/Adapters/AdminDBHandler.java" />
         <option value="$PROJECT_DIR$/src/main/java/valdez/lallave/dagdag/dlsu_profstopick/Service/StudentDBHandler.java" />
@@ -2135,21 +2117,23 @@
         <option value="$PROJECT_DIR$/src/main/res/layout/menu_pane.xml" />
         <option value="$PROJECT_DIR$/src/main/java/valdez/lallave/dagdag/dlsu_profstopick/Service/Adapters/CommentAdapter.java" />
         <option value="$PROJECT_DIR$/src/main/res/layout/item_comment.xml" />
-        <option value="$PROJECT_DIR$/src/main/res/layout/add_review_dialog.xml" />
         <option value="$PROJECT_DIR$/src/main/res/layout/home_page.xml" />
         <option value="$PROJECT_DIR$/src/main/res/values/strings.xml" />
         <option value="$PROJECT_DIR$/src/main/java/valdez/lallave/dagdag/dlsu_profstopick/JavaActivities/RegisterActivity.java" />
         <option value="$PROJECT_DIR$/src/main/java/valdez/lallave/dagdag/dlsu_profstopick/Beans_Model/Teacher.java" />
         <option value="$PROJECT_DIR$/src/main/res/layout/item_teacher.xml" />
         <option value="$PROJECT_DIR$/src/main/java/valdez/lallave/dagdag/dlsu_profstopick/Service/Adapters/TeacherAdapter.java" />
-        <option value="$PROJECT_DIR$/src/main/res/layout/prof_page.xml" />
         <option value="$PROJECT_DIR$/src/main/res/layout/change_pass.xml" />
         <option value="$PROJECT_DIR$/src/main/AndroidManifest.xml" />
         <option value="$PROJECT_DIR$/src/main/java/valdez/lallave/dagdag/dlsu_profstopick/JavaActivities/ChangePassword.java" />
-        <option value="$PROJECT_DIR$/src/main/java/valdez/lallave/dagdag/dlsu_profstopick/JavaActivities/MainActivity.java" />
-        <option value="$PROJECT_DIR$/src/main/java/valdez/lallave/dagdag/dlsu_profstopick/JavaActivities/ProfPage.java" />
         <option value="$PROJECT_DIR$/src/main/java/valdez/lallave/dagdag/dlsu_profstopick/JavaActivities/HomePage.java" />
+        <option value="$PROJECT_DIR$/src/main/java/valdez/lallave/dagdag/dlsu_profstopick/JavaActivities/MainActivity.java" />
         <option value="$PROJECT_DIR$/src/main/java/valdez/lallave/dagdag/dlsu_profstopick/Service/DBHandler.java" />
+        <option value="$PROJECT_DIR$/src/main/java/valdez/lallave/dagdag/dlsu_profstopick/JavaActivities/ProfPage.java" />
+        <option value="$PROJECT_DIR$/src/main/res/layout/prof_page.xml" />
+        <option value="$PROJECT_DIR$/src/main/res/layout/add_review_dialog.xml" />
+        <option value="$PROJECT_DIR$/build/intermediates/res/merged/debug/values/values.xml" />
+        <option value="$PROJECT_DIR$/src/main/res/values/styles.xml" />
       </list>
     </option>
   </component>
@@ -2793,12 +2777,12 @@
     <editor active="true" />
     <layout>
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32947463" sideWeight="0.5" order="12" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.40872663" sideWeight="0.48227236" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.40872663" sideWeight="0.48227236" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Build Variants" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="true" content_ui="tabs" />
       <window_info id="Image Layers" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32947463" sideWeight="0.5032232" order="0" side_tool="true" content_ui="tabs" />
-      <window_info id="Android Monitor" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.34105074" sideWeight="0.4967768" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Android Monitor" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.34105074" sideWeight="0.4967768" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32957292" sideWeight="0.49469495" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3291815" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -2950,22 +2934,6 @@
             <element signature="e#315#316#0" expanded="true" />
             <element signature="e#366#367#0" expanded="true" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/build/intermediates/res/merged/debug/values/values.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="424">
-          <caret line="1580" column="41" selection-start-line="1580" selection-start-column="41" selection-end-line="1581" selection-end-column="41" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/res/values/styles.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="432">
-          <caret line="16" column="0" selection-start-line="16" selection-start-column="0" selection-end-line="16" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -3140,17 +3108,6 @@
         <state />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/res/layout/add_review_dialog.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="405">
-          <caret line="27" column="60" selection-start-line="27" selection-start-column="60" selection-end-line="27" selection-end-column="60" />
-          <folding />
-        </state>
-      </provider>
-      <provider editor-type-id="android-designer2">
-        <state />
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/res/values/strings.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="81">
@@ -3293,27 +3250,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/res/layout/prof_page.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="210">
-          <caret line="120" column="44" selection-start-line="120" selection-start-column="44" selection-end-line="120" selection-end-column="44" />
-          <folding />
-        </state>
-      </provider>
-      <provider editor-type-id="android-designer2">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/valdez/lallave/dagdag/dlsu_profstopick/JavaActivities/ProfPage.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1793">
-          <caret line="110" column="0" selection-start-line="110" selection-start-column="0" selection-end-line="110" selection-end-column="0" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/valdez/lallave/dagdag/dlsu_profstopick/Service/Adapters/TeacherAdapter.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="219">
@@ -3342,31 +3278,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/valdez/lallave/dagdag/dlsu_profstopick/JavaActivities/MainActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="255">
-          <caret line="52" column="76" selection-start-line="52" selection-start-column="76" selection-end-line="54" selection-end-column="81" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#2842#4341#0" expanded="true" />
-            <element signature="e#4340#4341#0" expanded="true" />
-            <element signature="e#4384#4588#0" expanded="true" />
-            <element signature="e#4587#4588#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/AndroidManifest.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="401">
-          <caret line="22" column="62" selection-start-line="22" selection-start-column="62" selection-end-line="22" selection-end-column="62" />
-          <folding />
-        </state>
-      </provider>
-      <provider editor-type-id="android-manifest">
-        <state />
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/res/layout/activity_register.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="320">
@@ -3380,8 +3291,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/valdez/lallave/dagdag/dlsu_profstopick/Service/DBHandler.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="362">
-          <caret line="436" column="16" selection-start-line="436" selection-start-column="16" selection-end-line="436" selection-end-column="16" />
+        <state relative-caret-position="381">
+          <caret line="338" column="55" selection-start-line="338" selection-start-column="55" selection-end-line="338" selection-end-column="55" />
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="method#toggleFollowProf#0;class#DBHandler#0" expanded="false" />
@@ -3404,20 +3315,93 @@
             <element signature="method#getStudent#0;class#DBHandler#0" expanded="false" />
             <element signature="method#getAllCommentsPerTeacher#0;class#DBHandler#0" expanded="false" />
             <element signature="method#getAllTeachers#0;class#DBHandler#0" expanded="false" />
-            <element signature="e#15505#15514#0" expanded="true" />
-            <element signature="e#16454#16461#0" expanded="true" />
-            <element signature="e#17227#17236#0" expanded="true" />
+            <element signature="e#15535#15544#0" expanded="true" />
+            <element signature="e#16484#16491#0" expanded="true" />
+            <element signature="e#17257#17266#0" expanded="true" />
             <element signature="method#getData#0;class#DBHandler#0" expanded="false" />
-            <element signature="e#18351#18359#0" expanded="true" />
-            <marker date="1510678605258" expanded="true" signature="727:1475" ph="..." />
-            <marker date="1510678605258" expanded="true" signature="2076:2182" ph="..." />
-            <marker date="1510678605258" expanded="true" signature="2184:3820" ph="..." />
-            <marker date="1510678605258" expanded="true" signature="3822:4256" ph="..." />
-            <marker date="1510678605258" expanded="true" signature="4995:7086" ph="..." />
-            <marker date="1510678605258" expanded="true" signature="8928:9650" ph="..." />
-            <marker date="1510678605258" expanded="true" signature="13156:17949" ph="..." />
-            <marker date="1510678605258" expanded="true" signature="16369:17949" ph="..." />
+            <element signature="e#18381#18389#0" expanded="true" />
+            <marker date="1510679009939" expanded="true" signature="727:1475" ph="..." />
+            <marker date="1510679009939" expanded="true" signature="2076:2182" ph="..." />
+            <marker date="1510679009939" expanded="true" signature="2184:3820" ph="..." />
+            <marker date="1510679009939" expanded="true" signature="3822:4256" ph="..." />
+            <marker date="1510679009939" expanded="true" signature="4995:7086" ph="..." />
+            <marker date="1510679009939" expanded="true" signature="8928:9650" ph="..." />
+            <marker date="1510679009939" expanded="true" signature="13186:17979" ph="..." />
+            <marker date="1510679009939" expanded="true" signature="16399:17979" ph="..." />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/valdez/lallave/dagdag/dlsu_profstopick/JavaActivities/MainActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-123">
+          <caret line="53" column="84" selection-start-line="53" selection-start-column="84" selection-end-line="53" selection-end-column="84" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#2842#4341#0" expanded="true" />
+            <element signature="e#4340#4341#0" expanded="true" />
+            <element signature="e#4384#4588#0" expanded="true" />
+            <element signature="e#4587#4588#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/AndroidManifest.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="455">
+          <caret line="24" column="11" selection-start-line="24" selection-start-column="11" selection-end-line="24" selection-end-column="11" />
+          <folding />
+        </state>
+      </provider>
+      <provider editor-type-id="android-manifest">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/res/layout/prof_page.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="237">
+          <caret line="22" column="0" selection-start-line="22" selection-start-column="0" selection-end-line="22" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+      <provider editor-type-id="android-designer2">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/res/layout/add_review_dialog.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="324">
+          <caret line="12" column="28" selection-start-line="12" selection-start-column="28" selection-end-line="12" selection-end-column="28" />
+          <folding />
+        </state>
+      </provider>
+      <provider editor-type-id="android-designer2">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/valdez/lallave/dagdag/dlsu_profstopick/JavaActivities/ProfPage.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="389">
+          <caret line="61" column="87" selection-start-line="61" selection-start-column="87" selection-end-line="61" selection-end-column="87" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/build/intermediates/res/merged/debug/values/values.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="178">
+          <caret line="1581" column="12" selection-start-line="1581" selection-start-column="12" selection-end-line="1581" selection-end-column="12" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/res/values/styles.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="351">
+          <caret line="13" column="46" selection-start-line="13" selection-start-column="46" selection-end-line="13" selection-end-column="46" />
+          <folding />
         </state>
       </provider>
     </entry>

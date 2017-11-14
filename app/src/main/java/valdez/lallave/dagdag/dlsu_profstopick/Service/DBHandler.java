@@ -332,7 +332,7 @@ public class DBHandler extends SQLiteOpenHelper {
 
         // Select All Query
         String selectQuery = "SELECT AVG(rating) FROM " + TABLE_COMMENT +
-                             " WHERE " + KEY_ID +
+                             " WHERE " + KEY_COMMENT_TEACHERID +
                              " = '" + teacherId + "';";
 
         SQLiteDatabase db = this.getWritableDatabase();
@@ -351,7 +351,7 @@ public class DBHandler extends SQLiteOpenHelper {
 
         // Select All Query
         String selectQuery = "SELECT COUNT(*) FROM " + TABLE_COMMENT +
-                             " WHERE " + KEY_ID +
+                             " WHERE " + KEY_COMMENT_TEACHERID +
                              " = '" + teacherId + "';";
 
         SQLiteDatabase db = this.getWritableDatabase();

@@ -59,7 +59,7 @@ public class ProfPage extends AppCompatActivity implements OnDialogDismissListen
         ((TextView)findViewById(R.id.tv_ProfName)).setText(prof.getName());
         ((TextView)findViewById(R.id.tv_department)).setText(prof.getDepartment());
         ((TextView)findViewById(R.id.tv_profPage_nReviews)).setText(dbHandler.getNReviewsTeacher(prof.getTeacherId()) + "");
-        ((TextView)findViewById(R.id.tv_profPage_aveRating)).setText(aveRating + "");
+        ((TextView)findViewById(R.id.tv_profPage_aveRating)).setText(String.format("%.1f", aveRating));
         ((RatingBar)findViewById(R.id.rb_profPage_aveRating)).setRating(aveRating);
 
 
