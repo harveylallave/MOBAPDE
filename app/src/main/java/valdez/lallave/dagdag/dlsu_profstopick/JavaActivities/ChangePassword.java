@@ -1,5 +1,6 @@
 package valdez.lallave.dagdag.dlsu_profstopick.JavaActivities;
 
+import android.app.ActionBar;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -30,7 +31,7 @@ public class ChangePassword extends AppCompatActivity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.change_pass);
-
+        getSupportActionBar();
         etOld = (EditText) findViewById(R.id.et_OldPass);
         etNew = (EditText) findViewById(R.id.et_Newpass);
         etNewR = (EditText) findViewById(R.id.et_NewRpass);
@@ -43,12 +44,13 @@ public class ChangePassword extends AppCompatActivity{
                 String pOld = etOld.getText().toString();
                 String pNew = etNew.getText().toString();
                 String pNewR = etNewR.getText().toString();
-                String email = etEmail.getText().toString();
+                SharedPreferences SP = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
+                final String  reviewer        = SP.getString("loggedStudent", "student_email");
 
                 boolean valid = true;
                 dbHandler = new DBHandler(getBaseContext());
 
-                Student s = dbHandler.getStudent(email);
+                Student s = dbHandler.getStudent(reviewer);
 
                 if(!validateOldPassword(pOld,s))
                     valid = false;
@@ -61,6 +63,7 @@ public class ChangePassword extends AppCompatActivity{
                     try {
                         s.setHashedPass(PasswordAuthentication.SHA1(pNew));
                         dbHandler.updateStudentInfo(s);
+                        finish();
                     } catch (NoSuchAlgorithmException e) {
                         e.printStackTrace();
                     } catch (UnsupportedEncodingException e) {
@@ -81,7 +84,7 @@ public class ChangePassword extends AppCompatActivity{
         try {
             if(password!=null && password.length()>=8 && s.getHashedPass().equals(PasswordAuthentication.SHA1(password)))
                 return true;
-            else etNew.setError("Wrong Password");
+            else etOld.setError("Wrong Password");
         } catch (NoSuchAlgorithmException e) {
             e.printStackTrace();
         } catch (UnsupportedEncodingException e) {
