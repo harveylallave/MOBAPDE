@@ -23,16 +23,17 @@ public class DBHandler extends SQLiteOpenHelper {
 
     // All Static variables
     // Database Version
-    private static final int DATABASE_VERSION = 4;
+    private static final int DATABASE_VERSION = 5;
 
     // Database Name
     private static final String DATABASE_NAME = "ProfsToPick";
 
     // Contacts table name
-    private static final String TABLE_STUDENT   = "student";
-    private static final String TABLE_ADMIN     = "admin"  ;
-    private static final String TABLE_TEACHER   = "teacher";
-    private static final String TABLE_COMMENT   = "comment";
+    private static final String TABLE_STUDENT        = "student";
+    private static final String TABLE_ADMIN          = "admin"  ;
+    private static final String TABLE_TEACHER        = "teacher";
+    private static final String TABLE_COMMENT        = "comment";
+    private static final String TABLE_FOLLOWING_PROF = "following";
 
     // Contacts Table Columns names
     private static final String KEY_ID = "id";
@@ -45,6 +46,8 @@ public class DBHandler extends SQLiteOpenHelper {
     private static final String KEY_COMMENT_RATING = "rating";
     private static final String KEY_COMMENT_REVIEWER = "reviewer";
     private static final String KEY_COMMENT_TEACHERID = "teacherId";
+    private static final String KEY_FOLLOWING_PROF_TEACHERID = "teacherId";
+    private static final String KEY_FOLLOWING_PROF_STUDENTID = "studentId";
 
 
     public DBHandler(Context contex) {
@@ -77,11 +80,16 @@ public class DBHandler extends SQLiteOpenHelper {
                 + KEY_COMMENT_REVIEWER + " TEXT,"
                 + KEY_COMMENT_TEACHERID + " INTEGER " + ")";
 
+        String CREATE_FOLLOWING_PROF_TABLE = "CREATE TABLE " + TABLE_FOLLOWING_PROF + "("
+                + KEY_ID + " INTEGER PRIMARY KEY,"
+                + KEY_FOLLOWING_PROF_STUDENTID + " INTEGER ,"
+                + KEY_FOLLOWING_PROF_TEACHERID + " INTEGER " + ")";
+
         db.execSQL(CREATE_STUDENT_DETAIL_TABLE);
         db.execSQL(CREATE_ADMIN_TABLE);
         db.execSQL(CREATE_TEACHER_TABLE);
         db.execSQL(CREATE_COMMENT_TABLE);
-
+        db.execSQL(CREATE_FOLLOWING_PROF_TABLE);
     }
 
     @Override
@@ -97,6 +105,19 @@ public class DBHandler extends SQLiteOpenHelper {
         onCreate(db);
     }
 
+
+    public boolean toggleFollowProf(Student student, Teacher prof){
+
+
+//        String selectQuery = "SELECT  * FROM " + TABLE_STUDENT +" WHERE email = '" + email +
+//                "' and hashedPass = '" + hashedPass + "';";
+//
+//        SQLiteDatabase db = this.getWritableDatabase();
+//        Cursor cursor = db.rawQuery(selectQuery, null);
+//
+//        return cursor.moveToFirst();
+
+    }
 
     public void addNewComment(Comment newComment) {
 
@@ -256,6 +277,29 @@ public class DBHandler extends SQLiteOpenHelper {
         return cursor.moveToFirst();
     }
 
+
+    public Student getStudent(String reviewer) {
+
+        Student student = null;
+
+        // Select All Query
+        String selectQuery = "SELECT  * FROM " + TABLE_STUDENT +
+                             " WHERE " + KEY_EMAIL +
+                             " = '" + reviewer + "';";
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery(selectQuery, null);
+        // looping through all rows and adding to list
+        if (cursor.moveToFirst()) {
+
+                student = new Student();
+                student.setStudentId(cursor.getInt(0));
+                student.setEmail(cursor.getString(1));
+                student.setHashedPass(cursor.getString(2));
+        }
+
+        return student;
+    }
 
     public List<Comment> getAllCommentsPerTeacher(int teacherId) {
 
@@ -425,4 +469,5 @@ public class DBHandler extends SQLiteOpenHelper {
 
         return cursor.moveToFirst();
     }
+
 }

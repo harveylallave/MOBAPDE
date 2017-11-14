@@ -6,9 +6,12 @@ import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
+import android.graphics.PorterDuff;
 import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.v4.app.DialogFragment;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -18,12 +21,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
 
+import valdez.lallave.dagdag.dlsu_profstopick.Beans_Model.Student;
 import valdez.lallave.dagdag.dlsu_profstopick.Beans_Model.Teacher;
 import valdez.lallave.dagdag.dlsu_profstopick.Service.Adapters.CommentAdapter;
 import valdez.lallave.dagdag.dlsu_profstopick.Beans_Model.Comment;
@@ -39,6 +44,9 @@ public class ProfPage extends AppCompatActivity implements OnDialogDismissListen
 
     RecyclerView rvComments;
     DBHandler dbHandler;
+    Teacher prof;
+    Student student;
+    private boolean toggle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,8 +55,9 @@ public class ProfPage extends AppCompatActivity implements OnDialogDismissListen
         dbHandler = new DBHandler(getBaseContext());
 
         SharedPreferences SP = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
-        final Teacher prof     = getIntent().getParcelableExtra("selectedProf");
         final String  reviewer = SP.getString("loggedStudent", "student_email");
+        prof     = getIntent().getParcelableExtra("selectedProf");
+        student  = dbHandler.getStudent(reviewer);
 
 
         ((TextView)findViewById(R.id.tv_ProfName)).setText(prof.getName());
@@ -85,9 +94,29 @@ public class ProfPage extends AppCompatActivity implements OnDialogDismissListen
     @Override
     public void onDialogDismiss() {
 
-//        Toast.makeText(getApplicationContext(), "WAAAA",Toast.LENGTH_SHORT).show();
         finish();
         startActivity(getIntent());
+    }
+
+    public void followProfButton(View view) {
+
+        ImageView ivFollowProf = (ImageView) view.findViewById(R.id.iv_followProf);
+        TextView  tvFollowProf = (TextView) view.findViewById(R.id.tv_followProf);
+//        if(dbHandler.toggleFollowProf()){ // Following
+        if(dbHandler.toggleFollowProf(student, prof)){
+            ivFollowProf.setColorFilter(Color.parseColor("#e98b5b"),
+                                        android.graphics.PorterDuff.Mode.SRC_IN);
+            tvFollowProf.setTextColor(Color.parseColor("#e98b5b"));
+            tvFollowProf.setText("Following");
+            toggle = !toggle;
+        } else {    // Not followed
+            ivFollowProf.setColorFilter(Color.parseColor("#686b68"),
+                                        android.graphics.PorterDuff.Mode.SRC_IN);
+            tvFollowProf.setTextColor(Color.parseColor("#686b68"));
+            tvFollowProf.setText("Follow");
+            toggle = !toggle;
+
+        }
     }
 
     public static class AddRateDialog extends DialogFragment {
@@ -136,7 +165,7 @@ public class ProfPage extends AppCompatActivity implements OnDialogDismissListen
                             String title         = ((EditText) v.findViewById(R.id.et_titleFeedBack)).getText().toString(),
                                    body          = ((EditText) v.findViewById(R.id.et_bodyFeedBack)).getText().toString();
                             float  rating        = ((RatingBar) v.findViewById(R.id.rb_rating)).getRating();
-//                            dbHandler.addNewComment(new Comment(title, body, rating, reviewer, selectedProf.getTeacherId()));
+                            dbHandler.addNewComment(new Comment(title, body, rating, reviewer, selectedProf.getTeacherId()));
                             dismiss();
                         }}).setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
                             @Override

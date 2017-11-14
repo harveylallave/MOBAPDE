@@ -52,14 +52,23 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:orientation="vertical"
-                        android:layout_weight=".2">
+                        android:layout_weight=".2"
+                        android:gravity="center"
+                        android:onClick="followProfButton">
 
-                        <Button
+                        <ImageView
+                            android:layout_width="50dp"
+                            android:layout_height="50dp"
+                            android:src ="@drawable/ic_follow_24dp"
+                            android:tint="#686b68"
+                            android:id="@+id/iv_followProf"
+                            />
+                        <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:id="@+id/followProfButton"
-                            android:text="follow Icon"
-                            android:background="#ffff"/>
+                            android:id="@+id/tv_followProf"
+                            android:text="Follow"
+                            android:textColor="#686b68"/>
                     </LinearLayout>
                 </LinearLayout>
 
