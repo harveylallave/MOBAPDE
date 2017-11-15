@@ -22,7 +22,7 @@ public class DBHandler extends SQLiteOpenHelper {
 
     // All Static variables
     // Database Version
-    private static final int DATABASE_VERSION = 5;
+    private static final int DATABASE_VERSION = 8;
 
     // Database Name
     private static final String DATABASE_NAME = "ProfsToPick";
@@ -305,7 +305,7 @@ public class DBHandler extends SQLiteOpenHelper {
     }
 
 
-    public Boolean validateFollowingProf(Student student, Teacher teacher) {
+    public boolean validateFollowingProf(Student student, Teacher teacher) {
 
         String selectQuery = "SELECT  * FROM " + TABLE_FOLLOWING_PROF +" WHERE studentId = '" + student.getStudentId() +
                 "' and teacherId = '" + teacher.getTeacherId() + "';";
@@ -316,7 +316,7 @@ public class DBHandler extends SQLiteOpenHelper {
         return cursor.moveToFirst();
     }
 
-    public Boolean validateAdmin(String email, String hashedPass) {
+    public boolean validateAdmin(String email, String hashedPass) {
 
         String selectQuery = "SELECT  * FROM " + TABLE_ADMIN +" WHERE email = '" + email +
                              "' and hashedPass = '" + hashedPass + "';";
@@ -327,7 +327,7 @@ public class DBHandler extends SQLiteOpenHelper {
         return cursor.moveToFirst();
     }
 
-    public Boolean validateStudent(String email, String hashedPass) {
+    public boolean validateStudent(String email, String hashedPass) {
 
         String selectQuery = "SELECT  * FROM " + TABLE_STUDENT +" WHERE email = '" + email +
                              "' and hashedPass = '" + hashedPass + "';";
