@@ -38,7 +38,9 @@
                 android:translationZ="1dp"
                 android:inputType="textFilter"
                 android:imeOptions="actionSearch"
-                android:id="@+id/et_followedProf_searchProf"/>
+                android:id="@+id/et_followedProf_searchProf"
+                android:nextFocusUp="@id/et_followedProf_searchProf"
+                android:nextFocusLeft="@id/et_followedProf_searchProf"/>
             <!--<AutoCompleteTextView
                 xmlns:android="http://schemas.android.com/apk/res/android"
                 android:layout_width="match_parent"
