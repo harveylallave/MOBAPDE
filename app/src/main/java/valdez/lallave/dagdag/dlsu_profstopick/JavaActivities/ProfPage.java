@@ -15,11 +15,11 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -41,6 +41,8 @@ public class ProfPage extends AppCompatActivity implements OnDialogDismissListen
     DBHandler dbHandler;
     Teacher prof;
     Student student;
+    Comment ownComment;
+    Button rateButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,10 +50,13 @@ public class ProfPage extends AppCompatActivity implements OnDialogDismissListen
         setContentView(R.layout.prof_page);
         dbHandler = new DBHandler(getBaseContext());
         getSupportActionBar();
+
         SharedPreferences SP   = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
         final String  reviewer = SP.getString("loggedStudent", "student_email");
         prof                   = getIntent().getParcelableExtra("selectedProf");
         student                = dbHandler.getStudent(reviewer);
+        ownComment             = dbHandler.getComment(student, prof);
+        rateButton             = (Button) findViewById(R.id.rateButton);
         ImageView ivFollowProf = (ImageView) findViewById(R.id.iv_profPage_followProf);
         TextView  tvFollowProf = (TextView) findViewById(R.id.tv_profPage_followProf);
         float aveRating        = dbHandler.getAveRateTeacher(prof.getTeacherId());
@@ -75,16 +80,21 @@ public class ProfPage extends AppCompatActivity implements OnDialogDismissListen
             tvFollowProf.setText("Follow");
         }
 
+        if(ownComment == null){
+            rateButton.setText("Rate");
+        } else {
+            rateButton.setText("Update Rating");
+        }
+
         View v = findViewById(R.id.menuPane);
         v.bringToFront();
         HomePage.initializeMenuButtons(v, reviewer);
         final ProfPage profPage = this;
 
-        findViewById(R.id.addRateButton).setOnClickListener(new View.OnClickListener() {
+        rateButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                AddRateDialog dialog = AddRateDialog.newInstance(prof, reviewer, profPage);
-
+                AddRateDialog dialog = AddRateDialog.newInstance(prof, reviewer, profPage, ownComment);
                 dialog.show(getSupportFragmentManager(), "");
             }
         });
@@ -116,12 +126,12 @@ public class ProfPage extends AppCompatActivity implements OnDialogDismissListen
 //        if(dbHandler.toggleFollowProf()){ // Following
         if(dbHandler.toggleFollowProf(student, prof)){
             ivFollowProf.setColorFilter(Color.parseColor("#e98b5b"),
-                                        android.graphics.PorterDuff.Mode.SRC_IN);
+                    android.graphics.PorterDuff.Mode.SRC_IN);
             tvFollowProf.setTextColor(Color.parseColor("#e98b5b"));
             tvFollowProf.setText("Following");
         } else {    // Not followed
             ivFollowProf.setColorFilter(Color.parseColor("#686b68"),
-                                        android.graphics.PorterDuff.Mode.SRC_IN);
+                    android.graphics.PorterDuff.Mode.SRC_IN);
             tvFollowProf.setTextColor(Color.parseColor("#686b68"));
             tvFollowProf.setText("Follow");
         }
@@ -130,8 +140,9 @@ public class ProfPage extends AppCompatActivity implements OnDialogDismissListen
     public static class AddRateDialog extends DialogFragment {
         static OnDialogDismissListener listener;
         static Activity baseActivity;
+        static Comment ownComment;
 
-        public static AddRateDialog newInstance(Teacher prof, String reviewer, Activity activity) {
+        public static AddRateDialog newInstance(Teacher prof, String reviewer, Activity activity, Comment comment) {
             AddRateDialog f = new AddRateDialog();
 
             // Supply num input as an argument.
@@ -141,6 +152,7 @@ public class ProfPage extends AppCompatActivity implements OnDialogDismissListen
             f.setArguments(args);
             listener = (OnDialogDismissListener) activity;
             baseActivity = activity;
+            ownComment = comment;
             return f;
         }
 
@@ -165,21 +177,41 @@ public class ProfPage extends AppCompatActivity implements OnDialogDismissListen
                 }
             });
 
+            if(ownComment != null){
+                ((EditText) v.findViewById(R.id.et_titleFeedBack)).setText(ownComment.getTitle());
+                ((EditText) v.findViewById(R.id.et_bodyFeedBack)).setText(ownComment.getBody());
+                ((RatingBar) v.findViewById(R.id.rb_rating)).setRating(ownComment.getRate());
+            }
+
             builder.setTitle("Rate Professor")
                     .setIcon(R.mipmap.ic_launcher)
                     .setPositiveButton("Submit", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialogInterface, int i) {
                             String title         = ((EditText) v.findViewById(R.id.et_titleFeedBack)).getText().toString(),
-                                   body          = ((EditText) v.findViewById(R.id.et_bodyFeedBack)).getText().toString();
+                                    body          = ((EditText) v.findViewById(R.id.et_bodyFeedBack)).getText().toString();
                             float  rating        = ((RatingBar) v.findViewById(R.id.rb_rating)).getRating();
-                            dbHandler.addNewComment(new Comment(title, body, rating, reviewer, selectedProf.getTeacherId()));
+                            if(ownComment != null) {
+                                ownComment.setTitle(title);
+                                ownComment.setBody(body);
+                                ownComment.setRate(rating);
+                                dbHandler.updateCommentInfo(ownComment);
+                            } else dbHandler.addNewComment(new Comment(title, body, rating, reviewer, selectedProf.getTeacherId()));
                             dismiss();
-                        }}).setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialogInterface, int i) {
-                                dialogInterface.cancel();
+                        }}).setNeutralButton("Cancel", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            dialogInterface.cancel();
                         }}).setView(v);
+
+            if(ownComment != null)
+                builder.setNegativeButton("Delete", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dbHandler.deleteComment(ownComment.getId());
+                        dismiss();
+                    }
+                });
 
             return builder.create();
         }
