@@ -38,13 +38,14 @@ public class SuggestProf extends AppCompatActivity {
                 dept = etDept.getText().toString();
                 boolean valid = true;
                 Suggest s = new Suggest(name,dept,reviewer);
-                if(name.equals(""))
+                if(name.equals("")) {
                     valid = false;
                     etName.setError("Please Fill Up This Field");
-                if(dept.equals(""))
+                }
+                if(dept.equals("")) {
                     valid = false;
                     etDept.setError("Please Fill Up This Field");
-
+                }
 
                 if(valid){
                     dbHandler.addSuggestProf(s);
