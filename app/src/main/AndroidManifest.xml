@@ -17,7 +17,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".JavaActivities.HomePage" />
-        <activity android:name=".JavaActivities.ProfPage"/>
+        <activity android:name=".JavaActivities.ProfPage" android:parentActivityName=".JavaActivities.HomePage"/>
         <activity android:name=".JavaActivities.AndroidDatabaseManager"/>
         <activity android:name=".JavaActivities.RegisterActivity" android:parentActivityName=".JavaActivities.MainActivity"/>
         <activity android:name=".JavaActivities.ChangePassword" android:parentActivityName=".JavaActivities.HomePage"/>

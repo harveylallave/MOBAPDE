@@ -47,7 +47,7 @@ public class ProfPage extends AppCompatActivity implements OnDialogDismissListen
         super.onCreate(savedInstanceState);
         setContentView(R.layout.prof_page);
         dbHandler = new DBHandler(getBaseContext());
-
+        getSupportActionBar();
         SharedPreferences SP   = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
         final String  reviewer = SP.getString("loggedStudent", "student_email");
         prof                   = getIntent().getParcelableExtra("selectedProf");

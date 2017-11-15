@@ -52,9 +52,6 @@ public class MainActivity extends AppCompatActivity {
 //            DBHandler.addNewTeacher(new Teacher("Ms. Teresita Limoanco", "CCS"));
 //            DBHandler.addNewTeacher(new Teacher("Ms. Jocelyn Cu", "CCS"));
 //            DBHandler.addNewTeacher(new Teacher("Ms. Nathalie Lim-Cheng", "CCS"));
-//            DBHandler.addNewTeacher(new Teacher("Ms. Charibeth Cheng", "CCS"));
-//            DBHandler.addNewTeacher(new Teacher("Ms. Charibeth Cheng", "CCS"));
-//            DBHandler.addNewTeacher(new Teacher("Ms. Charibeth Cheng", "CCS"));
 //        } catch (NoSuchAlgorithmException | UnsupportedEncodingException e) {
 //            e.printStackTrace();
 //        }
