@@ -22,7 +22,7 @@ public class DBHandler extends SQLiteOpenHelper {
 
     // All Static variables
     // Database Version
-    private static final int DATABASE_VERSION = 8;
+    private static final int DATABASE_VERSION = 9;
 
     // Database Name
     private static final String DATABASE_NAME = "ProfsToPick";
@@ -33,7 +33,7 @@ public class DBHandler extends SQLiteOpenHelper {
     private static final String TABLE_TEACHER        = "teacher";
     private static final String TABLE_COMMENT        = "comment";
     private static final String TABLE_FOLLOWING_PROF = "following";
-    private static final String TABLE_SUGGEST_PROF = "suggest";
+    private static final String TABLE_SUGGEST_PROF   = "suggest";
 
     // Contacts Table Columns names
     private static final String KEY_ID = "id";
@@ -86,10 +86,12 @@ public class DBHandler extends SQLiteOpenHelper {
                 + KEY_ID + " INTEGER PRIMARY KEY,"
                 + KEY_FOLLOWING_PROF_STUDENTID + " INTEGER ,"
                 + KEY_FOLLOWING_PROF_TEACHERID + " INTEGER " + ")";
+
         String CREATE_SUGGEST_PROF_TABLE = "CREATE TABLE " + TABLE_SUGGEST_PROF + "("
+                + KEY_ID + " INTEGER PRIMARY KEY,"
                 + KEY_SUGGEST_PROF_NAME + " TEXT,"
                 + KEY_SUGGEST_PROF_DEPARTMENT + " TEXT,"
-                + KEY_SUGGEST_PROF_SUGGESTEDBY + " TEXT," + ")";
+                + KEY_SUGGEST_PROF_SUGGESTEDBY + " TEXT" + ")";
 
         db.execSQL(CREATE_STUDENT_DETAIL_TABLE);
         db.execSQL(CREATE_ADMIN_TABLE);
@@ -107,6 +109,7 @@ public class DBHandler extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_ADMIN);
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_TEACHER);
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_COMMENT);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_FOLLOWING_PROF);
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_SUGGEST_PROF);
 
         // Create tables again
