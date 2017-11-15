@@ -6,6 +6,12 @@
     android:layout_height="match_parent"
     android:orientation="horizontal">
 
+    <!-- Dummy item to prevent AutoCompleteTextView from receiving focus -->
+    <LinearLayout
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:layout_width="0px"
+        android:layout_height="0px"/>
 
     <android.support.v4.widget.DrawerLayout
         android:layout_width="match_parent"
@@ -32,7 +38,9 @@
                 android:translationZ="1dp"
                 android:inputType="textFilter"
                 android:imeOptions="actionSearch"
-                android:id="@+id/et_followedProf_searchProf"/>
+                android:id="@+id/et_followedProf_searchProf"
+                android:nextFocusUp="@id/et_followedProf_searchProf"
+                android:nextFocusLeft="@id/et_followedProf_searchProf"/>
             <!--<AutoCompleteTextView
                 xmlns:android="http://schemas.android.com/apk/res/android"
                 android:layout_width="match_parent"

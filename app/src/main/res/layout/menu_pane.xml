@@ -11,7 +11,8 @@
         android:layout_height="match_parent"
         android:layout_weight=".725"
         android:orientation="vertical"
-        android:background="#086848">
+        android:background="#086848"
+        android:id="@+id/menuLinearLayout">
 
         <!-- Profile Box -->
         <LinearLayout
