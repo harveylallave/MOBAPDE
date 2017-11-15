@@ -149,8 +149,6 @@ public class DBHandler extends SQLiteOpenHelper {
 
     }
 
-
-
     public void addFollowProf(Student student, Teacher teacher) {
 
         SQLiteDatabase db = this.getWritableDatabase();
@@ -163,7 +161,6 @@ public class DBHandler extends SQLiteOpenHelper {
         db.insert(TABLE_FOLLOWING_PROF, null, values);
         db.close();
     }
-
 
     public void addNewComment(Comment newComment) {
 
@@ -307,7 +304,6 @@ public class DBHandler extends SQLiteOpenHelper {
 
     }
 
-
     public boolean validateFollowingProf(Student student, Teacher teacher) {
 
         String selectQuery = "SELECT  * FROM " + TABLE_FOLLOWING_PROF +" WHERE studentId = '" + student.getStudentId() +
@@ -390,6 +386,29 @@ public class DBHandler extends SQLiteOpenHelper {
         return nReviews;
     }
 
+    public Comment getComment(Student student, Teacher teacher) {
+
+        Comment comment    = null;
+        String selectQuery = "SELECT  * FROM " + TABLE_COMMENT +" WHERE " +
+                KEY_COMMENT_REVIEWER + " = '" + student.getEmail() +
+                "' and " + KEY_COMMENT_TEACHERID + " = '" +
+                teacher.getTeacherId() + "';";
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery(selectQuery, null);
+
+        if (cursor.moveToFirst()) {
+            comment = new Comment();
+            comment.setId(cursor.getInt(0));
+            comment.setTitle(cursor.getString(1));
+            comment.setBody(cursor.getString(2));
+            comment.setRate(cursor.getFloat(3));
+            comment.setReviewer(cursor.getString(4));
+            comment.setTeacherID(cursor.getInt(5));
+        }
+
+        return comment;
+    }
 
     public Student getStudent(String reviewer) {
 
@@ -561,6 +580,34 @@ public class DBHandler extends SQLiteOpenHelper {
         return studentList;
     }
 
+    public List<Suggest> getAllSuggestions() {
+
+        List<Suggest> suggestList = new ArrayList<Suggest>();
+
+        // Select All Query
+        String selectQuery = "SELECT  * FROM " + TABLE_SUGGEST_PROF;
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery(selectQuery, null);
+
+        // looping through all rows and adding to list
+        if (cursor.moveToFirst()) {
+            do {
+
+                Suggest suggest = new Suggest();
+                suggest.setName(cursor.getString(0));
+                suggest.setDepartment(cursor.getString(1));
+                suggest.setSuggestedBy(cursor.getString(2));
+
+
+                suggestList.add(suggest);
+
+            } while (cursor.moveToNext());
+        }
+
+        return suggestList;
+    }
+
     public ArrayList<Cursor> getData(String Query){
         //get writable database
         SQLiteDatabase sqlDB = this.getWritableDatabase();
@@ -604,32 +651,4 @@ public class DBHandler extends SQLiteOpenHelper {
             return alc;
         }
     }
-    public List<Suggest> getAllSuggestions() {
-
-        List<Suggest> suggestList = new ArrayList<Suggest>();
-
-        // Select All Query
-        String selectQuery = "SELECT  * FROM " + TABLE_SUGGEST_PROF;
-
-        SQLiteDatabase db = this.getWritableDatabase();
-        Cursor cursor = db.rawQuery(selectQuery, null);
-
-        // looping through all rows and adding to list
-        if (cursor.moveToFirst()) {
-            do {
-
-                Suggest suggest = new Suggest();
-                suggest.setName(cursor.getString(0));
-                suggest.setDepartment(cursor.getString(1));
-                suggest.setSuggestedBy(cursor.getString(2));
-
-
-                suggestList.add(suggest);
-
-            } while (cursor.moveToNext());
-        }
-
-        return suggestList;
-    }
-
 }
