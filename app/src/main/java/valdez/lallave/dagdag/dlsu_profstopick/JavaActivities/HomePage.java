@@ -1,31 +1,23 @@
 package valdez.lallave.dagdag.dlsu_profstopick.JavaActivities;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.os.Parcelable;
 import android.preference.PreferenceManager;
 import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
-import android.text.Layout;
 import android.text.TextWatcher;
 import android.view.KeyEvent;
-import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
-import android.widget.ArrayAdapter;
-import android.widget.AutoCompleteTextView;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -42,6 +34,7 @@ public class HomePage extends AppCompatActivity {
     DrawerLayout drawerLayout;
     private ActionBarDrawerToggle mToggle;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -55,12 +48,12 @@ public class HomePage extends AppCompatActivity {
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-
         SharedPreferences SP          = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
         final String  reviewer        = SP.getString("loggedStudent", "student_email");
         rvTeachers                    = (RecyclerView) findViewById(R.id.rv_teachers);
         DBHandler                     = new DBHandler(getBaseContext());
         etSearch                      = (EditText) findViewById(R.id.et_searchProf) ;
+
 //        AutoCompleteTextView autoCompleteTextView = (AutoCompleteTextView) findViewById(R.id.autoComplete_searchProf);
 
 //        ArrayList<Teacher> teachers = new ArrayList<>();
@@ -117,7 +110,7 @@ public class HomePage extends AppCompatActivity {
                 boolean handled = false;
                 if (actionId == EditorInfo.IME_ACTION_SEARCH || event.getKeyCode() == KeyEvent.KEYCODE_ENTER) {
 
-                    TeacherAdapter ta = new TeacherAdapter(new ArrayList<>(DBHandler.searchTeacher(v.getText().toString())));
+                    TeacherAdapter ta = new TeacherAdapter(new ArrayList<>(DBHandler.getTeacher(v.getText().toString())));
                     ta.setOnItemClickListener(taOnItemClickListener);
 
                     rvTeachers.setAdapter(ta);
@@ -151,6 +144,7 @@ public class HomePage extends AppCompatActivity {
         v.bringToFront();                       // <--- IMPORTANT MENUPANE IS IN THE BACK (backend)
         initializeMenuButtons(v, reviewer);
     }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item){
 
@@ -158,7 +152,6 @@ public class HomePage extends AppCompatActivity {
             return true;
         return super.onOptionsItemSelected(item);
     }
-
     @Override
     protected void onRestart() {
         super.onRestart();
@@ -170,10 +163,12 @@ public class HomePage extends AppCompatActivity {
     public static void initializeMenuButtons(View v, String reviewer){
 
 
-        TextView emailMenuItem  = ((TextView)v.findViewById(R.id.tv_emailMenuItem));
-        TextView logoutMenuItem = ((TextView)v.findViewById(R.id.logoutMenuItem));
-        TextView changePassItem = ((TextView)v.findViewById(R.id.changePassMenuItem));
-        TextView suggestProf = ((TextView)v.findViewById(R.id.suggestProfMenuItem));
+        TextView emailMenuItem  = ((TextView)v.findViewById(R.id.tv_emailMenuItem)),
+                followedProfMenuItem  = ((TextView)v.findViewById(R.id.followedProfMenuItem)),
+                logoutMenuItem = ((TextView)v.findViewById(R.id.logoutMenuItem)),
+                changePassItem = ((TextView)v.findViewById(R.id.changePassMenuItem)),
+                suggestProfMenuItem = ((TextView)v.findViewById(R.id.suggestProfMenuItem));
+
         emailMenuItem.setText(reviewer);
 
         // TODO Link menuitems(followed profs, suggest a prof, change pass)
@@ -186,13 +181,22 @@ public class HomePage extends AppCompatActivity {
             }
         });
 
-        suggestProf.setOnClickListener(new View.OnClickListener() {
+        followedProfMenuItem.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent I = new Intent(v.getContext(), FollowedProf.class);
+                v.getContext().startActivity(I);
+            }
+        });
+
+        suggestProfMenuItem.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent I = new Intent(v.getContext(), SuggestProf.class);
                 v.getContext().startActivity(I);
             }
         });
+
         logoutMenuItem.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

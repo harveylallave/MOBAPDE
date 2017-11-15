@@ -22,6 +22,7 @@
         <activity android:name=".JavaActivities.RegisterActivity" android:parentActivityName=".JavaActivities.MainActivity"/>
         <activity android:name=".JavaActivities.ChangePassword" android:parentActivityName=".JavaActivities.HomePage"/>
         <activity android:name=".JavaActivities.SuggestProf" android:parentActivityName=".JavaActivities.HomePage"/>
+        <activity android:name=".JavaActivities.FollowedProf" android:parentActivityName=".JavaActivities.HomePage"/>
 
 
     </application>

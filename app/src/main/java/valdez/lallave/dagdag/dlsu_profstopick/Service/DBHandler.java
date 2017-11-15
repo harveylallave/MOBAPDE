@@ -466,7 +466,7 @@ public class DBHandler extends SQLiteOpenHelper {
     }
 
 
-    public List<Teacher> searchTeacher(String teacherName) {
+    public List<Teacher> getTeacher(String teacherName) {
 
         List<Teacher> teacherList = new ArrayList<>();
 
@@ -488,6 +488,41 @@ public class DBHandler extends SQLiteOpenHelper {
                 teacher.setAveRating(getAveRateTeacher(teacher.getTeacherId()));
                 teacher.setnReviews(getNReviewsTeacher(teacher.getTeacherId()));
                 System.out.println(teacher.getName());
+                teacherList.add(teacher);
+
+            } while (cursor.moveToNext());
+        }
+
+        return teacherList;
+    }
+
+    public List<Teacher> getAllFollowedTeachers(Student student) {
+
+        List<Teacher> teacherList = new ArrayList<Teacher>();
+// id / teacherName/ teacherDepartment
+        // Select All Query
+        String selectQuery = "SELECT t." + KEY_ID + ", t." + KEY_TEACHER_NAME +
+                                ", t." + KEY_TEACHER_DEPARTMENT +
+                             " FROM " + TABLE_FOLLOWING_PROF + " AS fP, " +
+                                TABLE_TEACHER + " AS t " +
+                             "WHERE fp." + KEY_FOLLOWING_PROF_STUDENTID +
+                                 " = " + student.getStudentId() + " AND fp." +
+                                 KEY_FOLLOWING_PROF_TEACHERID + " = t." + KEY_ID;
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery(selectQuery, null);
+
+        // looping through all rows and adding to list
+        if (cursor.moveToFirst()) {
+            do {
+
+                Teacher teacher = new Teacher();
+                teacher.setTeacherId(Integer.parseInt(cursor.getString(0)));
+                teacher.setName(cursor.getString(1));
+                teacher.setDepartment(cursor.getString(2));
+                teacher.setAveRating(getAveRateTeacher(teacher.getTeacherId()));
+                teacher.setnReviews(getNReviewsTeacher(teacher.getTeacherId()));
+
                 teacherList.add(teacher);
 
             } while (cursor.moveToNext());

@@ -13,10 +13,6 @@ import valdez.lallave.dagdag.dlsu_profstopick.Beans_Model.Teacher;
 import valdez.lallave.dagdag.dlsu_profstopick.R;
 import valdez.lallave.dagdag.dlsu_profstopick.Service.DBHandler;
 
-/**
- * Created by Carlo Valdez on 11/15/2017.
- */
-
 public class SuggestProf extends AppCompatActivity {
 
     EditText etName,etDept;
