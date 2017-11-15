@@ -33,21 +33,23 @@ public class SuggestProf extends AppCompatActivity {
 
         etName = (EditText) findViewById(R.id.et_Name);
         etDept = (EditText) findViewById(R.id.et_Department);
-        name = etName.getText().toString();
-        dept = etDept.getText().toString();
         dbHandler = new DBHandler(getBaseContext());
-        final Suggest s = new Suggest(name,dept,reviewer);
+
         findViewById(R.id.suggestProfButton).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(name!=null && dept!=null){
+                name = etName.getText().toString();
+                dept = etDept.getText().toString();
+                Suggest s = new Suggest(name,dept,reviewer);
+                if(name.equals("")){
+                    etName.setError("Please Fill Up This Field");
+                }else if(dept.equals(""))
+                    etDept.setError("Please Fill Up This Field");
+                else {
                     dbHandler.addSuggestProf(s);
                     Toast.makeText(SuggestProf.this, "Suggestion Received", Toast.LENGTH_SHORT).show();
                     finish();
-                }else if(name == null)
-                    etName.setError("Please Fill Up This Field");
-                else if(dept == null)
-                    etDept.setError("Please Fill Up This Field");
+                }
             }
         });
 
