@@ -17,7 +17,9 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -169,6 +171,7 @@ public class HomePage extends AppCompatActivity {
                 changePassItem = ((TextView)v.findViewById(R.id.changePassMenuItem)),
                 suggestProfMenuItem = ((TextView)v.findViewById(R.id.suggestProfMenuItem));
 
+        LinearLayout menuLinearLayout = (LinearLayout) v.findViewById(R.id.menuLinearLayout);
         emailMenuItem.setText(reviewer);
 
         // TODO Link menuitems(followed profs, suggest a prof, change pass)
@@ -211,6 +214,11 @@ public class HomePage extends AppCompatActivity {
 
                 ((Activity) v.getContext()).finish();
             }
+        });
+
+        menuLinearLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {}
         });
 
 

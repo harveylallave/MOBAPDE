@@ -14,7 +14,8 @@
         android:layout_height="wrap_content"
         android:layout_weight="3"
         android:layout_marginTop="10dp"
-        android:layout_marginBottom="30dp">
+        android:layout_marginBottom="30dp"
+        android:translationZ="1dp">
 
         <ImageView
             android:layout_width="100dp"
@@ -29,7 +30,7 @@
             android:text="DLSU\nProfs\nTo\nPick"
             android:textSize="30sp"
             android:textStyle="bold"
-            android:textColor="#0f0f0f"
+            android:textColor="#224d39"
             android:layout_gravity="center"
             />
     </LinearLayout>
@@ -94,7 +95,7 @@
                 android:layout_weight="1"
                 android:gravity="center"
                 android:text="Create Account?"
-                android:textColor="#006f4a" /><!--TODO ^ not sure -->
+                android:textColor="#f1fff1" />
 
 
             <TextView
@@ -104,7 +105,7 @@
                 android:layout_weight="1"
                 android:gravity="center"
                 android:text="Forgot Password?"
-                android:textColor="#006f4a" />
+                android:textColor="#f1fff1" />
 
         </LinearLayout>
 
