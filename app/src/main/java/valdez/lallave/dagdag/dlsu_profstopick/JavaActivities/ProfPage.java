@@ -125,9 +125,9 @@ public class ProfPage extends AppCompatActivity implements OnDialogDismissListen
         TextView  tvFollowProf = (TextView) view.findViewById(R.id.tv_profPage_followProf);
 //        if(dbHandler.toggleFollowProf()){ // Following
         if(dbHandler.toggleFollowProf(student, prof)){
-            ivFollowProf.setColorFilter(Color.parseColor("#e98b5b"),
+            ivFollowProf.setColorFilter(Color.parseColor("#ff9763"),
                     android.graphics.PorterDuff.Mode.SRC_IN);
-            tvFollowProf.setTextColor(Color.parseColor("#e98b5b"));
+            tvFollowProf.setTextColor(Color.parseColor("#ff9763"));
             tvFollowProf.setText("Following");
         } else {    // Not followed
             ivFollowProf.setColorFilter(Color.parseColor("#686b68"),
