@@ -21,6 +21,12 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
 import java.util.ArrayList;
 
 import valdez.lallave.dagdag.dlsu_profstopick.Service.Adapters.TeacherAdapter;
@@ -76,7 +82,45 @@ public class HomePage extends AppCompatActivity {
 //        teachers.add(new Teacher("Dr. Florante Salvador", R.mipmap.ic_launcher));
 
 //
-        ArrayList<Teacher> teacherArrayList = new ArrayList<>(DBHandler.getAllTeachers());
+
+        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
+        final DatabaseReference teacherDatabaseReference = databaseReference.child("teacher");
+        final ArrayList<Teacher> teacherArrayList = new ArrayList<>(DBHandler.getAllTeachers());
+
+        teacherDatabaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for(DataSnapshot teacherSnapshot : dataSnapshot.getChildren()){
+                    Teacher teacher = teacherSnapshot.getValue(Teacher.class);
+                    teacherArrayList.add(teacher);
+                }
+                TeacherAdapter ta = new TeacherAdapter(teacherArrayList);
+                final TeacherAdapter.OnItemClickListener taOnItemClickListener = new TeacherAdapter.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(Teacher t) {
+                        Intent i = new Intent();
+
+                        i.putExtra("selectedProf", t);
+                        i.setClass(getBaseContext(), ProfPage.class);
+
+                        startActivityForResult(i, 0);
+                    }
+                };
+
+                // Dynamic onClickListener
+                ta.setOnItemClickListener(taOnItemClickListener);
+
+                rvTeachers.setAdapter(ta);
+                rvTeachers.setLayoutManager(new LinearLayoutManager(getBaseContext(), LinearLayoutManager.VERTICAL, false));
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+
 //        ArrayList<String>  teacherNames     = new ArrayList<>();
 //
 //        for(Teacher t : teacherArrayList)
@@ -84,10 +128,13 @@ public class HomePage extends AppCompatActivity {
 
 //        String[] countries = getResources().getStringArray(R.array.countries_array);
 
-        TeacherAdapter ta = new TeacherAdapter(teacherArrayList);
+/*        final ArrayList<Teacher> teacherArrayList = new ArrayList<>(DBHandler.getAllTeachers());
+        TeacherAdapter ta = new TeacherAdapter(teacherArrayList);*/
 //        ArrayAdapter<String> autoCompleteAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, teacherNames);
 //        autoCompleteTextView.setAdapter(autoCompleteAdapter);
-        final TeacherAdapter.OnItemClickListener taOnItemClickListener = new TeacherAdapter.OnItemClickListener() {
+
+
+/*        final TeacherAdapter.OnItemClickListener taOnItemClickListener = new TeacherAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(Teacher t) {
                 Intent i = new Intent();
@@ -103,10 +150,10 @@ public class HomePage extends AppCompatActivity {
         ta.setOnItemClickListener(taOnItemClickListener);
 
         rvTeachers.setAdapter(ta);
-        rvTeachers.setLayoutManager(new LinearLayoutManager(getBaseContext(), LinearLayoutManager.VERTICAL, false));
+        rvTeachers.setLayoutManager(new LinearLayoutManager(getBaseContext(), LinearLayoutManager.VERTICAL, false));*/
 
 
-        etSearch.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+ /*       etSearch.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
                 boolean handled = false;
@@ -140,7 +187,7 @@ public class HomePage extends AppCompatActivity {
                 }
             }
         });
-
+*/
 
         View v = findViewById(R.id.menuPane);
         v.bringToFront();                       // <--- IMPORTANT MENUPANE IS IN THE BACK (backend)

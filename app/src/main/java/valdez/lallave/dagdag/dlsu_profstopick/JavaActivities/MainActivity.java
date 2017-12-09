@@ -5,12 +5,19 @@ import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.io.UnsupportedEncodingException;
 import java.security.NoSuchAlgorithmException;
@@ -44,6 +51,12 @@ public class MainActivity extends AppCompatActivity {
             finish();
         }
 
+//        try {
+//        DBHandler.addNewAdmin(new Admin("profs_to_pick@dlsu.edu.ph", PasswordAuthentication.SHA1("1234")));
+//        } catch (NoSuchAlgorithmException | UnsupportedEncodingException e) {
+//            e.printStackTrace();
+//        }
+
 //        Temporary register
 //        try {
 //            DBHandler.addNewAdmin(new Admin("profs_to_pick@dlsu.edu.ph", PasswordAuthentication.SHA1("1234")));
@@ -57,33 +70,72 @@ public class MainActivity extends AppCompatActivity {
 //            e.printStackTrace();
 //        }
 
+        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
+        final DatabaseReference studentDatabaseReference = databaseReference.child("student");
+
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-                String email = ((EditText)findViewById(R.id.usernameET)).getText().toString(),
+                final String email = ((EditText)findViewById(R.id.usernameET)).getText().toString(),
                        pass  = ((EditText)findViewById(R.id.passwordET)).getText().toString();
-                EditText clearPass = (EditText)findViewById(R.id.passwordET);
+                final EditText clearPass = (EditText)findViewById(R.id.passwordET);
 
                 try {
-                    if(DBHandler.validateStudent(email, PasswordAuthentication.SHA1(pass))) {
-                        SharedPreferences SP = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
-                        SharedPreferences.Editor SPE = SP.edit();
-                        SPE.putString("loggedStudent", email);
-                        SPE.apply();
+                    final String hashedPass = PasswordAuthentication.SHA1(pass);
+                    studentDatabaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+                        boolean checkStudent=false;
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+                            for (DataSnapshot studentSnapshot : dataSnapshot.getChildren()) {
+                                if(studentSnapshot.getValue(Student.class).getEmail().equals(email) && studentSnapshot.getValue(Student.class).getHashedPass().equals(hashedPass)){
+                                    checkStudent=true;
+                                    break;
+                                }else {
+                                    checkStudent = false;
+                                }
+                            }
+                            if(checkStudent){
+                                SharedPreferences SP = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
+                                SharedPreferences.Editor SPE = SP.edit();
+                                SPE.putString("loggedStudent", email);
+                                SPE.apply();
 
-                        startActivity(new Intent(getBaseContext(), HomePage.class));
-                        finish();
-                    } else if (DBHandler.validateAdmin(email, PasswordAuthentication.SHA1(pass))) {
-                        startActivity(new Intent(getBaseContext(), AndroidDatabaseManager.class));
-                        finish();
-                    } else {
-                        clearPass.setText("");
-                        Toast.makeText(getApplicationContext(), "Invalid email or password", Toast.LENGTH_LONG).show();
-                    }
-                } catch (NoSuchAlgorithmException | UnsupportedEncodingException e) {
+                                startActivity(new Intent(getBaseContext(), HomePage.class));
+                                finish();
+                            }else {
+                                clearPass.setText("");
+                                Toast.makeText(getApplicationContext(), "Invalid email or password", Toast.LENGTH_LONG).show();
+                            }
+                        }
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
+
+                        }
+                    });
+                }catch (NoSuchAlgorithmException | UnsupportedEncodingException e) {
                     e.printStackTrace();
                 }
+
+//                try {
+//                    if(DBHandler.validateStudent(email, PasswordAuthentication.SHA1(pass))) {
+//
+//                        SharedPreferences SP = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
+//                        SharedPreferences.Editor SPE = SP.edit();
+//                        SPE.putString("loggedStudent", email);
+//                        SPE.apply();
+//
+//                        startActivity(new Intent(getBaseContext(), HomePage.class));
+//                        finish();
+//                    } else if (DBHandler.validateAdmin(email, PasswordAuthentication.SHA1(pass))) {
+//                        startActivity(new Intent(getBaseContext(), AndroidDatabaseManager.class));
+//                        finish();
+//                    } else {
+//                        clearPass.setText("");
+//                        Toast.makeText(getApplicationContext(), "Invalid email or password", Toast.LENGTH_LONG).show();
+//                    }
+//                } catch (NoSuchAlgorithmException | UnsupportedEncodingException e) {
+//                    e.printStackTrace();
+//                }
             }
         });
         registerView.setOnClickListener(new View.OnClickListener() {

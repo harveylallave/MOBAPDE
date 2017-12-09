@@ -21,6 +21,9 @@ import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
 import java.util.ArrayList;
 
 import valdez.lallave.dagdag.dlsu_profstopick.Beans_Model.Student;
@@ -44,11 +47,16 @@ public class ProfPage extends AppCompatActivity implements OnDialogDismissListen
     Comment ownComment;
     Button rateButton;
 
+    DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
+    final DatabaseReference studentDatabaseReference = databaseReference.child("student");
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.prof_page);
         dbHandler = new DBHandler(getBaseContext());
+
+
         getSupportActionBar();
 
         SharedPreferences SP   = PreferenceManager.getDefaultSharedPreferences(getBaseContext());

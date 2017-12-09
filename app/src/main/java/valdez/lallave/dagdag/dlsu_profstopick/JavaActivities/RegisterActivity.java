@@ -2,11 +2,18 @@ package valdez.lallave.dagdag.dlsu_profstopick.JavaActivities;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.io.UnsupportedEncodingException;
 import java.security.NoSuchAlgorithmException;
@@ -28,9 +35,12 @@ public class RegisterActivity extends AppCompatActivity {
     Button rButton;
     DBHandler DBHandler;
     String emailPattern = "[a-zA-Z0-9._-]+@dlsu+\\.+edu+\\.+ph+",
-           email,
            password,
            rPassword;
+
+
+    DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
+    final DatabaseReference studentDatabaseReference = databaseReference.child("student");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,42 +60,56 @@ public class RegisterActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                email         = etEmail.getText().toString();
+                final String email = etEmail.getText().toString();
                 password      = etPass.getText().toString();
                 rPassword     = etRpass.getText().toString();
-                boolean valid = true;
 
-                if(!validateRPassword(password, rPassword))
-                    valid = false;
-                if(!validatePassword((password)))
-                    valid = false;
-                if(!validateEmail(email))
-                    valid = false;
+                studentDatabaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+                    boolean checkEmail=true;
+                    boolean checkPass=true;
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        if(!validateRPassword(password, rPassword))
+                            checkPass = false;
+                        if(!validatePassword((password)))
+                            checkPass = false;
+                        if(email.matches(emailPattern)) { //Checks if email pattern has been satisfied
+                            for (DataSnapshot studentSnapshot : dataSnapshot.getChildren()) {
+                                Log.e("My tag", studentSnapshot.getValue(Student.class).getEmail());
+                                if(studentSnapshot.getValue(Student.class).getEmail().equals(email)){
+                                    checkEmail=false;
+                                    break;
+                                }else
+                                    checkEmail = true;
+                            }
 
-                if (valid) {
-                    try {
-                        DBHandler.addNewStudent(new Student(email, PasswordAuthentication.SHA1(password)));
+                            if(checkEmail&&checkPass) { //Success
+                                try {
+                                    DBHandler.addNewStudent(new Student(email, PasswordAuthentication.SHA1(password)));
 
-                        Toast.makeText(getApplicationContext(), email + " added to the db", Toast.LENGTH_SHORT).show();
-                        finish();
-                    } catch (NoSuchAlgorithmException | UnsupportedEncodingException e) {
-                        e.printStackTrace();
+                                    Toast.makeText(getApplicationContext(), email + " added to the db", Toast.LENGTH_SHORT).show();
+                                    finish();
+                                } catch (NoSuchAlgorithmException | UnsupportedEncodingException e) {
+                                    e.printStackTrace();
+                                }
+                            }else if(checkEmail==false &&checkPass==true) {
+                                etEmail.setError("Email already exists");
+                                etEmail.requestFocus();
+                            }
+                        }else{
+
+                        }
+
                     }
-                }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+
+                    }
+                });
+
             }
         });
-    }
-
-    protected boolean validateEmail(String email){
-        if(email.matches(emailPattern))
-            if(!DBHandler.validateStudent(email))
-                 return true;
-            else etEmail.setError("Email already exists");
-        else     etEmail.setError("Email\'s domain must be @dlsu.edu.ph");
-
-
-        etEmail.requestFocus();
-        return false;
     }
 
     protected boolean validatePassword(String password){

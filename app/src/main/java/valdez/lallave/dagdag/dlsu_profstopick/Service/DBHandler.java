@@ -31,6 +31,7 @@ public class DBHandler extends SQLiteOpenHelper {
     final DatabaseReference studentDatabaseReference = databaseReference.child("student");
     final DatabaseReference teacherDatabaseReference = databaseReference.child("teacher");
     final DatabaseReference commentDatabaseReference = databaseReference.child("comment");
+    final DatabaseReference adminDatabaseReference = databaseReference.child("admin");
 
     String key;
 
@@ -195,7 +196,7 @@ public class DBHandler extends SQLiteOpenHelper {
     }
 
     public void addNewTeacher(Teacher newTeacher) {
-        key = studentDatabaseReference.push().getKey();
+        key = teacherDatabaseReference.push().getKey();
 
         teacherDatabaseReference.child(key).setValue(newTeacher);
 
@@ -211,16 +212,18 @@ public class DBHandler extends SQLiteOpenHelper {
     }
 
     public void addNewAdmin(Admin newAdmin) {
+        key = adminDatabaseReference.push().getKey();
 
-        SQLiteDatabase db = this.getWritableDatabase();
-
-        ContentValues values = new ContentValues();
-
-        values.put(KEY_EMAIL, newAdmin.getEmail());
-        values.put(KEY_HASHED_PASS, newAdmin.getHashedPass());
-
-        db.insert(TABLE_ADMIN, null, values);
-        db.close();
+        adminDatabaseReference.child(key).setValue(newAdmin);
+//        SQLiteDatabase db = this.getWritableDatabase();
+//
+//        ContentValues values = new ContentValues();
+//
+//        values.put(KEY_EMAIL, newAdmin.getEmail());
+//        values.put(KEY_HASHED_PASS, newAdmin.getHashedPass());
+//
+//        db.insert(TABLE_ADMIN, null, values);
+//        db.close();
     }
 
     public void addNewStudent(Student newStud) {
@@ -347,47 +350,6 @@ public class DBHandler extends SQLiteOpenHelper {
         Cursor cursor = db.rawQuery(selectQuery, null);
 
         return cursor.moveToFirst();
-    }
-
-    public boolean validateStudent(String email, String hashedPass) {
-
-        String selectQuery = "SELECT  * FROM " + TABLE_STUDENT +" WHERE email = '" + email +
-                             "' and hashedPass = '" + hashedPass + "';";
-
-        SQLiteDatabase db = this.getWritableDatabase();
-        Cursor cursor = db.rawQuery(selectQuery, null);
-
-        return cursor.moveToFirst();
-    }
-
-
-
-
-    public static boolean valid;
-    public boolean validateStudent(String email) {
-        final String Email = email;
-        studentDatabaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                for(DataSnapshot studentSnapshot : dataSnapshot.getChildren()) {
-                    if (studentSnapshot.getValue(Student.class).getEmail().equals(Email))
-                        Log.e("my tag", "COMPARE: " + studentSnapshot.getValue(Student.class).getEmail() + "  WITH: " + Email);
-                }
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
-
-//        String selectQuery = "SELECT  * FROM " + TABLE_STUDENT +" WHERE email = '" + email + "';";
-//
-//        SQLiteDatabase db = this.getWritableDatabase();
-//        Cursor cursor = db.rawQuery(selectQuery, null);
-//
-//        return cursor.moveToFirst();
-            return valid;
     }
 
 
