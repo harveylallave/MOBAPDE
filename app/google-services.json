@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "640450567301",
+    "firebase_url": "https://mobapde-46925.firebaseio.com",
+    "project_id": "mobapde-46925",
+    "storage_bucket": "mobapde-46925.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:640450567301:android:1e515823c1cbdce9",
+        "android_client_info": {
+          "package_name": "valdez.lallave.dagdag.dlsu_profstopick"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "640450567301-qfueu2pjcp12qlf90qejthlgf2q4j23q.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB7qhI7S6un-njnAcgDSg66G2YEnAcfjyM"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -7,7 +7,14 @@ import android.database.MatrixCursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.provider.SyncStateContract;
 import android.util.Log;
+
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,6 +26,13 @@ import valdez.lallave.dagdag.dlsu_profstopick.Beans_Model.Suggest;
 import valdez.lallave.dagdag.dlsu_profstopick.Beans_Model.Teacher;
 
 public class DBHandler extends SQLiteOpenHelper {
+    //Firebase variable
+    DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
+    final DatabaseReference studentDatabaseReference = databaseReference.child("student");
+    final DatabaseReference teacherDatabaseReference = databaseReference.child("teacher");
+    final DatabaseReference commentDatabaseReference = databaseReference.child("comment");
+
+    String key;
 
     // All Static variables
     // Database Version
@@ -163,32 +177,37 @@ public class DBHandler extends SQLiteOpenHelper {
     }
 
     public void addNewComment(Comment newComment) {
+        key = studentDatabaseReference.push().getKey();
 
-        SQLiteDatabase db = this.getWritableDatabase();
-
-        ContentValues values = new ContentValues();
-
-        values.put(KEY_COMMENT_TITLE, newComment.getTitle());
-        values.put(KEY_COMMENT_BODY, newComment.getBody());
-        values.put(KEY_COMMENT_RATING, newComment.getRate());
-        values.put(KEY_COMMENT_REVIEWER, newComment.getReviewer());
-        values.put(KEY_COMMENT_TEACHERID, newComment.getTeacherID());
-
-        db.insert(TABLE_COMMENT, null, values);
-        db.close();
+        commentDatabaseReference.child(key).setValue(newComment);
+//        SQLiteDatabase db = this.getWritableDatabase();
+//
+//        ContentValues values = new ContentValues();
+//
+//        values.put(KEY_COMMENT_TITLE, newComment.getTitle());
+//        values.put(KEY_COMMENT_BODY, newComment.getBody());
+//        values.put(KEY_COMMENT_RATING, newComment.getRate());
+//        values.put(KEY_COMMENT_REVIEWER, newComment.getReviewer());
+//        values.put(KEY_COMMENT_TEACHERID, newComment.getTeacherID());
+//
+//        db.insert(TABLE_COMMENT, null, values);
+//        db.close();
     }
 
     public void addNewTeacher(Teacher newTeacher) {
+        key = studentDatabaseReference.push().getKey();
 
-        SQLiteDatabase db = this.getWritableDatabase();
+        teacherDatabaseReference.child(key).setValue(newTeacher);
 
-        ContentValues values = new ContentValues();
-
-        values.put(KEY_TEACHER_NAME, newTeacher.getName());
-        values.put(KEY_TEACHER_DEPARTMENT, newTeacher.getDepartment());
-
-        db.insert(TABLE_TEACHER, null, values);
-        db.close();
+//        SQLiteDatabase db = this.getWritableDatabase();
+//
+//        ContentValues values = new ContentValues();
+//
+//        values.put(KEY_TEACHER_NAME, newTeacher.getName());
+//        values.put(KEY_TEACHER_DEPARTMENT, newTeacher.getDepartment());
+//
+//        db.insert(TABLE_TEACHER, null, values);
+//        db.close();
     }
 
     public void addNewAdmin(Admin newAdmin) {
@@ -205,18 +224,22 @@ public class DBHandler extends SQLiteOpenHelper {
     }
 
     public void addNewStudent(Student newStud) {
+        key = studentDatabaseReference.push().getKey();
 
-        SQLiteDatabase db = this.getWritableDatabase();
-
-        ContentValues values = new ContentValues();
-
-        values.put(KEY_EMAIL, newStud.getEmail());
-        values.put(KEY_HASHED_PASS, newStud.getHashedPass());
+        studentDatabaseReference.child(key).setValue(newStud);
 
 
-        // Inserting Row
-        db.insert(TABLE_STUDENT, null, values);
-        db.close(); // Closing database connection
+//        SQLiteDatabase db = this.getWritableDatabase();
+//
+//        ContentValues values = new ContentValues();
+//
+//        values.put(KEY_EMAIL, newStud.getEmail());
+//        values.put(KEY_HASHED_PASS, newStud.getHashedPass());
+//
+//
+//        // Inserting Row
+//        db.insert(TABLE_STUDENT, null, values);
+//        db.close(); // Closing database connection
     }
 
     public boolean updateCommentInfo(Comment updatedComment) {
@@ -338,13 +361,33 @@ public class DBHandler extends SQLiteOpenHelper {
     }
 
 
+
+
+    public static boolean valid;
     public boolean validateStudent(String email) {
-        String selectQuery = "SELECT  * FROM " + TABLE_STUDENT +" WHERE email = '" + email + "';";
+        final String Email = email;
+        studentDatabaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for(DataSnapshot studentSnapshot : dataSnapshot.getChildren()) {
+                    if (studentSnapshot.getValue(Student.class).getEmail().equals(Email))
+                        Log.e("my tag", "COMPARE: " + studentSnapshot.getValue(Student.class).getEmail() + "  WITH: " + Email);
+                }
+            }
 
-        SQLiteDatabase db = this.getWritableDatabase();
-        Cursor cursor = db.rawQuery(selectQuery, null);
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
 
-        return cursor.moveToFirst();
+            }
+        });
+
+//        String selectQuery = "SELECT  * FROM " + TABLE_STUDENT +" WHERE email = '" + email + "';";
+//
+//        SQLiteDatabase db = this.getWritableDatabase();
+//        Cursor cursor = db.rawQuery(selectQuery, null);
+//
+//        return cursor.moveToFirst();
+            return valid;
     }
 
 
