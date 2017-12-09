@@ -12,6 +12,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.view.View;
@@ -85,7 +86,7 @@ public class HomePage extends AppCompatActivity {
 
         DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
         final DatabaseReference teacherDatabaseReference = databaseReference.child("teacher");
-        final ArrayList<Teacher> teacherArrayList = new ArrayList<>(DBHandler.getAllTeachers());
+        final ArrayList<Teacher> teacherArrayList = new ArrayList<>();
 
         teacherDatabaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -112,6 +113,50 @@ public class HomePage extends AppCompatActivity {
 
                 rvTeachers.setAdapter(ta);
                 rvTeachers.setLayoutManager(new LinearLayoutManager(getBaseContext(), LinearLayoutManager.VERTICAL, false));
+
+                etSearch.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+                    @Override
+                    public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                        String key = v.getText().toString().toLowerCase(); //converts the key to all lowercase
+                        key = ".*"+key+".*";    //converts the key into "LIKE"
+                        boolean handled = false;
+
+                        ArrayList<Teacher> searchList = new ArrayList<>();  //New array for the search results
+
+                        if (actionId == EditorInfo.IME_ACTION_SEARCH || event.getKeyCode() == KeyEvent.KEYCODE_ENTER) {
+                            for(int i=0; i <teacherArrayList.size(); i++){
+                                if(teacherArrayList.get(i).getName().toLowerCase().matches(key)){
+                                    searchList.add(teacherArrayList.get(i));
+                                }
+                            }
+                            TeacherAdapter ta = new TeacherAdapter(searchList);
+                            ta.setOnItemClickListener(taOnItemClickListener);
+
+                            rvTeachers.setAdapter(ta);
+                            handled = true;
+                        }
+
+                        return handled;
+                    }
+                });
+
+                etSearch.addTextChangedListener(new TextWatcher() {
+                    @Override
+                    public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+
+                    @Override
+                    public void onTextChanged(CharSequence s, int start, int before, int count) {}
+
+                    @Override
+                    public void afterTextChanged(Editable s) {
+                        if(s.toString().trim().isEmpty()){
+                            TeacherAdapter ta = new TeacherAdapter(teacherArrayList);
+                            ta.setOnItemClickListener(taOnItemClickListener);
+
+                            rvTeachers.setAdapter(ta);
+                        }
+                    }
+                });
             }
 
             @Override
@@ -119,75 +164,6 @@ public class HomePage extends AppCompatActivity {
 
             }
         });
-
-
-//        ArrayList<String>  teacherNames     = new ArrayList<>();
-//
-//        for(Teacher t : teacherArrayList)
-//            teacherNames.add(t.getName());
-
-//        String[] countries = getResources().getStringArray(R.array.countries_array);
-
-/*        final ArrayList<Teacher> teacherArrayList = new ArrayList<>(DBHandler.getAllTeachers());
-        TeacherAdapter ta = new TeacherAdapter(teacherArrayList);*/
-//        ArrayAdapter<String> autoCompleteAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, teacherNames);
-//        autoCompleteTextView.setAdapter(autoCompleteAdapter);
-
-
-/*        final TeacherAdapter.OnItemClickListener taOnItemClickListener = new TeacherAdapter.OnItemClickListener() {
-            @Override
-            public void onItemClick(Teacher t) {
-                Intent i = new Intent();
-
-                i.putExtra("selectedProf", t);
-                i.setClass(getBaseContext(), ProfPage.class);
-
-                startActivityForResult(i, 0);
-            }
-        };
-
-        // Dynamic onClickListener
-        ta.setOnItemClickListener(taOnItemClickListener);
-
-        rvTeachers.setAdapter(ta);
-        rvTeachers.setLayoutManager(new LinearLayoutManager(getBaseContext(), LinearLayoutManager.VERTICAL, false));*/
-
-
- /*       etSearch.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-            @Override
-            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-                boolean handled = false;
-                if (actionId == EditorInfo.IME_ACTION_SEARCH || event.getKeyCode() == KeyEvent.KEYCODE_ENTER) {
-
-                    TeacherAdapter ta = new TeacherAdapter(new ArrayList<>(DBHandler.getTeacher(v.getText().toString())));
-                    ta.setOnItemClickListener(taOnItemClickListener);
-
-                    rvTeachers.setAdapter(ta);
-                    handled = true;
-                }
-
-                return handled;
-            }
-        });
-
-        etSearch.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {}
-
-            @Override
-            public void afterTextChanged(Editable s) {
-                if(s.toString().trim().isEmpty()){
-                    TeacherAdapter ta = new TeacherAdapter(new ArrayList<>(DBHandler.getAllTeachers()));
-                    ta.setOnItemClickListener(taOnItemClickListener);
-
-                    rvTeachers.setAdapter(ta);
-                }
-            }
-        });
-*/
 
         View v = findViewById(R.id.menuPane);
         v.bringToFront();                       // <--- IMPORTANT MENUPANE IS IN THE BACK (backend)

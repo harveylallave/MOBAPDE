@@ -66,7 +66,6 @@ public class DBHandler extends SQLiteOpenHelper {
     private static final String KEY_SUGGEST_PROF_NAME = "name";
     private static final String KEY_SUGGEST_PROF_DEPARTMENT = "department";
     private static final String KEY_SUGGEST_PROF_SUGGESTEDBY = "suggestedby";
-
     public DBHandler(Context contex) {
         super(contex, DATABASE_NAME, null, DATABASE_VERSION);
     }
