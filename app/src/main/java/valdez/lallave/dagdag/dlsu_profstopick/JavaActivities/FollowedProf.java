@@ -153,67 +153,6 @@ public class FollowedProf extends AppCompatActivity {
             }
         });
 
-
-        /*student                       = DBHandler.getStudent(reviewer);
-        ArrayList<Teacher> teacherArrayList =
-                new ArrayList<>(DBHandler.getAllFollowedTeachers(student));*/
-
-  /*      TeacherAdapter ta = new TeacherAdapter(teacherArrayList);
-        final TeacherAdapter.OnItemClickListener taOnItemClickListener = new TeacherAdapter.OnItemClickListener() {
-            @Override
-            public void onItemClick(Teacher t) {
-                Intent i = new Intent();
-
-                i.putExtra("selectedProf", t);
-                i.setClass(getBaseContext(), ProfPage.class);
-
-                startActivityForResult(i, 0);
-            }
-        };
-
-        // Dynamic onClickListener
-        ta.setOnItemClickListener(taOnItemClickListener);
-
-        rvTeachers.setAdapter(ta);
-        rvTeachers.setLayoutManager(new LinearLayoutManager(getBaseContext(), LinearLayoutManager.VERTICAL, false));*/
-
-
-/*        etSearch.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-            @Override
-            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-                boolean handled = false;
-                if (actionId == EditorInfo.IME_ACTION_SEARCH || event.getKeyCode() == KeyEvent.KEYCODE_ENTER) {
-
-                    TeacherAdapter ta = new TeacherAdapter(new ArrayList<>(DBHandler.getTeacher(v.getText().toString())));
-                    ta.setOnItemClickListener(taOnItemClickListener);
-
-                    rvTeachers.setAdapter(ta);
-                    handled = true;
-                }
-
-                return handled;
-            }
-        });
-
-        etSearch.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {}
-
-            @Override
-            public void afterTextChanged(Editable s) {
-                if(s.toString().trim().isEmpty()){
-                    TeacherAdapter ta = new TeacherAdapter(new ArrayList<>(DBHandler.getAllFollowedTeachers(student)));
-                    ta.setOnItemClickListener(taOnItemClickListener);
-
-                    rvTeachers.setAdapter(ta);
-                }
-            }
-        });*/
-
-
         View v = findViewById(R.id.menuPane);
         v.bringToFront();                       // <--- IMPORTANT MENUPANE IS IN THE BACK (backend)
         HomePage.initializeMenuButtons(v, reviewer);

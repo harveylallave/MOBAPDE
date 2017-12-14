@@ -65,24 +65,6 @@ public class HomePage extends AppCompatActivity {
 
 //        AutoCompleteTextView autoCompleteTextView = (AutoCompleteTextView) findViewById(R.id.autoComplete_searchProf);
 
-//        ArrayList<Teacher> teachers = new ArrayList<>();
-
-//        teachers.add(new Teacher("Ms. Ethel Ong", R.mipmap.ic_launcher));
-//        teachers.add(new Teacher("Ms. Charibeth Cheng", R.mipmap.ic_launcher));
-//        teachers.add(new Teacher("Ms. Teresita Limoanco", R.mipmap.ic_launcher));
-//        teachers.add(new Teacher("Ms. Jocelyn Cu", R.mipmap.ic_launcher));
-//        teachers.add(new Teacher("Ms. Nathalie Lim-Cheng", R.mipmap.ic_launcher));
-//        teachers.add(new Teacher("Mr. Ryan Dimaunahan", R.mipmap.ic_launcher));
-//        teachers.add(new Teacher("Mr. Miguel Cabral", R.mipmap.ic_launcher));
-//        teachers.add(new Teacher("Mr. Gregory Cu", R.mipmap.ic_launcher));
-//        teachers.add(new Teacher("Mr. Duke Delos Santos", R.mipmap.ic_launcher));
-//        teachers.add(new Teacher("Dr. Nelson Marcos", R.mipmap.ic_launcher));
-//        teachers.add(new Teacher("Dr. Conrado Ruiz, Jr", R.mipmap.ic_launcher));
-//        teachers.add(new Teacher("Dr. Rafael Cabredo", R.mipmap.ic_launcher));
-//        teachers.add(new Teacher("Dr. Remedios Bulos", R.mipmap.ic_launcher));
-//        teachers.add(new Teacher("Dr. Florante Salvador", R.mipmap.ic_launcher));
-
-
         DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
         final DatabaseReference teacherDatabaseReference = databaseReference.child("teacher");
         final DatabaseReference commentDatabaseReference = databaseReference.child("comment");

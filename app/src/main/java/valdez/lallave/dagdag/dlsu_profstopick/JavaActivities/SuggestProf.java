@@ -8,6 +8,12 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
 import valdez.lallave.dagdag.dlsu_profstopick.Beans_Model.Suggest;
 import valdez.lallave.dagdag.dlsu_profstopick.Beans_Model.Teacher;
 import valdez.lallave.dagdag.dlsu_profstopick.R;
@@ -26,6 +32,9 @@ public class SuggestProf extends AppCompatActivity {
 
         SharedPreferences SP          = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
         final String  reviewer        = SP.getString("loggedStudent", "student_email");
+
+        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
+        final DatabaseReference suggestDatabaseReference = databaseReference.child("suggest");
 
         etName = (EditText) findViewById(R.id.et_Name);
         etDept = (EditText) findViewById(R.id.et_Department);
@@ -48,7 +57,10 @@ public class SuggestProf extends AppCompatActivity {
                 }
 
                 if(valid){
-                    dbHandler.addSuggestProf(s);
+                    /*dbHandler.addSuggestProf(s);*/
+                    String key = suggestDatabaseReference.push().getKey();
+                    suggestDatabaseReference.child(key).setValue(s);
+                    
                     Toast.makeText(SuggestProf.this, "Suggestion Received", Toast.LENGTH_SHORT).show();
                     finish();
                 }
