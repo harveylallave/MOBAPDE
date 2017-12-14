@@ -5,6 +5,7 @@ import android.os.Parcelable;
 
 
 public class Teacher implements Parcelable{
+
     private String name,
                    department;
     private int    icon,

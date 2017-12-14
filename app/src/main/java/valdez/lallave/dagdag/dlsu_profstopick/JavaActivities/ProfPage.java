@@ -21,15 +21,20 @@ import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
+import valdez.lallave.dagdag.dlsu_profstopick.Beans_Model.Comment;
 import valdez.lallave.dagdag.dlsu_profstopick.Beans_Model.Student;
 import valdez.lallave.dagdag.dlsu_profstopick.Beans_Model.Teacher;
 import valdez.lallave.dagdag.dlsu_profstopick.Service.Adapters.CommentAdapter;
-import valdez.lallave.dagdag.dlsu_profstopick.Beans_Model.Comment;
+
 import valdez.lallave.dagdag.dlsu_profstopick.R;
 import valdez.lallave.dagdag.dlsu_profstopick.Service.DBHandler;
 
@@ -44,11 +49,16 @@ public class ProfPage extends AppCompatActivity implements OnDialogDismissListen
     DBHandler dbHandler;
     Teacher prof;
     Student student;
-    Comment ownComment;
+//    Comment ownComment;
     Button rateButton;
 
-    DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
+
+
+    final DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
     final DatabaseReference studentDatabaseReference = databaseReference.child("student");
+    final DatabaseReference teacherDatabaseReference = databaseReference.child("teacher");
+    final DatabaseReference commentDatabaseReference = databaseReference.child("comment");
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,21 +72,81 @@ public class ProfPage extends AppCompatActivity implements OnDialogDismissListen
         SharedPreferences SP   = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
         final String  reviewer = SP.getString("loggedStudent", "student_email");
         prof                   = getIntent().getParcelableExtra("selectedProf");
-        student                = dbHandler.getStudent(reviewer);
-        ownComment             = dbHandler.getComment(student, prof);
+
+/*        student                = dbHandler.getStudent(reviewer);
+        ownComment             = dbHandler.getComment(student, prof);*/
+
         rateButton             = (Button) findViewById(R.id.rateButton);
         ImageView ivFollowProf = (ImageView) findViewById(R.id.iv_profPage_followProf);
         TextView  tvFollowProf = (TextView) findViewById(R.id.tv_profPage_followProf);
-        float aveRating        = dbHandler.getAveRateTeacher(prof.getTeacherId());
+
+       /* float aveRating        = dbHandler.getAveRateTeacher(prof.getTeacherId());*/
+
+        final ProfPage profPage = this;
+
+        commentDatabaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+            Comment ownComment=null;
+            float sum=0;
+            int cmtCtr;
+            float ave;
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for(DataSnapshot commentSnapshot : dataSnapshot.getChildren()){
+                    if(commentSnapshot.getValue(Comment.class).getTeacherID().equals(prof.getName())){ //Computes for the average of ratings, and gets the number of comments
+                        sum=sum+commentSnapshot.getValue(Comment.class).getRate();
+                        cmtCtr++;
+                    }
+                    if(commentSnapshot.getValue(Comment.class).getReviewer().equals(reviewer) && commentSnapshot.getValue(Comment.class).getTeacherID().equals(prof.getName())){ //If the logged user already made a comment
+                        Comment comment = new Comment();
+                        comment.setTitle(commentSnapshot.getValue(Comment.class).getTitle());
+                        comment.setBody(commentSnapshot.getValue(Comment.class).getBody());
+                        comment.setRate(commentSnapshot.getValue(Comment.class).getRate());
+                        comment.setReviewer(commentSnapshot.getValue(Comment.class).getReviewer());
+                        comment.setTeacherID(commentSnapshot.getValue(Comment.class).getTeacherID());
+                        ownComment = comment;
+                    }
+                }
+
+                ave = sum/cmtCtr;
+                ((RatingBar)findViewById(R.id.rb_profPage_aveRating)).setRating(ave);
+                ((TextView)findViewById(R.id.tv_profPage_aveRating)).setText(String.format("%.1f", ave));
+                ((TextView)findViewById(R.id.tv_profPage_nReviews)).setText(cmtCtr+"");
+
+                if(ownComment == null){
+                    rateButton.setText("Rate");
+                } else {
+                    rateButton.setText("Update Rating");
+                }
+                View v = findViewById(R.id.menuPane);
+                v.bringToFront();
+                HomePage.initializeMenuButtons(v, reviewer);
+
+
+                rateButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        AddRateDialog dialog = AddRateDialog.newInstance(prof, reviewer, profPage, ownComment);
+                        dialog.show(getSupportFragmentManager(), "");
+                    }
+                });
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
 
         ((TextView)findViewById(R.id.tv_ProfName)).setText(prof.getName());
         ((TextView)findViewById(R.id.tv_department)).setText(prof.getDepartment());
-        ((TextView)findViewById(R.id.tv_profPage_nReviews)).setText(dbHandler.getNReviewsTeacher(prof.getTeacherId()) + "");
+
+/*       ((TextView)findViewById(R.id.tv_profPage_nReviews)).setText(dbHandler.getNReviewsTeacher(prof.getTeacherId()) + "");
         ((TextView)findViewById(R.id.tv_profPage_aveRating)).setText(String.format("%.1f", aveRating));
-        ((RatingBar)findViewById(R.id.rb_profPage_aveRating)).setRating(aveRating);
+        ((RatingBar)findViewById(R.id.rb_profPage_aveRating)).setRating(aveRating);*/
 
 
-        if(dbHandler.validateFollowingProf(student, prof)){
+/*        if(dbHandler.validateFollowingProf(student, prof)){
             ivFollowProf.setColorFilter(Color.parseColor("#e98b5b"),
                     android.graphics.PorterDuff.Mode.SRC_IN);
             tvFollowProf.setTextColor(Color.parseColor("#e98b5b"));
@@ -86,15 +156,9 @@ public class ProfPage extends AppCompatActivity implements OnDialogDismissListen
                     android.graphics.PorterDuff.Mode.SRC_IN);
             tvFollowProf.setTextColor(Color.parseColor("#686b68"));
             tvFollowProf.setText("Follow");
-        }
+        }*/
 
-        if(ownComment == null){
-            rateButton.setText("Rate");
-        } else {
-            rateButton.setText("Update Rating");
-        }
-
-        View v = findViewById(R.id.menuPane);
+/*        View v = findViewById(R.id.menuPane);
         v.bringToFront();
         HomePage.initializeMenuButtons(v, reviewer);
         final ProfPage profPage = this;
@@ -105,20 +169,37 @@ public class ProfPage extends AppCompatActivity implements OnDialogDismissListen
                 AddRateDialog dialog = AddRateDialog.newInstance(prof, reviewer, profPage, ownComment);
                 dialog.show(getSupportFragmentManager(), "");
             }
-        });
-
+        });*/
 
 
 
         rvComments = (RecyclerView) findViewById(R.id.rv_comments);
         RecyclerView recyclerView = new RecyclerView(getBaseContext());
+        final ArrayList<Comment> commentArrayList = new ArrayList<>();
+       // CommentAdapter ta = new CommentAdapter((ArrayList<Comment>) dbHandler.getAllCommentsPerTeacher(prof.getTeacherId()));
+
+        commentDatabaseReference.addListenerForSingleValueEvent(new ValueEventListener() { //THIS GETS ALL THE COMMENTS
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for(DataSnapshot commentSnapshot: dataSnapshot.getChildren()){
+                    if(commentSnapshot.getValue(Comment.class).getTeacherID().equals(prof.getName())){
+                        Comment comment = commentSnapshot.getValue(Comment.class);
+                        commentArrayList.add(comment);
+                    }
+                }
+
+                CommentAdapter ca = new CommentAdapter(commentArrayList);
+                rvComments.setAdapter(ca);
+                rvComments.setLayoutManager(new LinearLayoutManager(getBaseContext(), LinearLayoutManager.VERTICAL, false));
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
 
 
-        CommentAdapter ta = new CommentAdapter((ArrayList<Comment>) dbHandler.getAllCommentsPerTeacher(prof.getTeacherId()));
-
-
-        rvComments.setAdapter(ta);
-        rvComments.setLayoutManager(new LinearLayoutManager(getBaseContext(), LinearLayoutManager.VERTICAL, false));
     }
 
     @Override
@@ -150,6 +231,9 @@ public class ProfPage extends AppCompatActivity implements OnDialogDismissListen
         static Activity baseActivity;
         static Comment ownComment;
 
+        static DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
+        static  DatabaseReference editCommentDatabaseReference = databaseReference.child("comment");
+
         public static AddRateDialog newInstance(Teacher prof, String reviewer, Activity activity, Comment comment) {
             AddRateDialog f = new AddRateDialog();
 
@@ -174,6 +258,7 @@ public class ProfPage extends AppCompatActivity implements OnDialogDismissListen
             final DBHandler     dbHandler     = new DBHandler(getContext());
             final String        reviewer      = getArguments().getString("reviewer");
             AlertDialog.Builder builder       = new AlertDialog.Builder(getActivity());
+
 
             ((RatingBar)v.findViewById(R.id.rb_rating)).setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
 
@@ -204,7 +289,7 @@ public class ProfPage extends AppCompatActivity implements OnDialogDismissListen
                                 ownComment.setBody(body);
                                 ownComment.setRate(rating);
                                 dbHandler.updateCommentInfo(ownComment);
-                            } else dbHandler.addNewComment(new Comment(title, body, rating, reviewer, selectedProf.getTeacherId()));
+                            } else dbHandler.addNewComment(new Comment(title, body, rating, reviewer, selectedProf.getName()));
                             dismiss();
                         }}).setNeutralButton("Cancel", new DialogInterface.OnClickListener() {
                         @Override
@@ -216,10 +301,27 @@ public class ProfPage extends AppCompatActivity implements OnDialogDismissListen
                 builder.setNegativeButton("Delete", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        dbHandler.deleteComment(ownComment.getId());
+                        editCommentDatabaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+                            String key;
+                            @Override
+                            public void onDataChange(DataSnapshot dataSnapshot) {
+                                for(DataSnapshot commentSnapshot: dataSnapshot.getChildren()){
+                                    if(ownComment.getTeacherID().equals(selectedProf.getName()) && ownComment.getReviewer().equals(reviewer)){
+                                        key = commentSnapshot.getKey();
+                                    }
+                                }
+                                editCommentDatabaseReference.child(key).setValue(null); //deletes from the database
+
+                            }
+                            @Override
+                            public void onCancelled(DatabaseError databaseError) {
+
+                            }
+                        });
+                       /* dbHandler.deleteComment(ownComment.getId());*/
                         dismiss();
                     }
-                });
+                }).setView(v);
 
             return builder.create();
         }

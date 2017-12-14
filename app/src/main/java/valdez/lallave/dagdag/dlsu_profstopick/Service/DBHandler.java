@@ -408,7 +408,7 @@ public class DBHandler extends SQLiteOpenHelper {
             comment.setBody(cursor.getString(2));
             comment.setRate(cursor.getFloat(3));
             comment.setReviewer(cursor.getString(4));
-            comment.setTeacherID(cursor.getInt(5));
+            /*comment.setTeacherID(cursor.getInt(5));*/
         }
 
         return comment;
@@ -459,7 +459,7 @@ public class DBHandler extends SQLiteOpenHelper {
                 comment.setBody(cursor.getString(2));
                 comment.setRate(cursor.getFloat(3));
                 comment.setReviewer(cursor.getString(4));
-                comment.setTeacherID(cursor.getInt(5));
+/*                comment.setTeacherID(cursor.getInt(5));*/
 
                 commentList.add(comment);
 

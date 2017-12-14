@@ -23,6 +23,7 @@ import java.io.UnsupportedEncodingException;
 import java.security.NoSuchAlgorithmException;
 
 import valdez.lallave.dagdag.dlsu_profstopick.Beans_Model.Admin;
+import valdez.lallave.dagdag.dlsu_profstopick.Beans_Model.Comment;
 import valdez.lallave.dagdag.dlsu_profstopick.Beans_Model.Student;
 import valdez.lallave.dagdag.dlsu_profstopick.Beans_Model.Teacher;
 import valdez.lallave.dagdag.dlsu_profstopick.R;
@@ -70,6 +71,11 @@ public class MainActivity extends AppCompatActivity {
 //            e.printStackTrace();
 //        }
 
+
+//        DBHandler.addNewComment(new Comment("Sample title", "Sample body", 3, "dan@dlsu.edu.ph", "Ms. Teresita Limoanco"));
+//        DBHandler.addNewComment(new Comment("Sample title3", "Sample body3", 5, "dan_dagdag@dlsu.edu.ph", "Ms. Charibeth Cheng"));
+//        DBHandler.addNewComment(new Comment("Sample title4", "Sample body4", 1, "dan_dagdag@dlsu.edu.ph", "Ms. Ethel Ong"));
+
         DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
         final DatabaseReference studentDatabaseReference = databaseReference.child("student");
 
@@ -84,11 +90,13 @@ public class MainActivity extends AppCompatActivity {
                     final String hashedPass = PasswordAuthentication.SHA1(pass);
                     studentDatabaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
                         boolean checkStudent=false;
+                        String key;
                         @Override
                         public void onDataChange(DataSnapshot dataSnapshot) {
                             for (DataSnapshot studentSnapshot : dataSnapshot.getChildren()) {
                                 if(studentSnapshot.getValue(Student.class).getEmail().equals(email) && studentSnapshot.getValue(Student.class).getHashedPass().equals(hashedPass)){
                                     checkStudent=true;
+                                    key = studentSnapshot.getKey();
                                     break;
                                 }else {
                                     checkStudent = false;
@@ -98,6 +106,7 @@ public class MainActivity extends AppCompatActivity {
                                 SharedPreferences SP = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
                                 SharedPreferences.Editor SPE = SP.edit();
                                 SPE.putString("loggedStudent", email);
+                                SPE.putString("studentkey", key);
                                 SPE.apply();
 
                                 startActivity(new Intent(getBaseContext(), HomePage.class));

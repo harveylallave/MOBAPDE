@@ -19,9 +19,11 @@ import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -39,10 +41,8 @@ public class HomePage extends AppCompatActivity {
 
     RecyclerView rvTeachers;
     EditText     etSearch;
-    DBHandler DBHandler;
     DrawerLayout drawerLayout;
     private ActionBarDrawerToggle mToggle;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,11 +57,11 @@ public class HomePage extends AppCompatActivity {
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        SharedPreferences SP          = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
+        final SharedPreferences SP    = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
         final String  reviewer        = SP.getString("loggedStudent", "student_email");
         rvTeachers                    = (RecyclerView) findViewById(R.id.rv_teachers);
-        DBHandler                     = new DBHandler(getBaseContext());
         etSearch                      = (EditText) findViewById(R.id.et_searchProf) ;
+
 
 //        AutoCompleteTextView autoCompleteTextView = (AutoCompleteTextView) findViewById(R.id.autoComplete_searchProf);
 
@@ -82,7 +82,6 @@ public class HomePage extends AppCompatActivity {
 //        teachers.add(new Teacher("Dr. Remedios Bulos", R.mipmap.ic_launcher));
 //        teachers.add(new Teacher("Dr. Florante Salvador", R.mipmap.ic_launcher));
 
-//
 
         DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
         final DatabaseReference teacherDatabaseReference = databaseReference.child("teacher");
@@ -96,11 +95,11 @@ public class HomePage extends AppCompatActivity {
                     teacherArrayList.add(teacher);
                 }
                 TeacherAdapter ta = new TeacherAdapter(teacherArrayList);
+
                 final TeacherAdapter.OnItemClickListener taOnItemClickListener = new TeacherAdapter.OnItemClickListener() {
                     @Override
                     public void onItemClick(Teacher t) {
                         Intent i = new Intent();
-
                         i.putExtra("selectedProf", t);
                         i.setClass(getBaseContext(), ProfPage.class);
 
