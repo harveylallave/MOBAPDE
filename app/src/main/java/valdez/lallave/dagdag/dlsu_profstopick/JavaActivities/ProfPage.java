@@ -71,13 +71,12 @@ public class ProfPage extends AppCompatActivity implements OnDialogDismissListen
 
         SharedPreferences SP   = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
         final String  reviewer = SP.getString("loggedStudent", "student_email");
-        prof                   = getIntent().getParcelableExtra("selectedProf");
 
+        prof                   = getIntent().getParcelableExtra("selectedProf");
         rateButton             = (Button) findViewById(R.id.rateButton);
+
         final ImageView ivFollowProf = (ImageView) findViewById(R.id.iv_profPage_followProf);
         final TextView  tvFollowProf = (TextView) findViewById(R.id.tv_profPage_followProf);
-
-
         final ProfPage profPage = this;
 
         commentDatabaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -139,9 +138,8 @@ public class ProfPage extends AppCompatActivity implements OnDialogDismissListen
         final Follow follow = new Follow(null, null);
         follow.setTeacher(prof.getName());
         follow.setStudent(reviewer);
-        /*String key = followDatabaseReference.push().getKey();
-        followDatabaseReference.child(key).setValue(follow);*/
-       followDatabaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+
+        followDatabaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
            boolean found = false;
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -167,10 +165,6 @@ public class ProfPage extends AppCompatActivity implements OnDialogDismissListen
 
             }
         });
-
-
-
-
 
         rvComments = (RecyclerView) findViewById(R.id.rv_comments);
         RecyclerView recyclerView = new RecyclerView(getBaseContext());
@@ -311,13 +305,13 @@ public class ProfPage extends AppCompatActivity implements OnDialogDismissListen
                             String title         = ((EditText) v.findViewById(R.id.et_titleFeedBack)).getText().toString(),
                                     body          = ((EditText) v.findViewById(R.id.et_bodyFeedBack)).getText().toString();
                             float  rating        = ((RatingBar) v.findViewById(R.id.rb_rating)).getRating();
-                            if(ownComment != null) { //CHECKS IF THE USER ALREADY MADE A COMMENT
+                            if(ownComment != null) { //Checks if the user already made a comment
                                 ownComment.setTitle(title);
                                 ownComment.setBody(body);
                                 ownComment.setRate(rating);
                                 ownComment.setReviewer(reviewer);
                                 ownComment.setTeacher(selectedProf.getName());
-                               editCommentDatabaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+                               editCommentDatabaseReference.addListenerForSingleValueEvent(new ValueEventListener() { //Updates existing data
                                     String key;
                                     @Override
                                     public void onDataChange(DataSnapshot dataSnapshot) {
@@ -332,9 +326,8 @@ public class ProfPage extends AppCompatActivity implements OnDialogDismissListen
                                     public void onCancelled(DatabaseError databaseError) {
                                     }
                                 });
-                                //dbHandler.updateCommentInfo(ownComment);
                             } else{ //IF NO EXISTING COMMENT CREATE A NEW ONE
-                                dbHandler.addNewComment(new Comment(title, body, rating, reviewer, selectedProf.getName()));
+                                dbHandler.addNewComment(new Comment(title, body, rating, reviewer, selectedProf.getName())); //Create new comment
                                 teacherDatabaseReference.addListenerForSingleValueEvent(new ValueEventListener() { //It updates the number of reviews after posting new comment
                                     String key;
                                     int nReviews=0;
@@ -439,7 +432,7 @@ public class ProfPage extends AppCompatActivity implements OnDialogDismissListen
                             }
 
                         });
-                       /* dbHandler.deleteComment(ownComment.getId());*/
+
                         dismiss();
                     }
                 }).setView(v);
