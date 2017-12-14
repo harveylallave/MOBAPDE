@@ -3,7 +3,6 @@ package valdez.lallave.dagdag.dlsu_profstopick.Beans_Model;
 public class Admin {
     private String email,
                    hashedPass;
-    private int adminId;
 
 
     public Admin() {}
@@ -17,7 +16,6 @@ public class Admin {
     public Admin(int adminId, String email, String hashedPass) {
         this.email = email;
         this.hashedPass = hashedPass;
-        this.adminId = adminId;
     }
 
     public String getEmail() {
@@ -36,18 +34,11 @@ public class Admin {
         this.hashedPass = hashedPass;
     }
 
-    public int getAdminId() {
-        return adminId;
-    }
 
-    public void setAdminId(int adminId) {
-        this.adminId = adminId;
-    }
 
     @Override
     public String toString() {
         return "Admin{" +
-                "adminId=" + adminId +
                 ", email='" + email + '\'' +
                 '}';
     }

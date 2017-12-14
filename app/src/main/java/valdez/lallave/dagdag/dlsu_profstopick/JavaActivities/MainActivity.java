@@ -62,14 +62,14 @@ public class MainActivity extends AppCompatActivity {
 //        try {
 //           DBHandler.addNewAdmin(new Admin("profs_to_pick@dlsu.edu.ph", PasswordAuthentication.SHA1("1234")));
 //            DBHandler.addNewStudent(new Student("harvey_lallave@dlsu.edu.ph", PasswordAuthentication.SHA1("1234")));
-/*            DBHandler.addNewTeacher(new Teacher("Ms. Ethel Ong", "CCS"));
-            DBHandler.addNewTeacher(new Teacher("Ms. Charibeth Cheng", "CCS"));
-            DBHandler.addNewTeacher(new Teacher("Ms. Teresita Limoanco", "CCS"));
-            DBHandler.addNewTeacher(new Teacher("Ms. Jocelyn Cu", "CCS"));
-            DBHandler.addNewTeacher(new Teacher("Ms. Nathalie Lim-Cheng", "CCS"));*/
-//        } catch (NoSuchAlgorithmException | UnsupportedEncodingException e) {
+/*        DBHandler.addNewTeacher(new Teacher("Ms. Ethel Ong", "CCS"));
+        DBHandler.addNewTeacher(new Teacher("Ms. Charibeth Cheng", "CCS"));
+        DBHandler.addNewTeacher(new Teacher("Ms. Teresita Limoanco", "CCS"));
+        DBHandler.addNewTeacher(new Teacher("Ms. Jocelyn Cu", "CCS"));
+        DBHandler.addNewTeacher(new Teacher("Ms. Nathalie Lim-Cheng", "CCS"));*/
+//       } catch (NoSuchAlgorithmException | UnsupportedEncodingException e) {
 //            e.printStackTrace();
-//        }
+//      }
 
 
 //        DBHandler.addNewComment(new Comment("Sample title", "Sample body", 3, "dan@dlsu.edu.ph", "Ms. Teresita Limoanco"));

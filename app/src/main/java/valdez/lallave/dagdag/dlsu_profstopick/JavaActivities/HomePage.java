@@ -85,6 +85,7 @@ public class HomePage extends AppCompatActivity {
 
         DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
         final DatabaseReference teacherDatabaseReference = databaseReference.child("teacher");
+        final DatabaseReference commentDatabaseReference = databaseReference.child("comment");
         final ArrayList<Teacher> teacherArrayList = new ArrayList<>();
 
         teacherDatabaseReference.addListenerForSingleValueEvent(new ValueEventListener() {

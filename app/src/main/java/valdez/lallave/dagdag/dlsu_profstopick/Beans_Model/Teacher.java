@@ -9,9 +9,8 @@ public class Teacher implements Parcelable{
     private String name,
                    department;
     private int    icon,
-                   teacherId,
                    nReviews;
-    private float  aveRating = (float) 2.5;
+    private float  aveRating = 0;
 
     public Teacher() {}
 
@@ -25,11 +24,6 @@ public class Teacher implements Parcelable{
         this.icon = icon;
     }
 
-    public Teacher(String name, int icon, int teacherId) {
-        this.name = name;
-        this.icon = icon;
-        this.teacherId = teacherId;
-    }
 
     public String getName() {
         return name;
@@ -47,13 +41,6 @@ public class Teacher implements Parcelable{
         this.icon = icon;
     }
 
-    public int getTeacherId() {
-        return teacherId;
-    }
-
-    public void setTeacherId(int teacherId) {
-        this.teacherId = teacherId;
-    }
 
     @Override
     public String toString() {
@@ -77,7 +64,6 @@ public class Teacher implements Parcelable{
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-        dest.writeInt(teacherId);
         dest.writeString(name);
         dest.writeString(department);
     }
@@ -95,7 +81,6 @@ public class Teacher implements Parcelable{
 
     // example constructor that takes a Parcel and gives you an object populated with it's values
     private Teacher(Parcel in) {
-        teacherId  = in.readInt();
         name       = in.readString();
         department = in.readString();
     }

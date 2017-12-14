@@ -36,7 +36,7 @@ public class ChangePassword extends AppCompatActivity{
         etNewR = (EditText) findViewById(R.id.et_NewRpass);
         etEmail = (EditText) findViewById(R.id.et_Email);
 
-        findViewById(R.id.changePassButton).setOnClickListener(new View.OnClickListener() {
+/*        findViewById(R.id.changePassButton).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
@@ -75,7 +75,7 @@ public class ChangePassword extends AppCompatActivity{
 
 
             }
-        });
+        });*/
     }
 
     protected boolean validateOldPassword(String password, Student s){

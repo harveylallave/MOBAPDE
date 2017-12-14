@@ -13,6 +13,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
@@ -31,6 +32,7 @@ import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 import valdez.lallave.dagdag.dlsu_profstopick.Beans_Model.Comment;
+import valdez.lallave.dagdag.dlsu_profstopick.Beans_Model.Follow;
 import valdez.lallave.dagdag.dlsu_profstopick.Beans_Model.Student;
 import valdez.lallave.dagdag.dlsu_profstopick.Beans_Model.Teacher;
 import valdez.lallave.dagdag.dlsu_profstopick.Service.Adapters.CommentAdapter;
@@ -48,16 +50,14 @@ public class ProfPage extends AppCompatActivity implements OnDialogDismissListen
     RecyclerView rvComments;
     DBHandler dbHandler;
     Teacher prof;
-    Student student;
-//    Comment ownComment;
     Button rateButton;
 
+    String reviewer;
 
 
     final DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
-    final DatabaseReference studentDatabaseReference = databaseReference.child("student");
-    final DatabaseReference teacherDatabaseReference = databaseReference.child("teacher");
     final DatabaseReference commentDatabaseReference = databaseReference.child("comment");
+    final DatabaseReference followDatabaseReference = databaseReference.child("follow");
 
 
     @Override
@@ -73,14 +73,10 @@ public class ProfPage extends AppCompatActivity implements OnDialogDismissListen
         final String  reviewer = SP.getString("loggedStudent", "student_email");
         prof                   = getIntent().getParcelableExtra("selectedProf");
 
-/*        student                = dbHandler.getStudent(reviewer);
-        ownComment             = dbHandler.getComment(student, prof);*/
-
         rateButton             = (Button) findViewById(R.id.rateButton);
-        ImageView ivFollowProf = (ImageView) findViewById(R.id.iv_profPage_followProf);
-        TextView  tvFollowProf = (TextView) findViewById(R.id.tv_profPage_followProf);
+        final ImageView ivFollowProf = (ImageView) findViewById(R.id.iv_profPage_followProf);
+        final TextView  tvFollowProf = (TextView) findViewById(R.id.tv_profPage_followProf);
 
-       /* float aveRating        = dbHandler.getAveRateTeacher(prof.getTeacherId());*/
 
         final ProfPage profPage = this;
 
@@ -92,17 +88,17 @@ public class ProfPage extends AppCompatActivity implements OnDialogDismissListen
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for(DataSnapshot commentSnapshot : dataSnapshot.getChildren()){
-                    if(commentSnapshot.getValue(Comment.class).getTeacherID().equals(prof.getName())){ //Computes for the average of ratings, and gets the number of comments
+                    if(commentSnapshot.getValue(Comment.class).getTeacher().equals(prof.getName())){ //Computes for the average of ratings, and gets the number of comments
                         sum=sum+commentSnapshot.getValue(Comment.class).getRate();
                         cmtCtr++;
                     }
-                    if(commentSnapshot.getValue(Comment.class).getReviewer().equals(reviewer) && commentSnapshot.getValue(Comment.class).getTeacherID().equals(prof.getName())){ //If the logged user already made a comment
+                    if(commentSnapshot.getValue(Comment.class).getReviewer().equals(reviewer) && commentSnapshot.getValue(Comment.class).getTeacher().equals(prof.getName())){ //If the logged user already made a comment
                         Comment comment = new Comment();
                         comment.setTitle(commentSnapshot.getValue(Comment.class).getTitle());
                         comment.setBody(commentSnapshot.getValue(Comment.class).getBody());
                         comment.setRate(commentSnapshot.getValue(Comment.class).getRate());
                         comment.setReviewer(commentSnapshot.getValue(Comment.class).getReviewer());
-                        comment.setTeacherID(commentSnapshot.getValue(Comment.class).getTeacherID());
+                        comment.setTeacher(commentSnapshot.getValue(Comment.class).getTeacher());
                         ownComment = comment;
                     }
                 }
@@ -137,52 +133,54 @@ public class ProfPage extends AppCompatActivity implements OnDialogDismissListen
             }
         });
 
-
         ((TextView)findViewById(R.id.tv_ProfName)).setText(prof.getName());
         ((TextView)findViewById(R.id.tv_department)).setText(prof.getDepartment());
 
-/*       ((TextView)findViewById(R.id.tv_profPage_nReviews)).setText(dbHandler.getNReviewsTeacher(prof.getTeacherId()) + "");
-        ((TextView)findViewById(R.id.tv_profPage_aveRating)).setText(String.format("%.1f", aveRating));
-        ((RatingBar)findViewById(R.id.rb_profPage_aveRating)).setRating(aveRating);*/
-
-
-/*        if(dbHandler.validateFollowingProf(student, prof)){
-            ivFollowProf.setColorFilter(Color.parseColor("#e98b5b"),
-                    android.graphics.PorterDuff.Mode.SRC_IN);
-            tvFollowProf.setTextColor(Color.parseColor("#e98b5b"));
-            tvFollowProf.setText("Following");
-        } else {
-            ivFollowProf.setColorFilter(Color.parseColor("#686b68"),
-                    android.graphics.PorterDuff.Mode.SRC_IN);
-            tvFollowProf.setTextColor(Color.parseColor("#686b68"));
-            tvFollowProf.setText("Follow");
-        }*/
-
-/*        View v = findViewById(R.id.menuPane);
-        v.bringToFront();
-        HomePage.initializeMenuButtons(v, reviewer);
-        final ProfPage profPage = this;
-
-        rateButton.setOnClickListener(new View.OnClickListener() {
+        final Follow follow = new Follow(null, null);
+        follow.setTeacher(prof.getName());
+        follow.setStudent(reviewer);
+        /*String key = followDatabaseReference.push().getKey();
+        followDatabaseReference.child(key).setValue(follow);*/
+       followDatabaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+           boolean found = false;
             @Override
-            public void onClick(View view) {
-                AddRateDialog dialog = AddRateDialog.newInstance(prof, reviewer, profPage, ownComment);
-                dialog.show(getSupportFragmentManager(), "");
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for(DataSnapshot followDatasnapshot: dataSnapshot.getChildren()){
+                   if (followDatasnapshot.getValue(Follow.class).getStudent().equals(reviewer) && followDatasnapshot.getValue(Follow.class).getTeacher().equals(prof.getName())){
+                       found = true;
+                    }
+                }
+                if(found){
+                  ivFollowProf.setColorFilter(Color.parseColor("#e98b5b"),
+                          android.graphics.PorterDuff.Mode.SRC_IN);
+                  tvFollowProf.setTextColor(Color.parseColor("#e98b5b"));
+                  tvFollowProf.setText("Following");
+                }else{
+                  ivFollowProf.setColorFilter(Color.parseColor("#686b68"),
+                          android.graphics.PorterDuff.Mode.SRC_IN);
+                  tvFollowProf.setTextColor(Color.parseColor("#686b68"));
+                  tvFollowProf.setText("Follow");
+                }
             }
-        });*/
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+
 
 
 
         rvComments = (RecyclerView) findViewById(R.id.rv_comments);
         RecyclerView recyclerView = new RecyclerView(getBaseContext());
         final ArrayList<Comment> commentArrayList = new ArrayList<>();
-       // CommentAdapter ta = new CommentAdapter((ArrayList<Comment>) dbHandler.getAllCommentsPerTeacher(prof.getTeacherId()));
 
         commentDatabaseReference.addListenerForSingleValueEvent(new ValueEventListener() { //THIS GETS ALL THE COMMENTS
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for(DataSnapshot commentSnapshot: dataSnapshot.getChildren()){
-                    if(commentSnapshot.getValue(Comment.class).getTeacherID().equals(prof.getName())){
+                    if(commentSnapshot.getValue(Comment.class).getTeacher().equals(prof.getName())){
                         Comment comment = commentSnapshot.getValue(Comment.class);
                         commentArrayList.add(comment);
                     }
@@ -199,7 +197,6 @@ public class ProfPage extends AppCompatActivity implements OnDialogDismissListen
             }
         });
 
-
     }
 
     @Override
@@ -210,20 +207,50 @@ public class ProfPage extends AppCompatActivity implements OnDialogDismissListen
 
     public void followProfButton(View view) {
 
-        ImageView ivFollowProf = (ImageView) view.findViewById(R.id.iv_profPage_followProf);
-        TextView  tvFollowProf = (TextView) view.findViewById(R.id.tv_profPage_followProf);
-//        if(dbHandler.toggleFollowProf()){ // Following
-        if(dbHandler.toggleFollowProf(student, prof)){
-            ivFollowProf.setColorFilter(Color.parseColor("#ff9763"),
-                    android.graphics.PorterDuff.Mode.SRC_IN);
-            tvFollowProf.setTextColor(Color.parseColor("#ff9763"));
-            tvFollowProf.setText("Following");
-        } else {    // Not followed
-            ivFollowProf.setColorFilter(Color.parseColor("#686b68"),
-                    android.graphics.PorterDuff.Mode.SRC_IN);
-            tvFollowProf.setTextColor(Color.parseColor("#686b68"));
-            tvFollowProf.setText("Follow");
-        }
+        final ImageView ivFollowProf = (ImageView) view.findViewById(R.id.iv_profPage_followProf);
+        final TextView  tvFollowProf = (TextView) view.findViewById(R.id.tv_profPage_followProf);
+
+        SharedPreferences SP   = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
+        final String  reviewer = SP.getString("loggedStudent", "student_email");
+        final Follow follow = new Follow(null, null);
+
+        follow.setTeacher(prof.getName());
+        follow.setStudent(reviewer);
+
+        followDatabaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+            boolean found=false;
+            String key;
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for(DataSnapshot followDatasnapshot: dataSnapshot.getChildren()){
+                    if (followDatasnapshot.getValue(Follow.class).getStudent().equals(reviewer) && followDatasnapshot.getValue(Follow.class).getTeacher().equals(prof.getName())){
+                        key = followDatasnapshot.getKey();
+                        found = true;
+                    }
+                }
+                if(found) {
+                    followDatabaseReference.child(key).setValue(null);
+                    ivFollowProf.setColorFilter(Color.parseColor("#686b68"),
+                            android.graphics.PorterDuff.Mode.SRC_IN);
+                    tvFollowProf.setTextColor(Color.parseColor("#686b68"));
+                    tvFollowProf.setText("Follow");
+                }else {
+                    ivFollowProf.setColorFilter(Color.parseColor("#e98b5b"),
+                            android.graphics.PorterDuff.Mode.SRC_IN);
+                    tvFollowProf.setTextColor(Color.parseColor("#e98b5b"));
+                    tvFollowProf.setText("Following");
+                    key = followDatabaseReference.push().getKey();
+                    followDatabaseReference.child(key).setValue(follow);
+                }
+
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
     }
 
     public static class AddRateDialog extends DialogFragment {
@@ -233,7 +260,7 @@ public class ProfPage extends AppCompatActivity implements OnDialogDismissListen
 
         static DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
         static  DatabaseReference editCommentDatabaseReference = databaseReference.child("comment");
-
+        static  DatabaseReference teacherDatabaseReference = databaseReference.child("teacher");
         public static AddRateDialog newInstance(Teacher prof, String reviewer, Activity activity, Comment comment) {
             AddRateDialog f = new AddRateDialog();
 
@@ -284,12 +311,66 @@ public class ProfPage extends AppCompatActivity implements OnDialogDismissListen
                             String title         = ((EditText) v.findViewById(R.id.et_titleFeedBack)).getText().toString(),
                                     body          = ((EditText) v.findViewById(R.id.et_bodyFeedBack)).getText().toString();
                             float  rating        = ((RatingBar) v.findViewById(R.id.rb_rating)).getRating();
-                            if(ownComment != null) {
+                            if(ownComment != null) { //CHECKS IF THE USER ALREADY MADE A COMMENT
                                 ownComment.setTitle(title);
                                 ownComment.setBody(body);
                                 ownComment.setRate(rating);
-                                dbHandler.updateCommentInfo(ownComment);
-                            } else dbHandler.addNewComment(new Comment(title, body, rating, reviewer, selectedProf.getName()));
+                                ownComment.setReviewer(reviewer);
+                                ownComment.setTeacher(selectedProf.getName());
+                               editCommentDatabaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+                                    String key;
+                                    @Override
+                                    public void onDataChange(DataSnapshot dataSnapshot) {
+                                        for(DataSnapshot commentSnapshot : dataSnapshot.getChildren()){
+                                            if(commentSnapshot.getValue(Comment.class).getReviewer().equals(ownComment.getReviewer())){
+                                                key = commentSnapshot.getKey();
+                                            }
+                                        }
+                                        editCommentDatabaseReference.child(key).setValue(ownComment);
+                                    }
+                                    @Override
+                                    public void onCancelled(DatabaseError databaseError) {
+                                    }
+                                });
+                                //dbHandler.updateCommentInfo(ownComment);
+                            } else{ //IF NO EXISTING COMMENT CREATE A NEW ONE
+                                dbHandler.addNewComment(new Comment(title, body, rating, reviewer, selectedProf.getName()));
+                                teacherDatabaseReference.addListenerForSingleValueEvent(new ValueEventListener() { //It updates the number of reviews after posting new comment
+                                    String key;
+                                    int nReviews=0;
+                                    @Override
+                                    public void onDataChange(DataSnapshot dataSnapshot) {
+                                        for(DataSnapshot teacherSnapshot:dataSnapshot.getChildren()){
+                                            if(teacherSnapshot.getValue(Teacher.class).getName().equals(selectedProf.getName())){
+                                                key=teacherSnapshot.getKey();
+                                                nReviews = teacherSnapshot.getValue(Teacher.class).getnReviews() + 1;
+                                            }
+                                        }
+                                        teacherDatabaseReference.child(key).child("nReviews").setValue(nReviews);
+                                        editCommentDatabaseReference.addListenerForSingleValueEvent(new ValueEventListener() { //It updates the average of rating after posting the new comment
+                                            int cmtCtr=0;
+                                            float ave =0;
+                                            @Override
+                                            public void onDataChange(DataSnapshot dataSnapshot) {
+                                                for(DataSnapshot commentSnapshot:dataSnapshot.getChildren()){
+                                                    if(commentSnapshot.getValue(Comment.class).getTeacher().equals(selectedProf.getName())){
+                                                        ave = ave + commentSnapshot.getValue(Comment.class).getRate();
+                                                        cmtCtr++;
+                                                    }
+                                                }
+                                                ave = ave/cmtCtr;
+                                                teacherDatabaseReference.child(key).child("aveRating").setValue(ave);
+                                            }
+                                            @Override
+                                            public void onCancelled(DatabaseError databaseError) {
+                                            }
+                                        });
+                                    }
+                                    @Override
+                                    public void onCancelled(DatabaseError databaseError) {
+                                    }
+                                });
+                            }
                             dismiss();
                         }}).setNeutralButton("Cancel", new DialogInterface.OnClickListener() {
                         @Override
@@ -301,28 +382,67 @@ public class ProfPage extends AppCompatActivity implements OnDialogDismissListen
                 builder.setNegativeButton("Delete", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        editCommentDatabaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+                        editCommentDatabaseReference.addListenerForSingleValueEvent(new ValueEventListener() { //It deletes the comment from the database
                             String key;
                             @Override
                             public void onDataChange(DataSnapshot dataSnapshot) {
                                 for(DataSnapshot commentSnapshot: dataSnapshot.getChildren()){
-                                    if(ownComment.getTeacherID().equals(selectedProf.getName()) && ownComment.getReviewer().equals(reviewer)){
+                                    if(commentSnapshot.getValue(Comment.class).getTeacher().equals(ownComment.getTeacher()) && commentSnapshot.getValue(Comment.class).getReviewer().equals(ownComment.getReviewer())){
                                         key = commentSnapshot.getKey();
                                     }
                                 }
                                 editCommentDatabaseReference.child(key).setValue(null); //deletes from the database
+                          teacherDatabaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+                                    int nReviews=0;
+                                    String key;
+                                    @Override
+                                    public void onDataChange(DataSnapshot dataSnapshot) { //It updates the new number of reviews after deleting
+                                        for(DataSnapshot teacherSnapshot : dataSnapshot.getChildren()){
+                                            if(teacherSnapshot.getValue(Teacher.class).getName().equals(selectedProf.getName())){
+                                                nReviews = teacherSnapshot.getValue(Teacher.class).getnReviews();
+                                                key = teacherSnapshot.getKey();
+                                            }
+                                        }
+                                        nReviews--;
+                                        teacherDatabaseReference.child(key).child("nReviews").setValue(nReviews);
 
+                                        editCommentDatabaseReference.addListenerForSingleValueEvent(new ValueEventListener() { //It updates the new average rating after deleting
+                                            float ave = 0;
+                                            int cmtCtr = 0;
+                                            @Override
+                                            public void onDataChange(DataSnapshot dataSnapshot) {
+                                                for(DataSnapshot commentSnapshot : dataSnapshot.getChildren()){
+                                                    if(commentSnapshot.getValue(Comment.class).getTeacher().equals(selectedProf.getName())){
+                                                        ave = ave + commentSnapshot.getValue(Comment.class).getRate();
+                                                        cmtCtr++;
+                                                    }
+                                                }
+                                                if(cmtCtr!=0) {
+                                                    ave = ave / cmtCtr;
+                                                    teacherDatabaseReference.child(key).child("aveRating").setValue(ave);
+                                                }else
+                                                    teacherDatabaseReference.child(key).child("aveRating").setValue(0);
+                                            }
+                                            @Override
+                                            public void onCancelled(DatabaseError databaseError) {
+                                            }
+                                        });
+                                    }
+                                    @Override
+                                    public void onCancelled(DatabaseError databaseError) {
+                                    }
+                                });
                             }
                             @Override
                             public void onCancelled(DatabaseError databaseError) {
 
                             }
+
                         });
                        /* dbHandler.deleteComment(ownComment.getId());*/
                         dismiss();
                     }
                 }).setView(v);
-
             return builder.create();
         }
 

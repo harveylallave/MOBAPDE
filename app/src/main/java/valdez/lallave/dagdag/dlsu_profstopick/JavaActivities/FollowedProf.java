@@ -32,7 +32,7 @@ public class FollowedProf extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+       /* super.onCreate(savedInstanceState);
         setContentView(R.layout.followed_prof);
 
         SharedPreferences SP          = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
@@ -102,7 +102,7 @@ public class FollowedProf extends AppCompatActivity {
 
         View v = findViewById(R.id.menuPane);
         v.bringToFront();                       // <--- IMPORTANT MENUPANE IS IN THE BACK (backend)
-        HomePage.initializeMenuButtons(v, reviewer);
+        HomePage.initializeMenuButtons(v, reviewer);*/
     }
 
     @Override

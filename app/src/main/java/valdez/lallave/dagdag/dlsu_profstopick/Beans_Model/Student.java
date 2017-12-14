@@ -4,8 +4,6 @@ public class Student {
 
     private String email,
                    hashedPass;
-    private int    studentId;
-
 
     public Student() {}
 
@@ -15,11 +13,6 @@ public class Student {
     }
 
 
-    public Student(int studentId, String email, String hashedPass) {
-        this.email = email;
-        this.hashedPass = hashedPass;
-        this.studentId = studentId;
-    }
 
     public String getEmail() {
         return email;
@@ -37,18 +30,10 @@ public class Student {
         this.hashedPass = hashedPass;
     }
 
-    public int getStudentId() {
-        return studentId;
-    }
-
-    public void setStudentId(int studentId) {
-        this.studentId = studentId;
-    }
 
     @Override
     public String toString() {
         return "Admin{" +
-                "studentId=" + studentId +
                 ", email='" + email + '\'' +
                 '}';
     }

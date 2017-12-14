@@ -6,8 +6,7 @@ public class Comment {
                    reviewer;
 
     private float  rate;
-    private int    id;
-    private String teacherID;
+    private String teacher;
 
 
     public Comment(String title, String body, float rate, String reviewer, String teacherID){
@@ -15,7 +14,7 @@ public class Comment {
         this.body      = body;
         this.rate      = rate;
         this.reviewer = reviewer;
-        this.teacherID = teacherID;
+        this.teacher = teacherID;
     }
 
     public Comment() {
@@ -55,21 +54,14 @@ public class Comment {
                 '}';
     }
 
-    public String getTeacherID() {
-        return teacherID;
+    public String getTeacher() {
+        return teacher;
     }
 
-    public void setTeacherID(String teacherID) {
-        this.teacherID = teacherID;
+    public void setTeacher(String teacherID) {
+        this.teacher = teacherID;
     }
 
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
 
     public String getReviewer() {
         return reviewer;

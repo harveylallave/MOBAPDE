@@ -144,7 +144,7 @@ public class DBHandler extends SQLiteOpenHelper {
         db.close();
     }
 
-    public boolean toggleFollowProf(Student student, Teacher teacher){
+/*    public boolean toggleFollowProf(Student student, Teacher teacher){
 
 
         String selectQuery = "SELECT  * FROM " + TABLE_FOLLOWING_PROF +" WHERE studentId = '" + student.getStudentId() +
@@ -161,9 +161,9 @@ public class DBHandler extends SQLiteOpenHelper {
             return true;
         }
 
-    }
+    }*/
 
-    public void addFollowProf(Student student, Teacher teacher) {
+/*    public void addFollowProf(Student student, Teacher teacher) {
 
         SQLiteDatabase db = this.getWritableDatabase();
 
@@ -174,7 +174,7 @@ public class DBHandler extends SQLiteOpenHelper {
 
         db.insert(TABLE_FOLLOWING_PROF, null, values);
         db.close();
-    }
+    }*/
 
     public void addNewComment(Comment newComment) {
         key = studentDatabaseReference.push().getKey();
@@ -244,7 +244,7 @@ public class DBHandler extends SQLiteOpenHelper {
 //        db.close(); // Closing database connection
     }
 
-    public boolean updateCommentInfo(Comment updatedComment) {
+/*    public boolean updateCommentInfo(Comment updatedComment) {
 
         SQLiteDatabase db = this.getWritableDatabase();
 
@@ -259,9 +259,9 @@ public class DBHandler extends SQLiteOpenHelper {
 
 
         return db.update(TABLE_COMMENT, values, KEY_ID + "=" + updatedComment.getId(), null) > 0;
-    }
+    }*/
 
-    public boolean updateTeacherInfo(Teacher updatedTeacher) {
+/*    public boolean updateTeacherInfo(Teacher updatedTeacher) {
 
         SQLiteDatabase db = this.getWritableDatabase();
 
@@ -271,9 +271,9 @@ public class DBHandler extends SQLiteOpenHelper {
         args.put(KEY_TEACHER_DEPARTMENT, updatedTeacher.getDepartment());
 
         return db.update(TABLE_TEACHER, args, KEY_ID + "=" + updatedTeacher.getTeacherId(), null) > 0;
-    }
+    }*/
 
-    public boolean updateAdminInfo(Admin updatedAdmin) {
+/*    public boolean updateAdminInfo(Admin updatedAdmin) {
 
         SQLiteDatabase db = this.getWritableDatabase();
 
@@ -283,9 +283,9 @@ public class DBHandler extends SQLiteOpenHelper {
         args.put(KEY_HASHED_PASS, updatedAdmin.getHashedPass());
 
         return db.update(TABLE_ADMIN, args, KEY_ID + "=" + updatedAdmin.getAdminId(), null) > 0;
-    }
+    }*/
 
-    public boolean updateStudentInfo(Student updatedStudent) {
+/*    public boolean updateStudentInfo(Student updatedStudent) {
 
         SQLiteDatabase db = this.getWritableDatabase();
 
@@ -295,7 +295,7 @@ public class DBHandler extends SQLiteOpenHelper {
         args.put(KEY_HASHED_PASS, updatedStudent.getHashedPass());
 
         return db.update(TABLE_STUDENT, args, KEY_ID + "=" + updatedStudent.getStudentId(), null) > 0;
-    }
+    }*/
 
 
     public boolean deleteComment(int delID){
@@ -329,7 +329,7 @@ public class DBHandler extends SQLiteOpenHelper {
 
     }
 
-    public boolean validateFollowingProf(Student student, Teacher teacher) {
+   /* public boolean validateFollowingProf(Student student, Teacher teacher) {
 
         String selectQuery = "SELECT  * FROM " + TABLE_FOLLOWING_PROF +" WHERE studentId = '" + student.getStudentId() +
                 "' and teacherId = '" + teacher.getTeacherId() + "';";
@@ -338,7 +338,7 @@ public class DBHandler extends SQLiteOpenHelper {
         Cursor cursor = db.rawQuery(selectQuery, null);
 
         return cursor.moveToFirst();
-    }
+    }*/
 
     public boolean validateAdmin(String email, String hashedPass) {
 
@@ -390,7 +390,7 @@ public class DBHandler extends SQLiteOpenHelper {
         return nReviews;
     }
 
-    public Comment getComment(Student student, Teacher teacher) {
+   /* public Comment getComment(Student student, Teacher teacher) {
 
         Comment comment    = null;
         String selectQuery = "SELECT  * FROM " + TABLE_COMMENT +" WHERE " +
@@ -408,13 +408,13 @@ public class DBHandler extends SQLiteOpenHelper {
             comment.setBody(cursor.getString(2));
             comment.setRate(cursor.getFloat(3));
             comment.setReviewer(cursor.getString(4));
-            /*comment.setTeacherID(cursor.getInt(5));*/
+            *//*comment.setTeacherID(cursor.getInt(5));*//*
         }
 
         return comment;
-    }
+    }*/
 
-    public Student getStudent(String reviewer) {
+/*    public Student getStudent(String reviewer) {
 
         Student student = null;
 
@@ -435,9 +435,9 @@ public class DBHandler extends SQLiteOpenHelper {
         }
 
         return student;
-    }
+    }*/
 
-    public List<Comment> getAllCommentsPerTeacher(int teacherId) {
+/*    public List<Comment> getAllCommentsPerTeacher(int teacherId) {
 
         List<Comment> commentList = new ArrayList<>();
 
@@ -459,7 +459,7 @@ public class DBHandler extends SQLiteOpenHelper {
                 comment.setBody(cursor.getString(2));
                 comment.setRate(cursor.getFloat(3));
                 comment.setReviewer(cursor.getString(4));
-/*                comment.setTeacherID(cursor.getInt(5));*/
+*//*                comment.setTeacherID(cursor.getInt(5));*//*
 
                 commentList.add(comment);
 
@@ -467,10 +467,10 @@ public class DBHandler extends SQLiteOpenHelper {
         }
 
         return commentList;
-    }
+    }*/
 
 
-    public List<Teacher> getTeacher(String teacherName) {
+    /*public List<Teacher> getTeacher(String teacherName) {
 
         List<Teacher> teacherList = new ArrayList<>();
 
@@ -498,9 +498,9 @@ public class DBHandler extends SQLiteOpenHelper {
         }
 
         return teacherList;
-    }
+    }*/
 
-    public List<Teacher> getAllFollowedTeachers(Student student) {
+   /* public List<Teacher> getAllFollowedTeachers(Student student) {
 
         List<Teacher> teacherList = new ArrayList<Teacher>();
 // id / teacherName/ teacherDepartment
@@ -534,8 +534,8 @@ public class DBHandler extends SQLiteOpenHelper {
 
         return teacherList;
     }
-
-    public List<Teacher> getAllTeachers() {
+*/
+   /* public List<Teacher> getAllTeachers() {
 
         List<Teacher> teacherList = new ArrayList<Teacher>();
 
@@ -562,9 +562,9 @@ public class DBHandler extends SQLiteOpenHelper {
         }
 
         return teacherList;
-    }
+    }*/
 
-    public List<Admin> getAllAdmin() {
+   /* public List<Admin> getAllAdmin() {
 
         List<Admin> adminList = new ArrayList<Admin>();
 
@@ -589,9 +589,9 @@ public class DBHandler extends SQLiteOpenHelper {
         }
 
         return adminList;
-    }
+    }*/
 
-    public List<Student> getAllStudents() {
+/*    public List<Student> getAllStudents() {
 
         List<Student> studentList = new ArrayList<Student>();
 
@@ -617,7 +617,7 @@ public class DBHandler extends SQLiteOpenHelper {
 
         // return contact list
         return studentList;
-    }
+    }*/
 
     public List<Suggest> getAllSuggestions() {
 
