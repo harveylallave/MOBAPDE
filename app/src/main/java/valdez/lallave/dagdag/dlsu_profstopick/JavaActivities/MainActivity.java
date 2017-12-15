@@ -148,26 +148,6 @@ public class MainActivity extends AppCompatActivity {
                     e.printStackTrace();
                 }
 
-//                try {
-//                    if(DBHandler.validateStudent(email, PasswordAuthentication.SHA1(pass))) {
-//
-//                        SharedPreferences SP = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
-//                        SharedPreferences.Editor SPE = SP.edit();
-//                        SPE.putString("loggedStudent", email);
-//                        SPE.apply();
-//
-//                        startActivity(new Intent(getBaseContext(), HomePage.class));
-//                        finish();
-//                    } else if (DBHandler.validateAdmin(email, PasswordAuthentication.SHA1(pass))) {
-//                        startActivity(new Intent(getBaseContext(), AndroidDatabaseManager.class));
-//                        finish();
-//                    } else {
-//                        clearPass.setText("");
-//                        Toast.makeText(getApplicationContext(), "Invalid email or password", Toast.LENGTH_LONG).show();
-//                    }
-//                } catch (NoSuchAlgorithmException | UnsupportedEncodingException e) {
-//                    e.printStackTrace();
-//                }
             }
         });
         registerView.setOnClickListener(new View.OnClickListener() {

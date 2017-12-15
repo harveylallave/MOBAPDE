@@ -55,10 +55,9 @@ public class ProfPage extends AppCompatActivity implements OnDialogDismissListen
 
     String reviewer;
 
-
     final DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
     final DatabaseReference commentDatabaseReference = databaseReference.child("comment");
-    final DatabaseReference followDatabaseReference = databaseReference.child("follow");
+    final DatabaseReference followDatabaseReference = databaseReference.child("following");
 
 
     @Override

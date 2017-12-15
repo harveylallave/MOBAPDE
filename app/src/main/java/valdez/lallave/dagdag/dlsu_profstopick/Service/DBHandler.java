@@ -27,14 +27,14 @@ import valdez.lallave.dagdag.dlsu_profstopick.Beans_Model.Teacher;
 
 public class DBHandler extends SQLiteOpenHelper {
     //FIREBASE DB LINK
-    /*      https://mobapde-46925.firebaseio.com/    */
-
+    /*     https://mobapde-46925.firebaseio.com/    */
     //Firebase variables
     DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
     final DatabaseReference studentDatabaseReference = databaseReference.child("student");
     final DatabaseReference teacherDatabaseReference = databaseReference.child("teacher");
     final DatabaseReference commentDatabaseReference = databaseReference.child("comment");
     final DatabaseReference adminDatabaseReference = databaseReference.child("admin");
+
     String key; //Key used to push in the database
 
     // All Static variables

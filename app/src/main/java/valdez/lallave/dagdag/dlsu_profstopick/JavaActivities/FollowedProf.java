@@ -52,7 +52,7 @@ public class FollowedProf extends AppCompatActivity {
         etSearch                      = (EditText) findViewById(R.id.et_followedProf_searchProf);
 
         final DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
-        final DatabaseReference followDatabaseReference = databaseReference.child("follow");
+        final DatabaseReference followDatabaseReference = databaseReference.child("following");
         final DatabaseReference teacherDatabaseReference = databaseReference.child("teacher");
 
 

@@ -310,7 +310,7 @@ public class AndroidDatabaseManager extends Activity implements OnItemClickListe
             select_table.setAdapter(tablenamesadapter);
         }
 
-        // when a table names is selecte display the table contents
+        // when a table names is selected display the table contents
         select_table.setOnItemSelectedListener(new OnItemSelectedListener() {
 
             @Override
@@ -576,7 +576,7 @@ public class AndroidDatabaseManager extends Activity implements OnItemClickListe
                                         Log.d("Edit Text Value",""+et.getText().toString());
 
                                         RelativeLayout.LayoutParams rll = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
-                                        rll.addRule(RelativeLayout.BELOW,ll.getId()-1 );
+                                        rll.addRule(RelativeLayout.BELOW,ll.getId()-1);
                                         rll.setMargins(0, 20, 0, 0);
                                         addnewlayout.addView(ll, rll);
 
