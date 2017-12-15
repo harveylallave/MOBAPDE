@@ -60,7 +60,6 @@ public class SuggestProf extends AppCompatActivity {
                     /*dbHandler.addSuggestProf(s);*/
                     String key = suggestDatabaseReference.push().getKey();
                     suggestDatabaseReference.child(key).setValue(s);
-                    
                     Toast.makeText(SuggestProf.this, "Suggestion Received", Toast.LENGTH_SHORT).show();
                     finish();
                 }

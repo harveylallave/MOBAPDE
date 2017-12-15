@@ -3,6 +3,7 @@ package valdez.lallave.dagdag.dlsu_profstopick.JavaActivities;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.preference.PreferenceManager;
@@ -112,6 +113,7 @@ public class ProfPage extends AppCompatActivity implements OnDialogDismissListen
                 } else {
                     rateButton.setText("Update Rating");
                 }
+
                 View v = findViewById(R.id.menuPane);
                 v.bringToFront();
                 HomePage.initializeMenuButtons(v, reviewer);
@@ -255,6 +257,7 @@ public class ProfPage extends AppCompatActivity implements OnDialogDismissListen
         static DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
         static  DatabaseReference editCommentDatabaseReference = databaseReference.child("comment");
         static  DatabaseReference teacherDatabaseReference = databaseReference.child("teacher");
+
         public static AddRateDialog newInstance(Teacher prof, String reviewer, Activity activity, Comment comment) {
             AddRateDialog f = new AddRateDialog();
 
@@ -328,7 +331,7 @@ public class ProfPage extends AppCompatActivity implements OnDialogDismissListen
                                 });
                             } else{ //IF NO EXISTING COMMENT CREATE A NEW ONE
                                 dbHandler.addNewComment(new Comment(title, body, rating, reviewer, selectedProf.getName())); //Create new comment
-                                teacherDatabaseReference.addListenerForSingleValueEvent(new ValueEventListener() { //It updates the number of reviews after posting new comment
+                                teacherDatabaseReference.addListenerForSingleValueEvent(new ValueEventListener() { //It updates the number of reviews in teacher table after posting new comment
                                     String key;
                                     int nReviews=0;
                                     @Override
@@ -385,7 +388,7 @@ public class ProfPage extends AppCompatActivity implements OnDialogDismissListen
                                     }
                                 }
                                 editCommentDatabaseReference.child(key).setValue(null); //deletes from the database
-                          teacherDatabaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+                                teacherDatabaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
                                     int nReviews=0;
                                     String key;
                                     @Override
@@ -428,11 +431,8 @@ public class ProfPage extends AppCompatActivity implements OnDialogDismissListen
                             }
                             @Override
                             public void onCancelled(DatabaseError databaseError) {
-
                             }
-
                         });
-
                         dismiss();
                     }
                 }).setView(v);

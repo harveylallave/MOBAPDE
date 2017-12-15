@@ -78,6 +78,7 @@ public class MainActivity extends AppCompatActivity {
 
         DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
         final DatabaseReference studentDatabaseReference = databaseReference.child("student");
+        final DatabaseReference adminDatabaseReference = databaseReference.child("admin");
 
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -88,8 +89,9 @@ public class MainActivity extends AppCompatActivity {
 
                 try {
                     final String hashedPass = PasswordAuthentication.SHA1(pass);
-                    studentDatabaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+                    studentDatabaseReference.addListenerForSingleValueEvent(new ValueEventListener() { //checks if email and password is valid for student
                         boolean checkStudent=false;
+                        boolean checkAdmin = false;
                         String key;
                         @Override
                         public void onDataChange(DataSnapshot dataSnapshot) {
@@ -102,23 +104,44 @@ public class MainActivity extends AppCompatActivity {
                                     checkStudent = false;
                                 }
                             }
-                            if(checkStudent){
-                                SharedPreferences SP = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
-                                SharedPreferences.Editor SPE = SP.edit();
-                                SPE.putString("loggedStudent", email);
-                                SPE.putString("studentkey", key);
-                                SPE.apply();
 
-                                startActivity(new Intent(getBaseContext(), HomePage.class));
-                                finish();
-                            }else {
-                                clearPass.setText("");
-                                Toast.makeText(getApplicationContext(), "Invalid email or password", Toast.LENGTH_LONG).show();
-                            }
+                            adminDatabaseReference.addListenerForSingleValueEvent(new ValueEventListener() { //checks if email and password is valid for admin
+                                @Override
+                                public void onDataChange(DataSnapshot dataSnapshot) {
+                                    for(DataSnapshot adminSnapshot : dataSnapshot.getChildren()){
+                                        if(adminSnapshot.getValue(Admin.class).getEmail().equals(email) && adminSnapshot.getValue(Admin.class).getHashedPass().equals(hashedPass)){
+                                            checkAdmin = true;
+                                            key = adminSnapshot.getKey();
+                                            break;
+                                        }else{
+                                            checkAdmin = false;
+                                        }
+                                    }
+
+                                    if(checkStudent){
+                                        SharedPreferences SP = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
+                                        SharedPreferences.Editor SPE = SP.edit();
+                                        SPE.putString("loggedStudent", email);
+                                        SPE.putString("studentkey", key);
+                                        SPE.apply();
+
+                                        startActivity(new Intent(getBaseContext(), HomePage.class));
+                                        finish();
+                                    }else if(checkAdmin){
+                                        startActivity(new Intent(getBaseContext(), AndroidDatabaseManager.class));
+                                        finish();
+                                    }else{
+                                        clearPass.setText("");
+                                        Toast.makeText(getApplicationContext(), "Invalid email or password", Toast.LENGTH_LONG).show();
+                                    }
+                                }
+                                @Override
+                                public void onCancelled(DatabaseError databaseError) {
+                                }
+                            });
                         }
                         @Override
                         public void onCancelled(DatabaseError databaseError) {
-
                         }
                     });
                 }catch (NoSuchAlgorithmException | UnsupportedEncodingException e) {

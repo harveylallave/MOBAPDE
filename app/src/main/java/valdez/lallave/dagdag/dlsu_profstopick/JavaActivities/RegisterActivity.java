@@ -97,7 +97,8 @@ public class RegisterActivity extends AppCompatActivity {
                                 etEmail.requestFocus();
                             }
                         }else{
-
+                            etEmail.setError("Email\'s domain must be @dlsu.edu.ph");
+                            etEmail.requestFocus();
                         }
 
                     }

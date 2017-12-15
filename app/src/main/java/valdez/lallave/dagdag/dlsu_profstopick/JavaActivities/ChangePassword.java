@@ -5,9 +5,17 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
+
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.io.UnsupportedEncodingException;
 import java.security.NoSuchAlgorithmException;
@@ -28,6 +36,9 @@ public class ChangePassword extends AppCompatActivity{
             etNew,
             etNewR,
             etEmail;
+    DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
+    final DatabaseReference studentDatabaseReference = databaseReference.child("student");
+
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.change_pass);
@@ -36,54 +47,73 @@ public class ChangePassword extends AppCompatActivity{
         etNewR = (EditText) findViewById(R.id.et_NewRpass);
         etEmail = (EditText) findViewById(R.id.et_Email);
 
-/*        findViewById(R.id.changePassButton).setOnClickListener(new View.OnClickListener() {
+        findViewById(R.id.changePassButton).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                String pOld = etOld.getText().toString();
-                String pNew = etNew.getText().toString();
-                String pNewR = etNewR.getText().toString();
+                final String pOld = etOld.getText().toString();
+                final String pNew = etNew.getText().toString();
+                final String pNewR = etNewR.getText().toString();
                 SharedPreferences SP = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
                 final String  reviewer        = SP.getString("loggedStudent", "student_email");
 
-                boolean valid = true;
-                dbHandler = new DBHandler(getBaseContext());
 
-                Student s = dbHandler.getStudent(reviewer);
 
-                if(!validateOldPassword(pOld,s))
-                    valid = false;
-                if(!validatePassword(pNew))
-                    valid = false;
-                if(!validateRPassword(pNewR,pNew))
-                    valid = false;
+                studentDatabaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+                    boolean valid = true;
+                    Student s;
+                    String key;
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        for(DataSnapshot studentSnapshot : dataSnapshot.getChildren()) {
+                             if (studentSnapshot.getValue(Student.class).getEmail().equals(reviewer) ) {
+                               s = studentSnapshot.getValue(Student.class);
+                               key = studentSnapshot.getKey();
+                            }
+                        }
 
-                if(valid){
-                    try {
-                        s.setHashedPass(PasswordAuthentication.SHA1(pNew));
-                        dbHandler.updateStudentInfo(s);
-                        finish();
-                    } catch (NoSuchAlgorithmException e) {
-                        e.printStackTrace();
-                    } catch (UnsupportedEncodingException e) {
-                        e.printStackTrace();
+                        Log.e("mytag", pOld);
+                        Log.e("mytag", pNew);
+                        Log.e("mytag", pNewR);
+
+                       if(!validateOldPassword(pOld,s))
+                            valid = false;
+                        if(!validatePassword(pNew))
+                            valid = false;
+                        if(!validateRPassword(pNewR,pNew))
+                            valid = false;
+
+                        if(valid){
+
+                            try {
+                                s.setHashedPass(PasswordAuthentication.SHA1(pNew));
+                                studentDatabaseReference.child(key).setValue(s);
+                                Toast.makeText(getApplicationContext(),  "Password successfully changed!", Toast.LENGTH_SHORT).show();
+                                finish();
+                            } catch (NoSuchAlgorithmException e) {
+                                e.printStackTrace();
+                            } catch (UnsupportedEncodingException e) {
+                                e.printStackTrace();
+                            }
+                        }
+
                     }
-                }
 
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
 
-
-
-
+                    }
+                });
             }
-        });*/
+        });
     }
 
     protected boolean validateOldPassword(String password, Student s){
-
         try {
-            if(password!=null && password.length()>=8 && s.getHashedPass().equals(PasswordAuthentication.SHA1(password)))
+            if(password!=null && password.length()>=8 && s.getHashedPass().equals(PasswordAuthentication.SHA1(password))) {
+                Log.e("mytag", "entered");
                 return true;
-            else etOld.setError("Wrong Password");
+            }else etOld.setError("Wrong Password");
         } catch (NoSuchAlgorithmException e) {
             e.printStackTrace();
         } catch (UnsupportedEncodingException e) {
