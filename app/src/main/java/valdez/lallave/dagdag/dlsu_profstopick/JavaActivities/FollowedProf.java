@@ -48,7 +48,7 @@ public class FollowedProf extends AppCompatActivity {
         SharedPreferences SP          = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
         final String  reviewer        = SP.getString("loggedStudent", "student_email");
         rvTeachers                    = (RecyclerView) findViewById(R.id.rv_followedTeachers);
-        DBHandler                     = new DBHandler(getBaseContext());
+        DBHandler                     = new DBHandler();
         etSearch                      = (EditText) findViewById(R.id.et_followedProf_searchProf);
 
         final DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();

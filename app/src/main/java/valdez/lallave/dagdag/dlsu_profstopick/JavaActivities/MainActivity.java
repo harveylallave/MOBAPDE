@@ -39,7 +39,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         Button loginButton = (Button) findViewById(R.id.loginB);
-        final DBHandler DBHandler = new DBHandler(getBaseContext());
+        final DBHandler DBHandler = new DBHandler();
         final TextView registerView = (TextView) findViewById(R.id.createAccTV);
         final TextView forgotPassView = (TextView) findViewById(R.id.forgotPassTV);
 
@@ -58,23 +58,17 @@ public class MainActivity extends AppCompatActivity {
 //            e.printStackTrace();
 //        }
 
-//        Temporary register
 //        try {
 //           DBHandler.addNewAdmin(new Admin("profs_to_pick@dlsu.edu.ph", PasswordAuthentication.SHA1("1234")));
-//            DBHandler.addNewStudent(new Student("harvey_lallave@dlsu.edu.ph", PasswordAuthentication.SHA1("1234")));
-/*        DBHandler.addNewTeacher(new Teacher("Ms. Ethel Ong", "CCS"));
-        DBHandler.addNewTeacher(new Teacher("Ms. Charibeth Cheng", "CCS"));
-        DBHandler.addNewTeacher(new Teacher("Ms. Teresita Limoanco", "CCS"));
-        DBHandler.addNewTeacher(new Teacher("Ms. Jocelyn Cu", "CCS"));
-        DBHandler.addNewTeacher(new Teacher("Ms. Nathalie Lim-Cheng", "CCS"));*/
+//           DBHandler.addNewStudent(new Student("harvey_lallave@dlsu.edu.ph", PasswordAuthentication.SHA1("1234")));
+/*           DBHandler.addNewTeacher(new Teacher("Ms. Ethel Ong", "CCS"));
+             DBHandler.addNewTeacher(new Teacher("Ms. Charibeth Cheng", "CCS"));
+             DBHandler.addNewTeacher(new Teacher("Ms. Teresita Limoanco", "CCS"));
+             DBHandler.addNewTeacher(new Teacher("Ms. Jocelyn Cu", "CCS"));
+             DBHandler.addNewTeacher(new Teacher("Ms. Nathalie Lim-Cheng", "CCS"));*/
 //       } catch (NoSuchAlgorithmException | UnsupportedEncodingException e) {
 //            e.printStackTrace();
 //      }
-
-
-//        DBHandler.addNewComment(new Comment("Sample title", "Sample body", 3, "dan@dlsu.edu.ph", "Ms. Teresita Limoanco"));
-//        DBHandler.addNewComment(new Comment("Sample title3", "Sample body3", 5, "dan_dagdag@dlsu.edu.ph", "Ms. Charibeth Cheng"));
-//        DBHandler.addNewComment(new Comment("Sample title4", "Sample body4", 1, "dan_dagdag@dlsu.edu.ph", "Ms. Ethel Ong"));
 
         DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
         final DatabaseReference studentDatabaseReference = databaseReference.child("student");
@@ -128,7 +122,7 @@ public class MainActivity extends AppCompatActivity {
                                         startActivity(new Intent(getBaseContext(), HomePage.class));
                                         finish();
                                     }else if(checkAdmin){
-                                        startActivity(new Intent(getBaseContext(), AndroidDatabaseManager.class));
+                                        /*startActivity(new Intent(getBaseContext(), AndroidDatabaseManager.class));*/
                                         finish();
                                     }else{
                                         clearPass.setText("");

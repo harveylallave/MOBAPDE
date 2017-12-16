@@ -1,3 +1,4 @@
+/*
 package valdez.lallave.dagdag.dlsu_profstopick.JavaActivities;
 //add your package name here example: package com.example.dbm;
 
@@ -1290,4 +1291,4 @@ public class AndroidDatabaseManager extends Activity implements OnItemClickListe
 
     }
 
-}
+}*/

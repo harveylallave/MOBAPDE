@@ -64,7 +64,7 @@ public class ProfPage extends AppCompatActivity implements OnDialogDismissListen
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.prof_page);
-        dbHandler = new DBHandler(getBaseContext());
+        dbHandler = new DBHandler();
 
 
         getSupportActionBar();
@@ -123,6 +123,7 @@ public class ProfPage extends AppCompatActivity implements OnDialogDismissListen
                     public void onClick(View view) {
                         AddRateDialog dialog = AddRateDialog.newInstance(prof, reviewer, profPage, ownComment);
                         dialog.show(getSupportFragmentManager(), "");
+
                     }
                 });
             }
@@ -140,7 +141,7 @@ public class ProfPage extends AppCompatActivity implements OnDialogDismissListen
         follow.setTeacher(prof.getName());
         follow.setStudent(reviewer);
 
-        followDatabaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+        followDatabaseReference.addListenerForSingleValueEvent(new ValueEventListener() { //Updates the notification button if prof is followed/unfollowed.
            boolean found = false;
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -168,10 +169,9 @@ public class ProfPage extends AppCompatActivity implements OnDialogDismissListen
         });
 
         rvComments = (RecyclerView) findViewById(R.id.rv_comments);
-        RecyclerView recyclerView = new RecyclerView(getBaseContext());
         final ArrayList<Comment> commentArrayList = new ArrayList<>();
 
-        commentDatabaseReference.addListenerForSingleValueEvent(new ValueEventListener() { //THIS GETS ALL THE COMMENTS
+        commentDatabaseReference.addListenerForSingleValueEvent(new ValueEventListener() { //THIS GETS ALL THE COMMENTS FOR A CERTAIN PROF
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for(DataSnapshot commentSnapshot: dataSnapshot.getChildren()){
@@ -200,7 +200,7 @@ public class ProfPage extends AppCompatActivity implements OnDialogDismissListen
         startActivity(getIntent());
     }
 
-    public void followProfButton(View view) {
+    public void followProfButton(View view) {  //Toggle to follow/unfollow prof
 
         final ImageView ivFollowProf = (ImageView) view.findViewById(R.id.iv_profPage_followProf);
         final TextView  tvFollowProf = (TextView) view.findViewById(R.id.tv_profPage_followProf);
@@ -278,7 +278,7 @@ public class ProfPage extends AppCompatActivity implements OnDialogDismissListen
 
             final View          v             = LayoutInflater.from(getActivity()).inflate(R.layout.add_review_dialog, null);
             final Teacher       selectedProf  = getArguments().getParcelable("selectedProf");
-            final DBHandler     dbHandler     = new DBHandler(getContext());
+            final DBHandler     dbHandler     = new DBHandler();
             final String        reviewer      = getArguments().getString("reviewer");
             AlertDialog.Builder builder       = new AlertDialog.Builder(getActivity());
 

@@ -53,7 +53,7 @@ public class RegisterActivity extends AppCompatActivity {
         etPass = (EditText) findViewById(R.id.et_Pass);
         etRpass = (EditText) findViewById(R.id.et_Rpass);
         rButton = (Button) findViewById(R.id.rButton);
-        DBHandler = new DBHandler(getBaseContext());
+        DBHandler = new DBHandler();
 
 
         rButton.setOnClickListener(new View.OnClickListener() {

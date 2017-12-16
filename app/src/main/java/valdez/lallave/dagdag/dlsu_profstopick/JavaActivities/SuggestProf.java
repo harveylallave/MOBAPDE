@@ -38,7 +38,7 @@ public class SuggestProf extends AppCompatActivity {
 
         etName = (EditText) findViewById(R.id.et_Name);
         etDept = (EditText) findViewById(R.id.et_Department);
-        dbHandler = new DBHandler(getBaseContext());
+        dbHandler = new DBHandler();
 
         findViewById(R.id.suggestProfButton).setOnClickListener(new View.OnClickListener() {
             @Override
