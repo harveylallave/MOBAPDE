@@ -9,7 +9,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:background="#ffbc8f"
+        android:background="#ffffff"
         android:translationZ="1dp"
         android:paddingBottom="20dp">
 
@@ -25,7 +25,7 @@
                 android:padding="15dp"
                 android:text="Title"
                 android:textStyle="bold"
-                android:textColor="#023d0d"
+                android:textColor="#056917"
                 />
 
             <RatingBar
@@ -59,12 +59,13 @@
         android:layout_height="wrap_content"
         android:id="@+id/tv_body"
         android:textSize="27sp"
+        android:textColor="#000000"
         android:paddingStart="50dp"
         android:paddingTop="20dp"
         android:paddingBottom="20dp"
         android:paddingEnd="50dp"
         android:text="Body"
-        android:background="#96ffbc8f"
+        android:background="#ffffff"
         />
 
 

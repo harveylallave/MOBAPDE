@@ -14,14 +14,14 @@
         android:padding="15dp"
         android:text="Name"
         android:translationZ="1dp"
-        android:background="#ffbc8f"
+        android:background="#f5ebeb"
         />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingBottom="5dp"
-        android:background="#96ffbc8f">
+        android:background="#056917">
         <RatingBar
             android:id="@+id/rb_teacher"
             android:layout_width="wrap_content"
@@ -44,11 +44,13 @@
                 android:textStyle="bold"
                 android:textSize="28sp"
                 android:text="#"
+                android:textColor="#ffffff"
                 android:id="@+id/tv_nReviews"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Review/s"/>
+                android:text="Review/s"
+                android:textColor="#ffffff"/>
         </LinearLayout>
     </LinearLayout>
 </LinearLayout>

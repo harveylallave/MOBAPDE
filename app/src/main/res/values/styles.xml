@@ -9,8 +9,8 @@
     </style>
 
     <style name="RatingBar" parent="Theme.AppCompat">
-        <item name="colorControlNormal">#fcf3d1</item>
-        <item name="colorControlActivated">#fcf3d1</item>
+        <item name="colorControlNormal">#8c8b85</item>
+        <item name="colorControlActivated">#ffca00</item>
         <item name="android:numStars">5</item>
         <item name="android:rating">3</item>
         <item name="android:max">5</item>
@@ -19,8 +19,8 @@
     </style>
 
     <style name="RatingBarGold" parent="Theme.AppCompat">
-        <item name="colorControlNormal">#ffb700</item>
-        <item name="colorControlActivated">#ffb700</item>
+        <item name="colorControlNormal">#939393</item>
+        <item name="colorControlActivated">#ffca00</item>
         <item name="android:numStars">5</item>
         <item name="android:rating">3</item>
         <item name="android:max">5</item>
