@@ -41,7 +41,6 @@ public class MainActivity extends AppCompatActivity {
         Button loginButton = (Button) findViewById(R.id.loginB);
         final DBHandler DBHandler = new DBHandler();
         final TextView registerView = (TextView) findViewById(R.id.createAccTV);
-        final TextView forgotPassView = (TextView) findViewById(R.id.forgotPassTV);
 
         SharedPreferences SP = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
         String loggedStudent = SP.getString("loggedStudent", null);
@@ -150,11 +149,6 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(new Intent(getBaseContext(), RegisterActivity.class));
             }
         });
-        forgotPassView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(getBaseContext(), ForgotPass.class));
-            }
-        });
+
     }
 }
